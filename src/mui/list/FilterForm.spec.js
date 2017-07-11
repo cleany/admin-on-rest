@@ -11,7 +11,7 @@ import TextInput from '../input/TextInput';
 
 try {
     require('react-tap-event-plugin')();
-} catch(e) {
+} catch (e) {
     // already loaded, probably in watch mode
     // do nothing
 }
@@ -33,7 +33,7 @@ describe('<FilterForm />', () => {
     });
 
     it('should display correctly passed filters', () => {
-        const filters = [<TextInput source="title" label="Title" />];
+        const filters = [<TextInput source="title" label="Title" />]; // eslint-disable-line react/jsx-key
         const displayedFilters = { title: true };
 
         const muiTheme = getMuiTheme({ userAgent: false });

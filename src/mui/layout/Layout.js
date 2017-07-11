@@ -72,6 +72,7 @@ class Layout extends Component {
             dashboard,
             isLoading,
             menu,
+            catchAll,
             resources,
             theme,
             title,
@@ -92,14 +93,28 @@ class Layout extends Component {
             <MuiThemeProvider muiTheme={muiTheme}>
                 <div style={prefixedStyles.wrapper}>
                     <div style={prefixedStyles.main}>
-                        { width !== 1 && <AppBar title={title} />}
-                        <div className="body" style={width === 1 ? prefixedStyles.bodySmall : prefixedStyles.body}>
-                            <div style={width === 1 ? prefixedStyles.contentSmall : prefixedStyles.content}>
+                        {width !== 1 && <AppBar title={title} />}
+                        <div
+                            className="body"
+                            style={
+                                width === 1
+                                    ? prefixedStyles.bodySmall
+                                    : prefixedStyles.body
+                            }
+                        >
+                            <div
+                                style={
+                                    width === 1
+                                        ? prefixedStyles.contentSmall
+                                        : prefixedStyles.content
+                                }
+                            >
                                 <AdminRoutes
                                     customRoutes={customRoutes}
                                     resources={resources}
                                     authClient={authClient}
                                     dashboard={dashboard}
+                                    catchAll={catchAll}
                                 />
                             </div>
                             <Sidebar theme={theme}>
@@ -107,13 +122,14 @@ class Layout extends Component {
                             </Sidebar>
                         </div>
                         <Notification />
-                        {isLoading && <CircularProgress
-                            className="app-loader"
-                            color="#fff"
-                            size={width === 1 ? 20 : 30}
-                            thickness={2}
-                            style={styles.loader}
-                        />}
+                        {isLoading &&
+                            <CircularProgress
+                                className="app-loader"
+                                color="#fff"
+                                size={width === 1 ? 20 : 30}
+                                thickness={2}
+                                style={styles.loader}
+                            />}
                     </div>
                 </div>
             </MuiThemeProvider>
@@ -121,10 +137,16 @@ class Layout extends Component {
     }
 }
 
+const componentPropType = PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.string,
+]);
+
 Layout.propTypes = {
     authClient: PropTypes.func,
+    catchAll: componentPropType,
     customRoutes: PropTypes.array,
-    dashboard: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+    dashboard: componentPropType,
     isLoading: PropTypes.bool.isRequired,
     menu: PropTypes.element,
     resources: PropTypes.array,
@@ -148,7 +170,7 @@ const enhance = compose(
     connect(mapStateToProps, {
         setSidebarVisibility: setSidebarVisibilityAction,
     }),
-    withWidth(),
+    withWidth()
 );
 
 export default enhance(Layout);

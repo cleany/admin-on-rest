@@ -29,6 +29,7 @@ Here are all the props accepted by the component:
 * [`restClient`](#restclient)
 * [`title`](#title)
 * [`dashboard`](#dashboard)
+* [`catchAll](#catchall)
 * [`menu`](#menu)
 * [`theme`](#theme)
 * [`appLayout`](#applayout)
@@ -80,7 +81,6 @@ const App = () => (
 
 By default, the homepage of an an admin app is the `list` of the first child `<Resource>`. But you can also specify a custom component instead. To fit in the general design, use Material UI's `<Card>` component, and admin-on-rest's `<ViewTitle>` component:
 
-{% raw %}
 ```jsx
 // in src/Dashboard.js
 import React from 'react';
@@ -94,7 +94,6 @@ export default () => (
     </Card>
 );
 ```
-{% endraw %}
 
 ```jsx
 // in src/App.js
@@ -109,6 +108,43 @@ const App = () => (
 
 ![Custom home page](http://static.marmelab.com/admin-on-rest/dashboard.png)
 
+## `catchAll`
+
+When users type URLs that don't match any of the children `<Resource>` components, they see a default "Not Found" page. 
+
+![Not Found](./img/not-found.png)
+
+You can customize this page to use the component of your choice by passing it as the `catchAll` prop. To fit in the general design, use Material UI's `<Card>` component, and admin-on-rest's `<ViewTitle>` component:
+
+```jsx
+// in src/NotFound.js
+import React from 'react';
+import { Card, CardText } from 'material-ui/Card';
+import { ViewTitle } from 'admin-on-rest/lib/mui';
+
+export default () => (
+    <Card>
+        <ViewTitle title="Not Found" />
+        <CardText>
+            <h1>404: Page not found</h1>
+        </CardText>
+    </Card>
+);
+```
+
+```jsx
+// in src/App.js
+import NotFound from './NotFound';
+
+const App = () => (
+    <Admin catchAll={NotFound} restClient={simpleRestClient('http://path.to.my.api')}>
+        // ...
+    </Admin>
+);
+```
+
+**Tip**: If your custom `catchAll` component contains react-router `<Route>` components, this allows you to register new routes displayed within the admin-on-rest layout easily. Note that these routes will match *after* all the admin-on-rest resource routes have been tested. To add custom routes *before* the admin-on-rest ones, and therefore override the default resource routes, use the [`customRoutes` prop](#customroutes) instead.
+
 ## `menu`
 
 Admin-on-rest uses the list of `<Resource>` components passed as children of `<Admin>` to build a menu to each resource with a `list` component.
@@ -118,18 +154,19 @@ If you want to add or remove menu items, for instance to link to non-resources p
 ```jsx
 // in src/Menu.js
 import React from 'react';
-import MenuItem from 'material-ui/MenuItem';
-import { Link } from 'react-router-dom';
+import { MenuItemLink } from 'admin-on-rest';
 
 export default ({ resources, onMenuTap, logout }) => (
     <div>
-        <MenuItem containerElement={<Link to="/posts" />} primaryText="Posts" onTouchTap={onMenuTap} />
-        <MenuItem containerElement={<Link to="/comments" />} primaryText="Comments" onTouchTap={onMenuTap} />
-        <MenuItem containerElement={<Link to="/custom-route" />} primaryText="Miscellaneous" onTouchTap={onMenuTap} />
+        <MenuItemLink to="/posts" primaryText="Posts" onTouchTap={onMenuTap} />
+        <MenuItemLink to="/comments" primaryText="Comments" onTouchTap={onMenuTap} />
+        <MenuItemLink to="/custom-route" primaryText="Miscellaneous" onTouchTap={onMenuTap} />
         {logout}
     </div>
 );
 ```
+
+**Tip**: Note the `MenuItemLink` component. It must be used to avoid unwanted side effects in mobile views.
 
 Then, pass it to the `<Admin>` component as the `menu` prop:
 
@@ -312,7 +349,7 @@ Now, when a user browses to `/foo` or `/bar`, the components you defined will ap
 
 **Tip**: It's up to you to create a [custom menu](#applayout) entry, or custom buttons, to lead to your custom pages.
 
-**Tip**: Your custom pages take precedence over admin-on-rest's own routes. That means that `customRoutes` lets you override any route you want!
+**Tip**: Your custom pages take precedence over admin-on-rest's own routes. That means that `customRoutes` lets you override any route you want! If you want to add routes *after* all the admin-on-rest routes, use the [`catchAll` prop](#catchall) instead.
 
 **Tip**: To look like other admin-on-rest pages, your custom pages should have the following structure:
 

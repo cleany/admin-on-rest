@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import compose from 'recompose/compose';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import getDefaultValues from '../form/getDefaultValues';
-import translate from '../../i18n/translate';
 
 const divStyle = { padding: '0 1em 1em 1em' };
 export class TabbedShowLayout extends Component {
@@ -15,19 +14,39 @@ export class TabbedShowLayout extends Component {
         };
     }
 
-    handleChange = (value) => {
+    handleChange = value => {
         this.setState({ value });
     };
 
     render() {
-        const { children, contentContainerStyle, record, resource, basePath, translate } = this.props;
+        const {
+            children,
+            contentContainerStyle,
+            record,
+            resource,
+            basePath,
+            translate,
+        } = this.props;
         return (
             <div style={divStyle}>
-                <Tabs value={this.state.value} onChange={this.handleChange} contentContainerStyle={contentContainerStyle}>
+                <Tabs
+                    value={this.state.value}
+                    onChange={this.handleChange}
+                    contentContainerStyle={contentContainerStyle}
+                >
                     {React.Children.map(children, (tab, index) =>
-                        <Tab key={tab.props.value} label={translate(tab.props.label)} value={index} icon={tab.props.icon}>
-                            {React.cloneElement(tab, { resource, record, basePath })}
-                        </Tab>,
+                        <Tab
+                            key={tab.props.value}
+                            label={translate(tab.props.label)}
+                            value={index}
+                            icon={tab.props.icon}
+                        >
+                            {React.cloneElement(tab, {
+                                resource,
+                                record,
+                                basePath,
+                            })}
+                        </Tab>
                     )}
                 </Tabs>
             </div>
@@ -51,8 +70,7 @@ TabbedShowLayout.defaultProps = {
 const enhance = compose(
     connect((state, props) => ({
         initialValues: getDefaultValues(state, props),
-    })),
-    translate,
+    }))
 );
 
 export default enhance(TabbedShowLayout);
