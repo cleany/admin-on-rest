@@ -34,7 +34,7 @@ export class TabbedShowLayout extends Component {
                     onChange={this.handleChange}
                     contentContainerStyle={contentContainerStyle}
                 >
-                    {React.Children.map(children, (tab, index) =>
+                    {React.Children.map(children, (tab, index) => (
                         <Tab
                             key={tab.props.value}
                             label={translate(tab.props.label)}
@@ -47,7 +47,7 @@ export class TabbedShowLayout extends Component {
                                 basePath,
                             })}
                         </Tab>
-                    )}
+                    ))}
                 </Tabs>
             </div>
         );

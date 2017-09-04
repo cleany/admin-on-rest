@@ -13,7 +13,10 @@ import translate from '../../i18n/translate';
 class Create extends Component {
     getBasePath() {
         const { location } = this.props;
-        return location.pathname.split('/').slice(0, -1).join('/');
+        return location.pathname
+            .split('/')
+            .slice(0, -1)
+            .join('/');
     }
 
     defaultRedirectRoute() {

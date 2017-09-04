@@ -44,7 +44,7 @@ export class TabbedForm extends Component {
                         onChange={this.handleChange}
                         contentContainerStyle={contentContainerStyle}
                     >
-                        {React.Children.map(children, (tab, index) =>
+                        {React.Children.map(children, (tab, index) => (
                             <Tab
                                 key={tab.props.value}
                                 className="form-tab"
@@ -60,7 +60,7 @@ export class TabbedForm extends Component {
                                     basePath,
                                 })}
                             </Tab>
-                        )}
+                        ))}
                     </Tabs>
                 </div>
                 {toolbar &&

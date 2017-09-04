@@ -97,16 +97,20 @@ class Layout extends Component {
                         <div
                             className="body"
                             style={
-                                width === 1
-                                    ? prefixedStyles.bodySmall
-                                    : prefixedStyles.body
+                                width === 1 ? (
+                                    prefixedStyles.bodySmall
+                                ) : (
+                                    prefixedStyles.body
+                                )
                             }
                         >
                             <div
                                 style={
-                                    width === 1
-                                        ? prefixedStyles.contentSmall
-                                        : prefixedStyles.content
+                                    width === 1 ? (
+                                        prefixedStyles.contentSmall
+                                    ) : (
+                                        prefixedStyles.content
+                                    )
                                 }
                             >
                                 <AdminRoutes
@@ -117,19 +121,18 @@ class Layout extends Component {
                                     catchAll={catchAll}
                                 />
                             </div>
-                            <Sidebar theme={theme}>
-                                {menu}
-                            </Sidebar>
+                            <Sidebar theme={theme}>{menu}</Sidebar>
                         </div>
                         <Notification />
-                        {isLoading &&
+                        {isLoading && (
                             <CircularProgress
                                 className="app-loader"
                                 color="#fff"
                                 size={width === 1 ? 20 : 30}
                                 thickness={2}
                                 style={styles.loader}
-                            />}
+                            />
+                        )}
                     </div>
                 </div>
             </MuiThemeProvider>

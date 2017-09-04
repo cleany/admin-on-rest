@@ -42,7 +42,10 @@ export class Edit extends Component {
 
     getBasePath() {
         const { location } = this.props;
-        return location.pathname.split('/').slice(0, -1).join('/');
+        return location.pathname
+            .split('/')
+            .slice(0, -1)
+            .join('/');
     }
 
     defaultRedirectRoute() {
@@ -95,9 +98,11 @@ export class Edit extends Component {
             id,
             data,
         });
-        const titleElement = data
-            ? <Title title={title} record={data} defaultTitle={defaultTitle} />
-            : '';
+        const titleElement = data ? (
+            <Title title={title} record={data} defaultTitle={defaultTitle} />
+        ) : (
+            ''
+        );
         // using this.previousKey instead of this.fullRefresh makes
         // the new form mount, the old form unmount, and the new form update appear in the same frame
         // so the form doesn't disappear while refreshing

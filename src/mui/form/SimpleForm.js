@@ -29,19 +29,21 @@ export class SimpleForm extends Component {
                     {Children.map(
                         children,
                         input =>
-                            input &&
-                            <div
-                                key={input.props.source}
-                                className={`aor-input-${input.props.source}`}
-                                style={input.props.style}
-                            >
-                                <FormField
-                                    input={input}
-                                    resource={resource}
-                                    record={record}
-                                    basePath={basePath}
-                                />
-                            </div>
+                            input && (
+                                <div
+                                    key={input.props.source}
+                                    className={`aor-input-${input.props
+                                        .source}`}
+                                    style={input.props.style}
+                                >
+                                    <FormField
+                                        input={input}
+                                        resource={resource}
+                                        record={record}
+                                        basePath={basePath}
+                                    />
+                                </div>
+                            )
                     )}
                 </div>
                 {toolbar &&

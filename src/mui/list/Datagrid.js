@@ -104,14 +104,16 @@ class Datagrid extends Component {
                     {...headerOptions}
                 >
                     <TableRow style={muiTheme.tableRow}>
-                        {React.Children.map(children, (field, index) =>
+                        {React.Children.map(children, (field, index) => (
                             <DatagridHeaderCell
                                 key={field.props.source || index}
                                 field={field}
                                 defaultStyle={
-                                    index === 0
-                                        ? styles.header['th:first-child']
-                                        : styles.header.th
+                                    index === 0 ? (
+                                        styles.header['th:first-child']
+                                    ) : (
+                                        styles.header.th
+                                    )
                                 }
                                 currentSort={currentSort}
                                 isSorting={
@@ -120,7 +122,7 @@ class Datagrid extends Component {
                                 updateSort={this.updateSort}
                                 resource={resource}
                             />
-                        )}
+                        ))}
                     </TableRow>
                 </TableHeader>
                 <DatagridBody

@@ -59,9 +59,11 @@ class Labeled extends Component {
                 underlineShow={false}
                 style={labelStyle}
             >
-                {children && typeof children.type !== 'string'
-                    ? React.cloneElement(children, { input, resource, ...rest })
-                    : children}
+                {children && typeof children.type !== 'string' ? (
+                    React.cloneElement(children, { input, resource, ...rest })
+                ) : (
+                    children
+                )}
             </TextField>
         );
     }
