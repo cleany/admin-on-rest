@@ -5,8 +5,17 @@ export default resource => (previousState = [], { type, payload, requestPayload,
         return previousState;
     }
     switch (type) {
-    case CRUD_GET_LIST_SUCCESS:
-        return payload.data.map(record => record.id);
+    case CRUD_GET_LIST_SUCCESS:{
+        if (meta.infiniteList) {
+          if (requestPayload.pagination.page === 1) {
+            return payload.data.map(record => record.id);
+          }
+          return previousState.concat(payload.data.map(record => record.id));
+        }
+        else {
+          return payload.data.map(record => record.id);
+        }
+    }
     case CRUD_DELETE_SUCCESS: {
         const index = previousState.findIndex(el => el == requestPayload.id); // eslint-disable-line eqeqeq
         if (index === -1) {
