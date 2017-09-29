@@ -13,10 +13,10 @@ export const CRUD_GET_LIST_LOADING = 'AOR/CRUD_GET_LIST_LOADING';
 export const CRUD_GET_LIST_FAILURE = 'AOR/CRUD_GET_LIST_FAILURE';
 export const CRUD_GET_LIST_SUCCESS = 'AOR/CRUD_GET_LIST_SUCCESS';
 
-export const crudGetList = (resource, pagination, sort, filter, cancelPrevious = true) => ({
+export const crudGetList = (resource, pagination, sort, filter, cancelPrevious = true, infiniteList = false) => ({
     type: CRUD_GET_LIST,
     payload: { pagination, sort, filter },
-    meta: { resource, fetch: GET_LIST, cancelPrevious },
+    meta: { resource, fetch: GET_LIST, cancelPrevious, infiniteList },
 });
 
 export const CRUD_GET_ONE = 'AOR/CRUD_GET_ONE';
