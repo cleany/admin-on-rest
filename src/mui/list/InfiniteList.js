@@ -42,8 +42,8 @@ export class InfiniteList extends List {
   }
 
   getQuery() {
-      const query = Object.keys(this.props.query).length > 0 ?
-      Object.assign({}, this.props.query, {page: this.props.params.page}) : { ...this.props.params };
+      const query = super.getQuery()
+      query.page = this.props.params.page;
       if (!query.sort) {
           query.sort = this.props.sort.field;
           query.order = this.props.sort.order;
@@ -63,7 +63,7 @@ export class InfiniteList extends List {
   }
 
   getNextPage() {
-       this.changeParams({type: 'INC_PAGE'})
+      this.changeParams({type: 'INC_PAGE'})
   }
 
   render() {
