@@ -35,7 +35,6 @@ describe('<InfiniteList />', () => {
             </InfiniteList>
         );
         const textElement = wrapper.find('CardText').children();
-        console.log('%c [InfiniteList]', 'color:red;',textElement.text());
         assert.equal(textElement.text(), 'aor.navigation.no_results');
     });
 

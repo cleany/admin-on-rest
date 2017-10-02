@@ -32,11 +32,6 @@ const styles = {
 };
 
 export class InfiniteList extends List {
-  constructor(props, state) {
-    super(props, state)
-    console.log(props);
-    console.log(state);
-  }
 
   componentDidMount() {
       this.updateData();
