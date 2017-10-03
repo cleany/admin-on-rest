@@ -10,7 +10,8 @@ export default resource => (previousState = [], { type, payload, requestPayload,
           if (requestPayload.pagination.page === 1) {
             return payload.data.map(record => record.id);
           }
-          return previousState.concat(payload.data.map(record => record.id));
+          const dataId = payload.data.map(record => record.id)
+          return [...new Set([...previousState, ...dataId])]
         }
         else {
           return payload.data.map(record => record.id);

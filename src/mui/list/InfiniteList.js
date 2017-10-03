@@ -42,8 +42,8 @@ export class InfiniteList extends List {
   }
 
   getQuery() {
-      const query = super.getQuery()
-      query.page = this.props.params.page;
+      const query = Object.keys(this.props.query).length > 0 ?
+      Object.assign({}, this.props.query, {page: this.props.params.page}) : { ...this.props.params };
       if (!query.sort) {
           query.sort = this.props.sort.field;
           query.order = this.props.sort.order;
@@ -115,7 +115,7 @@ export class InfiniteList extends List {
                     loader={loader}
                   >
                   { isLoading || total > 0 ?
-                    <div key={`${key}${ids}`} className='list-item' style={prefix(styles.listItem)}>
+                    <div key={key} className='list-item' style={prefix(styles.listItem)}>
                       {children && React.cloneElement(children, {
                         resource,
                         ids,
