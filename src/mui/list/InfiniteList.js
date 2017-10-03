@@ -115,7 +115,7 @@ export class InfiniteList extends List {
                     loader={loader}
                   >
                   { isLoading || total > 0 ?
-                    <div key={key} className='list-item' style={prefix(styles.listItem)}>
+                    <div key={`${key}${ids}`} className='list-item' style={prefix(styles.listItem)}>
                       {children && React.cloneElement(children, {
                         resource,
                         ids,
