@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import defaultsDeep from 'lodash.defaultsdeep';
 import { TableRowColumn } from 'material-ui/Table';
+import { Link } from 'react-router-dom';
+import linkToRecord from '../../util/linkToRecord';
 
 const DatagridCell = ({
     className,
@@ -20,9 +22,18 @@ const DatagridCell = ({
         field.type.defaultProps ? field.type.defaultProps.style : {},
         defaultStyle
     );
+
     return (
         <TableRowColumn className={className} style={computedStyle} {...rest}>
-            {React.cloneElement(field, { record, basePath, resource })}
+            <Link
+                to={linkToRecord(basePath, record.id)}
+                style={{
+                    color: 'black',
+                    display: 'block',
+                }}
+            >
+                {React.cloneElement(field, { record, basePath, resource })}
+            </Link>
         </TableRowColumn>
     );
 };
