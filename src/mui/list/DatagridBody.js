@@ -20,6 +20,7 @@ const DatagridBody = ({
     <TableBody
         displayRowCheckbox={false}
         className="datagrid-body"
+        showRowHover={true}
         {...rest}
         {...options}
     >
