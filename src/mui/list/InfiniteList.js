@@ -113,6 +113,8 @@ export class InfiniteList extends List {
         );
         const muiTheme = getMuiTheme(theme);
         const prefix = autoprefixer(muiTheme);
+        const nbPages = Math.ceil(this.props.total / query.perPage) || 1;
+        const hasMore = query.page < nbPages ? true : false;
 
         return (
             <div className="list-page">
@@ -145,7 +147,7 @@ export class InfiniteList extends List {
                         pageStart={1}
                         initialLoad={true}
                         loadMore={this.getNextPage.bind(this)}
-                        hasMore={this.props.hasMore}
+                        hasMore={hasMore}
                         loader={loader}
                     >
                         {isLoading || total > 0 ? (
