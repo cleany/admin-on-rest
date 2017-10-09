@@ -336,7 +336,7 @@ List.propTypes = {
 List.defaultProps = {
     filter: {},
     filterValues: {},
-    perPage: 10,
+    perPage: 25,
     sort: {
         field: 'id',
         order: SORT_DESC,
