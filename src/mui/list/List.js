@@ -364,7 +364,6 @@ export function mapStateToProps(state, props) {
         isLoading: state.admin.loading > 0,
         filterValues: resourceState.list.params.filter,
         version: state.admin.ui.viewVersion,
-        hasMore: resourceState.list.ids.length < resourceState.list.total,
     };
 }
 
