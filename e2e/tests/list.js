@@ -15,18 +15,7 @@ describe('List Page', () => {
 
     describe('Pagination', () => {
         it('should display paginated list of available posts', async () => {
-            assert.equal(await ListPagePosts.getNbPagesText(), '1-10 of 13');
-        });
-
-        it('should switch page when clicking on previous/next page buttons or page numbers', async () => {
-            await ListPagePosts.nextPage();
-            assert.equal(await ListPagePosts.getNbPagesText(), '11-13 of 13');
-
-            await ListPagePosts.previousPage();
-            assert.equal(await ListPagePosts.getNbPagesText(), '1-10 of 13');
-
-            await ListPagePosts.goToPage(2);
-            assert.equal(await ListPagePosts.getNbPagesText(), '11-13 of 13');
+            assert.equal(await ListPagePosts.getNbPagesText(), '1-13 of 13');
         });
     });
 
@@ -73,13 +62,13 @@ describe('List Page', () => {
                 ListPagePosts.elements.filter('title')
             );
             assert.equal(filters.length, 0);
-            assert.equal(await ListPagePosts.getNbPagesText(), '1-10 of 13');
+            assert.equal(await ListPagePosts.getNbPagesText(), '1-13 of 13');
         });
 
         it('should have correctly reset filters after navigating', async () => {
             await ListPageComments.navigate();
             await ListPagePosts.navigate();
-            assert.equal(await ListPagePosts.getNbPagesText(), '1-10 of 13');
+            assert.equal(await ListPagePosts.getNbPagesText(), '1-13 of 13');
         });
     });
 });
