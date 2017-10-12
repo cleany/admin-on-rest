@@ -8,7 +8,7 @@ import {
     Edit,
     EditButton,
     Filter,
-    List,
+    InfiniteList,
     LongTextInput,
     ReferenceField,
     ReferenceInput,
@@ -144,14 +144,14 @@ const CommentMobileList = props => (
 );
 
 export const CommentList = ({ ...props }) => (
-    <List
+    <InfiniteList
         {...props}
         perPage={6}
         filters={<CommentFilter />}
         pagination={<CommentPagination />}
     >
         <Responsive small={<CommentMobileList />} medium={<CommentGrid />} />
-    </List>
+    </InfiniteList>
 );
 
 export const CommentEdit = ({ ...props }) => (
