@@ -20,10 +20,7 @@ export default (
     const latestValidDate = new Date();
     latestValidDate.setTime(latestValidDate.getTime() - cacheDuration);
 
-    const stillValidFetchedAt = pickBy(
-        oldRecordFetchedAt,
-        date => true
-    );
+    const stillValidFetchedAt = pickBy(oldRecordFetchedAt, date => true);
 
     return {
         ...stillValidFetchedAt,
