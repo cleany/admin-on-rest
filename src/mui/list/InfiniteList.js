@@ -155,14 +155,13 @@ export class InfiniteList extends List {
                             setFilters: this.setFilters,
                             context: 'form',
                         })}
-                    <InfiniteScroll
-                        pageStart={1}
-                        initialLoad={true}
-                        loadMore={this.getNextPage.bind(this)}
-                        hasMore={this.props.hasMore}
-                        loader={loader}
-                    >
-                        {isLoading || total > 0 ? (
+                    {isLoading || total > 0 ? (
+                        <InfiniteScroll
+                            pageStart={1}
+                            loadMore={this.getNextPage.bind(this)}
+                            hasMore={this.props.hasMore}
+                            loader={loader}
+                        >
                             <div key={version}>
                                 {children &&
                                     React.cloneElement(children, {
@@ -178,12 +177,12 @@ export class InfiniteList extends List {
                                         setSort: this.setSort,
                                     })}
                             </div>
-                        ) : (
-                            <CardText style={styles.noResults}>
-                                {translate('aor.navigation.no_results')}
-                            </CardText>
-                        )}
-                    </InfiniteScroll>
+                        </InfiniteScroll>
+                    ) : (
+                        <CardText style={styles.noResults}>
+                            {translate('aor.navigation.no_results')}
+                        </CardText>
+                    )}
                 </Card>
             </div>
         );
