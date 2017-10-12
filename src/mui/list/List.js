@@ -328,6 +328,7 @@ List.propTypes = {
     resource: PropTypes.string.isRequired,
     refreshView: PropTypes.func.isRequired,
     total: PropTypes.number.isRequired,
+    hasMore: PropTypes.bool.isRequired,
     translate: PropTypes.func.isRequired,
     theme: PropTypes.object.isRequired,
     version: PropTypes.number.isRequired,
@@ -336,7 +337,7 @@ List.propTypes = {
 List.defaultProps = {
     filter: {},
     filterValues: {},
-    perPage: 10,
+    perPage: 25,
     sort: {
         field: 'id',
         order: SORT_DESC,
@@ -360,11 +361,11 @@ export function mapStateToProps(state, props) {
         params: resourceState.list.params,
         ids: resourceState.list.ids,
         total: resourceState.list.total,
+        hasMore: resourceState.list.hasMore,
         data: resourceState.data,
         isLoading: state.admin.loading > 0,
         filterValues: resourceState.list.params.filter,
         version: state.admin.ui.viewVersion,
-        hasMore: resourceState.list.ids.length < resourceState.list.total,
     };
 }
 
