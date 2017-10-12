@@ -37,7 +37,7 @@ describe('getFetchedAt', () => {
         );
     });
 
-    it('should discard old date if it is not valid anymore', () => {
+    it('should keep old date if it is not valid anymore', () => {
         const cacheDuration = 10 * 60 * 1000;
         const now = new Date();
         const newRecordIds = [1, 2, 3];
@@ -54,6 +54,7 @@ describe('getFetchedAt', () => {
                 1: now,
                 2: now,
                 3: now,
+                4: oldFetchedData[4],
             }
         );
     });
