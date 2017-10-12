@@ -22,7 +22,7 @@ export default (
 
     const stillValidFetchedAt = pickBy(
         oldRecordFetchedAt,
-        date => date > latestValidDate
+        date => true
     );
 
     return {
