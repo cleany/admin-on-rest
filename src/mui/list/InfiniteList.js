@@ -32,13 +32,13 @@ export class InfiniteList extends List {
     componentDidMount() {
         this.updateData();
         if (Object.keys(this.props.query).length > 0) {
-            this.props.query.page = 0;
+            this.props.query.page = 1;
             this.props.changeListParams(this.props.resource, this.props.query);
         }
     }
 
     componentWillUnmount() {
-        this.props.query.page = 0;
+        this.props.query.page = 1;
         this.props.changeListParams(this.props.resource, this.props.query);
     }
 
