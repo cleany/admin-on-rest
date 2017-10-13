@@ -15,6 +15,7 @@ const defaultStyles = {
     header: {
         th: {
             padding: 0,
+            textAlign: 'center',
         },
         'th:first-child': {
             padding: '0 0 0 12px',
@@ -24,6 +25,7 @@ const defaultStyles = {
         td: {
             padding: '0 12px',
             whiteSpace: 'normal',
+            textAlign: 'center',
         },
         'td:first-child': {
             padding: '0 12px 0 16px',
