@@ -30,15 +30,15 @@ const PhoneField = ({ source, record, elStyle, locale, linkType }) => {
         return null;
     }
     if (linkType) {
+        return (
+            <a style={elStyle} href={`tel:${localPhoneFormat(parsed_number)}`}>
+                {localPhoneFormat(parsed_number, locale)}
+            </a>
+        );
+    }
     return (
-        <a style={elStyle} href={`tel:${localPhoneFormat(parsed_number)}`}>
-            {localPhoneFormat(parsed_number, locale)}
-        </a>
+        <span style={elStyle}>{localPhoneFormat(parsed_number, locale)}</span>
     );
-  }
-  return (
-    <span style={elStyle}>{localPhoneFormat(parsed_number, locale)}</span>
-  );
 };
 
 export const phoneFormatToString = (num, locale = 'FR') => {

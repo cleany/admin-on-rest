@@ -32,4 +32,12 @@ describe('<EmailField />', () => {
             '<a href="mailto:hal@kubrickcorp.com">hal@kubrickcorp.com</a>'
         );
     });
+
+    it('should display a mail without link', () => {
+        const record = { email: 'hal@kubrickcorp.com' };
+        const wrapper = shallow(
+            <EmailField record={record} source="email" linkType={false} />
+        );
+        assert.equal(wrapper.html(), '<span>hal@kubrickcorp.com</span>');
+    });
 });

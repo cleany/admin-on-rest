@@ -96,4 +96,12 @@ describe('<PhoneField />', () => {
             '<a href="tel:+12344545656">(234) 454-5656</a>'
         );
     });
+
+    it('should display a phone number without link', () => {
+        const record = { number: '0606060606' };
+        const wrapper = shallow(
+            <PhoneField record={record} source="number" linkType={false} />
+        );
+        assert.equal(wrapper.html(), '<span>06 06 06 06 06</span>');
+    });
 });
