@@ -17,7 +17,7 @@ export const localPhoneFormat = (parsed_number, locale) => {
     return parsed_number;
 };
 
-const PhoneField = ({ source, record, elStyle, locale }) => {
+const PhoneField = ({ source, record, elStyle, locale, linkType }) => {
     if (!record) {
         return null;
     }
@@ -29,11 +29,15 @@ const PhoneField = ({ source, record, elStyle, locale }) => {
     if (!parsed_number || !Object.keys(parsed_number).length) {
         return null;
     }
-
+    if (linkType) {
+        return (
+            <a style={elStyle} href={`tel:${localPhoneFormat(parsed_number)}`}>
+                {localPhoneFormat(parsed_number, locale)}
+            </a>
+        );
+    }
     return (
-        <a style={elStyle} href={`tel:${localPhoneFormat(parsed_number)}`}>
-            {localPhoneFormat(parsed_number, locale)}
-        </a>
+        <span style={elStyle}>{localPhoneFormat(parsed_number, locale)}</span>
     );
 };
 
@@ -60,6 +64,7 @@ PhoneField.propTypes = {
     num: PropTypes.string,
     record: PropTypes.object,
     source: PropTypes.string.isRequired,
+    linkType: PropTypes.bool,
 };
 
 const PurePhoneField = pure(PhoneField);
@@ -67,6 +72,7 @@ const PurePhoneField = pure(PhoneField);
 PurePhoneField.defaultProps = {
     addLabel: true,
     locale: 'FR',
+    linkType: true,
 };
 
 export default PurePhoneField;
