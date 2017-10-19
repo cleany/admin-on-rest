@@ -2,7 +2,7 @@ import assert from 'assert';
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import DatagridCell from './DatagridCell';
+import { DatagridCell } from './DatagridCell';
 
 describe('<DatagridCell />', () => {
     it('should render as a mui <TableRowColumn /> component', () => {
