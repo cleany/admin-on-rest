@@ -2,8 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import defaultsDeep from 'lodash.defaultsdeep';
 import { TableRowColumn } from 'material-ui/Table';
+import { withRouter } from 'react-router';
+import linkToRecord from '../../util/linkToRecord';
 
-const DatagridCell = ({
+export const DatagridCell = ({
     className,
     field,
     record,
@@ -11,6 +13,10 @@ const DatagridCell = ({
     resource,
     style,
     defaultStyle,
+    history,
+    match,
+    location,
+    staticContext,
     ...rest
 }) => {
     const computedStyle = defaultsDeep(
@@ -20,8 +26,17 @@ const DatagridCell = ({
         field.type.defaultProps ? field.type.defaultProps.style : {},
         defaultStyle
     );
+    const handleClick = () => {
+        history.push(linkToRecord(basePath, record.id));
+    };
+
     return (
-        <TableRowColumn className={className} style={computedStyle} {...rest}>
+        <TableRowColumn
+            className={className}
+            style={Object.assign(computedStyle, {cursor: 'pointer'})}
+            {...rest}
+            onClick={handleClick}
+        >
             {React.cloneElement(field, { record, basePath, resource })}
         </TableRowColumn>
     );
@@ -37,6 +52,10 @@ DatagridCell.propTypes = {
         td: PropTypes.object,
         'td:first-child': PropTypes.object,
     }),
+    history: PropTypes.object,
+    match: PropTypes.object.isRequired,
+    location: PropTypes.object.isRequired,
+    staticContext: PropTypes.object,
 };
 
-export default DatagridCell;
+export default withRouter(DatagridCell);

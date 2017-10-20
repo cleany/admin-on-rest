@@ -18,6 +18,7 @@ const EditButton = ({
         primary
         label={label && translate(label)}
         icon={<ContentCreate />}
+        onClick={(event) => {event.stopPropagation();}}
         containerElement={
             <Link to={`${linkToRecord(basePath, record.id)}/edit`} />
         }
