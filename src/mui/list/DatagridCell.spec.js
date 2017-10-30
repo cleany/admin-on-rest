@@ -20,7 +20,10 @@ describe('<DatagridCell />', () => {
             />
         );
         const col = wrapper.find('TableRowColumn');
-        assert.deepEqual(col.at(0).prop('style'), { color: 'blue' });
+        assert.deepEqual(col.at(0).prop('style'), {
+            cursor: 'pointer',
+            color: 'blue',
+        });
     });
     it('should use field style to override default style', () => {
         const wrapper = shallow(
@@ -29,6 +32,9 @@ describe('<DatagridCell />', () => {
             />
         );
         const col = wrapper.find('TableRowColumn');
-        assert.deepEqual(col.at(0).prop('style'), { color: 'red' });
+        assert.deepEqual(col.at(0).prop('style'), {
+            cursor: 'pointer',
+            color: 'red',
+        });
     });
 });
