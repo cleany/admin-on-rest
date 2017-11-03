@@ -21,6 +21,10 @@ class BooleanInput extends Component {
         this.props.input.onChange(value);
     };
 
+    componentDidMount = () => {
+        this.props.input.onChange(!!this.props.input.value);
+    };
+
     render() {
         const {
             input,
