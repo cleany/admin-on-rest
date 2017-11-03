@@ -92,7 +92,7 @@ Filter.propTypes = {
 };
 
 Filter.defaultProps = {
-    debounce: 500,
+    debounce: 1000,
 };
 
 export default withPermissionsFilteredChildren(Filter);
