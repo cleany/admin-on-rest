@@ -42,19 +42,6 @@ export class InfiniteList extends List {
         this.props.changeListParams(this.props.resource, this.props.query);
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        if (
-            (nextProps.isLoading === this.props.isLoading &&
-                nextProps.width === this.props.width &&
-                nextProps.version === this.props.version &&
-                nextState === this.state) ||
-            (nextProps.isLoading &&
-                nextProps.params.page === this.props.params.page)
-        ) {
-            return false;
-        }
-        return true;
-    }
 
     getQuery() {
         const query =
