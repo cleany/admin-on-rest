@@ -31,7 +31,7 @@ class Create extends Component {
         this.props.crudCreate(
             this.props.resource,
             record,
-            this.getBasePath(),
+            this.props.basePath ? this.props.basePath : this.getBasePath(),
             redirect
         );
     };
