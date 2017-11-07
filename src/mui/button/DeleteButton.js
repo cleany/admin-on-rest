@@ -16,7 +16,9 @@ const DeleteButton = ({
         secondary
         label={label && translate(label)}
         icon={<ActionDelete />}
-        onClick={(event) => {event.stopPropagation();}}
+        onClick={event => {
+            event.stopPropagation();
+        }}
         containerElement={
             <Link to={`${linkToRecord(basePath, record.id)}/delete`} />
         }

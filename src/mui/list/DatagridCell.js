@@ -33,7 +33,7 @@ export const DatagridCell = ({
     return (
         <TableRowColumn
             className={className}
-            style={Object.assign(computedStyle, {cursor: 'pointer'})}
+            style={Object.assign(computedStyle, { cursor: 'pointer' })}
             {...rest}
             onClick={handleClick}
         >
