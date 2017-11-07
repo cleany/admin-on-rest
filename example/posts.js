@@ -148,7 +148,7 @@ export const PostCreate = ({ ...props }) => (
     <Create {...props}>
         <SimpleForm
             toolbar={<PostCreateToolbar />}
-            defaultValue={{ average_note: 0 }}
+            defaultValue={{ average_note: 0, published_at: new Date() }}
             validate={values => {
                 const errors = {};
                 ['title', 'teaser'].forEach(field => {
@@ -168,7 +168,7 @@ export const PostCreate = ({ ...props }) => (
             <TextInput source="password" type="password" />
             <TextInput source="teaser" options={{ multiLine: true }} />
             <RichTextInput source="body" />
-            <DateInput source="published_at" defaultValue={() => new Date()} />
+            <DateInput source="published_at" />
             <NumberInput source="average_note" />
             <BooleanInput source="commentable" defaultValue />
         </SimpleForm>

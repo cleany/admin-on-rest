@@ -9,7 +9,7 @@ describe('Create Page', () => {
         'http://localhost:8083/#/posts/create'
     )(driver);
     const DeletePage = deletePageFactory(
-        'http://localhost:8083/#/posts/14/delete'
+        'http://localhost:8083/#/posts/27/delete'
     )(driver);
 
     beforeEach(async () => await CreatePage.navigate());
@@ -38,7 +38,7 @@ describe('Create Page', () => {
         ];
         await CreatePage.setValues(values);
         await CreatePage.submit();
-        await driver.wait(until.urlIs('http://localhost:8083/#/posts/14/show'));
+        await driver.wait(until.urlIs('http://localhost:8083/#/posts/27/show'));
         await DeletePage.navigate();
         await DeletePage.delete();
         await driver.sleep(3000); // let the notification for deletion disappear (could block further submits)
