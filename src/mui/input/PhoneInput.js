@@ -5,18 +5,21 @@ import { asYouType } from 'libphonenumber-js';
 
 import TextInput from './TextInput';
 
+class asYouTypeIntl extends asYouType {
+    process_input(input) {
+        super.process_input(input);
+        const intlFormatter = new asYouType();
+        return intlFormatter.input(
+            `+${this.country_phone_code}${this.national_number}`
+        );
+    }
+}
+
 export const parseInput = number => {
     if (!number) {
         return '';
     }
-
-    if (number.charAt(0) === '0') {
-        const rest = number.slice(1);
-        number = `+33${rest}`;
-    }
-
-    const parsedNumber = new asYouType('FR').input(number);
-    return parsedNumber;
+    return new asYouTypeIntl('FR').input(number);
 };
 
 const PhoneInput = ({ label, source }) => {
