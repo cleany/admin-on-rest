@@ -40,9 +40,11 @@ const DatagridBody = ({
                                 className={`column-${field.props.source}`}
                                 record={data[id]}
                                 defaultStyle={
-                                    index === 0
-                                        ? styles.cell['td:first-child']
-                                        : styles.cell.td
+                                    index === 0 ? (
+                                        styles.cell['td:first-child']
+                                    ) : (
+                                        styles.cell.td
+                                    )
                                 }
                                 {...{ field, basePath, resource }}
                             />

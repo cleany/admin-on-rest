@@ -14,7 +14,9 @@ const ListButton = ({
         primary
         label={label && translate(label)}
         icon={<ActionList />}
-        onClick={(event) => {event.stopPropagation();}}
+        onClick={event => {
+            event.stopPropagation();
+        }}
         containerElement={<Link to={basePath} />}
         style={{ overflow: 'inherit' }}
     />
