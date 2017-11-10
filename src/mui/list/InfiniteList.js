@@ -79,7 +79,9 @@ export class InfiniteList extends List {
     }
 
     getNextPage() {
-        this.changeParams({ type: 'INC_PAGE' });
+        if (this.props.hasMore) {
+            this.changeParams({ type: 'INC_PAGE' });
+        }
     }
 
     render() {
