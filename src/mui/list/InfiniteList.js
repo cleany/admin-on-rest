@@ -42,7 +42,6 @@ export class InfiniteList extends List {
         this.props.changeListParams(this.props.resource, this.props.query);
     }
 
-
     getQuery() {
         const query =
             Object.keys(this.props.query).length > 0
@@ -79,7 +78,9 @@ export class InfiniteList extends List {
     }
 
     getNextPage() {
-        this.changeParams({ type: 'INC_PAGE' });
+        if (this.props.hasMore) {
+            this.changeParams({ type: 'INC_PAGE' });
+        }
     }
 
     render() {

@@ -54,9 +54,11 @@ export const DatagridHeaderCell = ({
                         field.props.source === currentSort.field ? (
                             <ContentSort
                                 style={
-                                    currentSort.order === 'ASC'
-                                        ? { transform: 'rotate(180deg)' }
-                                        : {}
+                                    currentSort.order === 'ASC' ? (
+                                        { transform: 'rotate(180deg)' }
+                                    ) : (
+                                        {}
+                                    )
                                 }
                             />
                         ) : (

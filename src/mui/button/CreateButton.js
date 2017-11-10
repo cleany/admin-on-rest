@@ -41,7 +41,9 @@ const CreateButton = ({
             primary
             label={label && translate(label)}
             icon={<ContentAdd />}
-            onClick={(event) => {event.stopPropagation();}}
+            onClick={event => {
+                event.stopPropagation();
+            }}
             containerElement={<Link to={`${basePath}/create`} />}
             style={styles.flat}
         />
