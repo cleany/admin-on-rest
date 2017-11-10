@@ -8,6 +8,11 @@ import TextInput from './TextInput';
 class asYouTypeIntl extends asYouType {
     process_input(input) {
         super.process_input(input);
+
+        if (!this.format_national_phone_number(input)) {
+            return this.parsed_input;
+        }
+
         const intlFormatter = new asYouType();
         return intlFormatter.input(
             `+${this.country_phone_code}${this.national_number}`

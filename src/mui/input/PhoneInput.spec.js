@@ -11,8 +11,8 @@ describe('parseInput', () => {
     });
 
     it('should return +33 if first number is a 0', () => {
-        let number = '0';
-        assert.equal(parseInput(number), '+33');
+        let number = '01';
+        assert.equal(parseInput(number), '+33 1');
         number = '0123456';
         assert.equal(parseInput(number), '+33 1 23 45 6');
         number = '0123456789';
