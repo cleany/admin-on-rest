@@ -9,6 +9,7 @@ export Labeled from './Labeled';
 export LongTextInput from './LongTextInput';
 export NullableBooleanInput from './NullableBooleanInput';
 export NumberInput from './NumberInput';
+export PhoneInput from './PhoneInput';
 export RadioButtonGroupInput from './RadioButtonGroupInput';
 export ReferenceArrayInput from './ReferenceArrayInput';
 export ReferenceInput from './ReferenceInput';
