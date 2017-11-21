@@ -81,6 +81,9 @@ class Datagrid extends Component {
         const {
             resource,
             children,
+            childrenFilter = () => {
+                return true;
+            },
             ids,
             isLoading,
             data,
@@ -106,10 +109,9 @@ class Datagrid extends Component {
                     {...headerOptions}
                 >
                     <TableRow style={muiTheme.tableRow}>
-                        {React.Children.map(
-                            children,
-                            (field, index) =>
-                                field ? (
+                        {React.Children.map(children, (field, index) => {
+                            if (childrenFilter(resource, field)) {
+                                return field ? (
                                     <DatagridHeaderCell
                                         key={field.props.source || index}
                                         field={field}
@@ -128,8 +130,10 @@ class Datagrid extends Component {
                                         updateSort={this.updateSort}
                                         resource={resource}
                                     />
-                                ) : null
-                        )}
+                                ) : null;
+                            }
+                            return;
+                        })}
                     </TableRow>
                 </TableHeader>
                 <DatagridBody
@@ -142,6 +146,7 @@ class Datagrid extends Component {
                     isLoading={isLoading}
                     options={bodyOptions}
                     rowOptions={rowOptions}
+                    childrenFilter={childrenFilter}
                 >
                     {children}
                 </DatagridBody>
@@ -157,6 +162,7 @@ Datagrid.propTypes = {
         sort: PropTypes.string,
         order: PropTypes.string,
     }),
+    childrenFilter: PropTypes.func,
     data: PropTypes.object.isRequired,
     headerOptions: PropTypes.object,
     ids: PropTypes.arrayOf(PropTypes.any).isRequired,

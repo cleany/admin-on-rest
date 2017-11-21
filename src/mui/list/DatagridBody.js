@@ -7,6 +7,9 @@ import DatagridCell from './DatagridCell';
 const DatagridBody = ({
     resource,
     children,
+    childrenFilter = () => {
+        return true;
+    },
     ids,
     isLoading,
     data,
@@ -24,34 +27,37 @@ const DatagridBody = ({
         {...rest}
         {...options}
     >
-        {ids.map((id, rowIndex) => (
-            <TableRow
-                style={rowStyle ? rowStyle(data[id], rowIndex) : styles.tr}
-                key={id}
-                selectable={false}
-                {...rowOptions}
-            >
-                {React.Children.map(
-                    children,
-                    (field, index) =>
-                        field ? (
-                            <DatagridCell
-                                key={`${id}-${field.props.source || index}`}
-                                className={`column-${field.props.source}`}
-                                record={data[id]}
-                                defaultStyle={
-                                    index === 0 ? (
-                                        styles.cell['td:first-child']
-                                    ) : (
-                                        styles.cell.td
-                                    )
-                                }
-                                {...{ field, basePath, resource }}
-                            />
-                        ) : null
-                )}
-            </TableRow>
-        ))}
+        {ids.map((id, rowIndex) => {
+            return (
+                <TableRow
+                    style={rowStyle ? rowStyle(data[id], rowIndex) : styles.tr}
+                    key={id}
+                    selectable={false}
+                    {...rowOptions}
+                >
+                    {React.Children.map(children, (field, index) => {
+                        if (childrenFilter(resource, field)) {
+                            return field ? (
+                                <DatagridCell
+                                    key={`${id}-${field.props.source || index}`}
+                                    className={`column-${field.props.source}`}
+                                    record={data[id]}
+                                    defaultStyle={
+                                        index === 0 ? (
+                                            styles.cell['td:first-child']
+                                        ) : (
+                                            styles.cell.td
+                                        )
+                                    }
+                                    {...{ field, basePath, resource }}
+                                />
+                            ) : null;
+                        }
+                        return;
+                    })}
+                </TableRow>
+            );
+        })}
     </TableBody>
 );
 
@@ -65,6 +71,7 @@ DatagridBody.propTypes = {
     rowOptions: PropTypes.object,
     styles: PropTypes.object,
     rowStyle: PropTypes.func,
+    childrenFilter: PropTypes.func,
 };
 
 DatagridBody.defaultProps = {
