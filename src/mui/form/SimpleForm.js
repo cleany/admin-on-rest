@@ -18,6 +18,9 @@ export class SimpleForm extends Component {
             basePath,
             children,
             invalid,
+            childrenFilter = () => {
+                return true;
+            },
             record,
             resource,
             submitOnEnter,
@@ -28,14 +31,19 @@ export class SimpleForm extends Component {
         return (
             <form className="simple-form">
                 <div style={formStyle} key={version}>
-                    {Children.map(children, input => (
-                        <FormInput
-                            basePath={basePath}
-                            input={input}
-                            record={record}
-                            resource={resource}
-                        />
-                    ))}
+                    {Children.map(children, input => {
+                        if (childrenFilter(resource, input)) {
+                            return (
+                                <FormInput
+                                    basePath={basePath}
+                                    input={input}
+                                    record={record}
+                                    resource={resource}
+                                />
+                            );
+                        }
+                        return;
+                    })}
                 </div>
                 {toolbar &&
                     React.cloneElement(toolbar, {
@@ -51,6 +59,7 @@ export class SimpleForm extends Component {
 SimpleForm.propTypes = {
     basePath: PropTypes.string,
     children: PropTypes.node,
+    childrenFilter: PropTypes.func,
     defaultValue: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
     handleSubmit: PropTypes.func, // passed by redux-form
     invalid: PropTypes.bool,
