@@ -16,6 +16,10 @@ const SimpleShowLayout = ({
 }) => (
     <div style={style} key={version}>
         {Children.map(children, field => {
+            if (!field) {
+                return;
+            }
+
             if (childrenFilter(resource, field)) {
                 return (
                     <div
