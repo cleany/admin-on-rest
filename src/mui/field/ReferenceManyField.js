@@ -117,6 +117,9 @@ export class ReferenceManyField extends Component {
             basePath,
             isLoading,
         } = this.props;
+        if (!children) {
+            return;
+        }
         if (React.Children.count(children) !== 1) {
             throw new Error(
                 '<ReferenceManyField> only accepts a single child (like <Datagrid>)'
