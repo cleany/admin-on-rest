@@ -294,6 +294,7 @@ See [Intl.Numberformat documentation](https://developer.mozilla.org/en-US/docs/W
 ## `<PhoneField>`
 
 `<PhoneField>` displays a phone number as a `<a href="tel:" />` link.
+The link can be disabled if the prop linkType={false} is passed.
 
 If the number is from the locale it'll be formatted like a national number, if not international formatting will be set.
 
@@ -321,6 +322,14 @@ and an US number as international:
 and an US number as national:
 <a href="tel:+12344565656">(234) 456-5656</a>
 ```
+The text displayed can be overwrrited by a field of the record with the prop
+text.
+
+```jsx
+<PhoneField source="personal_phone" text="fullname" />
+<a href="tel:+33623456789">Steeve McQueen</a>
+```
+
 A function `phoneFormatToString` formats a phone number and returns a String.
 
 It's the same formatting function than `<PhoneField>`. So a locale can be passed

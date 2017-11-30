@@ -17,7 +17,7 @@ export const localPhoneFormat = (parsed_number, locale) => {
     return parsed_number;
 };
 
-const PhoneField = ({ source, record, elStyle, locale, linkType }) => {
+const PhoneField = ({ source, record, elStyle, locale, linkType, text }) => {
     if (!record) {
         return null;
     }
@@ -30,6 +30,16 @@ const PhoneField = ({ source, record, elStyle, locale, linkType }) => {
         return null;
     }
     if (linkType) {
+        if (text) {
+            return (
+                <a
+                    style={elStyle}
+                    href={`tel:${localPhoneFormat(parsed_number)}`}
+                >
+                    {get(record, text)}
+                </a>
+            );
+        }
         return (
             <a style={elStyle} href={`tel:${localPhoneFormat(parsed_number)}`}>
                 {localPhoneFormat(parsed_number, locale)}
@@ -65,6 +75,7 @@ PhoneField.propTypes = {
     record: PropTypes.object,
     source: PropTypes.string.isRequired,
     linkType: PropTypes.bool,
+    text: PropTypes.string,
 };
 
 const PurePhoneField = pure(PhoneField);
