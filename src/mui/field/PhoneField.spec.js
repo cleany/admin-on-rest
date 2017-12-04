@@ -98,12 +98,12 @@ describe('<PhoneField />', () => {
     });
 
     it('should display some text with phone link', () => {
-        const record = { number: '+12344545656', text: 'Fanfreluche' };
+        const record = { number: '+12344545656', linkLabel: 'Fanfreluche' };
         const wrapper = shallow(
             <PhoneField
                 record={record}
                 source="number"
-                text="text"
+                linkLabel="linkLabel"
                 locale="US"
             />
         );

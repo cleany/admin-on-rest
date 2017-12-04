@@ -323,10 +323,10 @@ and an US number as national:
 <a href="tel:+12344565656">(234) 456-5656</a>
 ```
 The text displayed can be overwrrited by a field of the record with the prop
-text.
+linkLabel.
 
 ```jsx
-<PhoneField source="personal_phone" text="fullname" />
+<PhoneField source="personal_phone" linkLabel="fullname" />
 <a href="tel:+33623456789">Steeve McQueen</a>
 ```
 
