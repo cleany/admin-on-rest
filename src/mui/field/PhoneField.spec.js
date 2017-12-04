@@ -97,6 +97,22 @@ describe('<PhoneField />', () => {
         );
     });
 
+    it('should display some text with phone link', () => {
+        const record = { number: '+12344545656', linkLabel: 'Fanfreluche' };
+        const wrapper = shallow(
+            <PhoneField
+                record={record}
+                source="number"
+                linkLabel="linkLabel"
+                locale="US"
+            />
+        );
+        assert.equal(
+            wrapper.html(),
+            '<a href="tel:+12344545656">Fanfreluche</a>'
+        );
+    });
+
     it('should display a phone number without link', () => {
         const record = { number: '0606060606' };
         const wrapper = shallow(
