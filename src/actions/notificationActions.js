@@ -1,6 +1,6 @@
 export const SHOW_NOTIFICATION = 'AOR/SHOW_NOTIFICATION';
 
-export const showNotification = (text, translateVars = {}, type = 'info') => ({
+export const showNotification = (text, type = 'info', translateVars = {}) => ({
     type: SHOW_NOTIFICATION,
     payload: { text, translateVars, type },
 });
