@@ -21,7 +21,7 @@ class Notification extends React.Component {
     render() {
         const style = {};
         const { primary1Color, accent1Color } = getStyles(this.context);
-        const { type, translate, message } = this.props;
+        const { type, translate, message, translateVars } = this.props;
         if (type === 'warning') {
             style.backgroundColor = accent1Color;
         }
@@ -31,7 +31,7 @@ class Notification extends React.Component {
         return (
             <Snackbar
                 open={!!message}
-                message={!!message && translate(message)}
+                message={!!message && translate(message, translateVars)}
                 autoHideDuration={4000}
                 onRequestClose={this.handleRequestClose}
                 bodyStyle={style}
@@ -45,10 +45,12 @@ Notification.propTypes = {
     type: PropTypes.string.isRequired,
     hideNotification: PropTypes.func.isRequired,
     translate: PropTypes.func.isRequired,
+    translateVars: PropTypes.object,
 };
 
 Notification.defaultProps = {
     type: 'info',
+    translateVars: {},
 };
 
 Notification.contextTypes = {
@@ -57,6 +59,7 @@ Notification.contextTypes = {
 
 const mapStateToProps = state => ({
     message: state.admin.notification.text,
+    translateVars: state.admin.notification.translateVars,
     type: state.admin.notification.type,
 });
 

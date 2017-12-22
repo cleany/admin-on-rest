@@ -11,10 +11,18 @@ describe('notification reducer', () => {
     });
     it('should set text and type upon SHOW_NOTIFICATION', () => {
         assert.deepEqual(
-            { text: 'foo', type: 'warning' },
+            {
+                text: 'foo',
+                translateVars: { message: 'plop' },
+                type: 'warning',
+            },
             reducer(undefined, {
                 type: SHOW_NOTIFICATION,
-                payload: { text: 'foo', type: 'warning' },
+                payload: {
+                    text: 'foo',
+                    translateVars: { message: 'plop' },
+                    type: 'warning',
+                },
             })
         );
     });
