@@ -11,7 +11,11 @@ const defaultState = {
 export default (previousState = defaultState, { type, payload }) => {
     switch (type) {
         case SHOW_NOTIFICATION:
-            return { text: payload.text, type: payload.type };
+            return {
+                text: payload.text,
+                translateVars: payload.translateVars,
+                type: payload.type,
+            };
         case HIDE_NOTIFICATION:
             return { ...previousState, text: '' };
         default:
