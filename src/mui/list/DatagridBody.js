@@ -16,6 +16,7 @@ const DatagridBody = ({
     basePath,
     styles,
     rowStyle,
+    rowClickable,
     options,
     rowOptions,
     ...rest
@@ -49,6 +50,7 @@ const DatagridBody = ({
                                             styles.cell.td
                                         )
                                     }
+                                    clickable={rowClickable}
                                     {...{ field, basePath, resource }}
                                 />
                             ) : null;
@@ -72,6 +74,7 @@ DatagridBody.propTypes = {
     styles: PropTypes.object,
     rowStyle: PropTypes.func,
     childrenFilter: PropTypes.func,
+    rowClickable: PropTypes.bool,
 };
 
 DatagridBody.defaultProps = {

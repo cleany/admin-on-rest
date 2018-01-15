@@ -96,6 +96,7 @@ class Datagrid extends Component {
             headerOptions,
             bodyOptions,
             rowOptions,
+            rowClickable,
         } = this.props;
         return (
             <Table
@@ -146,6 +147,7 @@ class Datagrid extends Component {
                     isLoading={isLoading}
                     options={bodyOptions}
                     rowOptions={rowOptions}
+                    rowClickable={rowClickable}
                     childrenFilter={childrenFilter}
                 >
                     {children}
@@ -170,6 +172,7 @@ Datagrid.propTypes = {
     muiTheme: PropTypes.object,
     options: PropTypes.object,
     resource: PropTypes.string,
+    rowClickable: PropTypes.bool,
     rowOptions: PropTypes.object,
     rowStyle: PropTypes.func,
     setSort: PropTypes.func,

@@ -17,6 +17,7 @@ export const DatagridCell = ({
     match,
     location,
     staticContext,
+    clickable = true,
     ...rest
 }) => {
     const computedStyle = defaultsDeep(
@@ -26,9 +27,12 @@ export const DatagridCell = ({
         field.type.defaultProps ? field.type.defaultProps.style : {},
         defaultStyle
     );
-    const handleClick = () => {
-        history.push(linkToRecord(basePath, record.id));
-    };
+
+    const handleClick = clickable
+        ? () => {
+              history.push(linkToRecord(basePath, record.id));
+          }
+        : undefined;
 
     return (
         <TableRowColumn
@@ -56,6 +60,7 @@ DatagridCell.propTypes = {
     match: PropTypes.object.isRequired,
     location: PropTypes.object.isRequired,
     staticContext: PropTypes.object,
+    clickable: PropTypes.bool,
 };
 
 export default withRouter(DatagridCell);
