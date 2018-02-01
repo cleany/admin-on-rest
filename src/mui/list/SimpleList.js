@@ -19,6 +19,7 @@ const SimpleList = ({
     rightIcon,
     itemStyle,
     itemInnerDivStyle,
+    disabled,
 }) => (
     <List>
         {ids.map(id => (
@@ -43,6 +44,7 @@ const SimpleList = ({
                 containerElement={<Link to={`${basePath}/${id}`} />}
                 style={itemStyle}
                 innerDivStyle={itemInnerDivStyle}
+                disabled={disabled}
             />
         ))}
     </List>
@@ -62,6 +64,7 @@ SimpleList.propTypes = {
     rightIcon: PropTypes.func,
     itemStyle: PropTypes.object,
     itemInnerDivStyle: PropTypes.object,
+    disabled: PropTypes.bool,
 };
 
 export default SimpleList;
