@@ -1,6 +1,7 @@
 import React, { Children } from 'react';
 import PropTypes from 'prop-types';
 import Labeled from '../input/Labeled';
+import get from 'lodash.get';
 
 const defaultStyle = { padding: '0 1em 1em 1em' };
 const SimpleShowLayout = ({
@@ -20,14 +21,18 @@ const SimpleShowLayout = ({
                 return;
             }
 
-            if (childrenFilter(resource, field)) {
+            if (childrenFilter(resource, field, record)) {
+                const content = get(record, field.props.source);
+                const displayLabel =
+                    field.props.addLabel &&
+                    (content || !field.props.autoHideLabel);
                 return (
                     <div
                         key={field.props.source}
                         style={field.props.style}
                         className={`aor-field aor-field-${field.props.source}`}
                     >
-                        {field.props.addLabel ? (
+                        {displayLabel ? (
                             <Labeled
                                 record={record}
                                 resource={resource}

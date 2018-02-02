@@ -43,4 +43,13 @@ describe('<Show />', () => {
         const inputs = wrapper.find('pure(TextField)');
         assert.deepEqual(inputs.map(i => i.prop('source')), ['foo', 'bar']);
     });
+    it('should hide the field label in SimpleShowLayout', () => {
+        const wrapper = shallow(
+            <SimpleShowLayout>
+                <TextField source="" autoHideLabel />
+            </SimpleShowLayout>
+        );
+        const inputs = wrapper.find('Labeled');
+        assert.equal(inputs.length, 0);
+    });
 });
