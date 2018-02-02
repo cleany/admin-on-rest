@@ -49,7 +49,7 @@ export const NumberField = ({
     const value = get(record, source);
     if (value == null) return null;
     if (!hasNumberFormat) return <span style={elStyle}>{value}</span>;
-    if (unit) return <span style={elStyle}>{value + ' ' + unit}</span>;
+    if (unit) return <span style={elStyle}>{`${value} ${unit}`}</span>;
     return (
         <span style={elStyle}>{value.toLocaleString(locales, options)}</span>
     );
