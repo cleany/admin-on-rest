@@ -21,18 +21,18 @@ const SimpleShowLayout = ({
                 return;
             }
 
-            if (childrenFilter(resource, field, record)) {
+            if (childrenFilter(resource, field)) {
                 const content = get(record, field.props.source);
-                const displayLabel =
-                    field.props.addLabel &&
-                    (content || !field.props.autoHideLabel);
+                if (!content && field.props.autoHideLabel) {
+                    return null;
+                }
                 return (
                     <div
                         key={field.props.source}
                         style={field.props.style}
                         className={`aor-field aor-field-${field.props.source}`}
                     >
-                        {displayLabel ? (
+                        {field.props.addLabel ? (
                             <Labeled
                                 record={record}
                                 resource={resource}
