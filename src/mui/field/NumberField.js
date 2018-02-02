@@ -37,11 +37,19 @@ const hasNumberFormat = !!(
  * // renders the record { id: 1234, price: 25.99 } as
  * <span>25,99 $US</span>
  */
-export const NumberField = ({ record, source, locales, options, elStyle }) => {
+export const NumberField = ({
+    record,
+    source,
+    locales,
+    options,
+    elStyle,
+    unit,
+}) => {
     if (!record) return null;
     const value = get(record, source);
     if (value == null) return null;
     if (!hasNumberFormat) return <span style={elStyle}>{value}</span>;
+    if (unit) return <span style={elStyle}>{`${value} ${unit}`}</span>;
     return (
         <span style={elStyle}>{value.toLocaleString(locales, options)}</span>
     );
@@ -58,6 +66,7 @@ NumberField.propTypes = {
     options: PropTypes.object,
     record: PropTypes.object,
     source: PropTypes.string.isRequired,
+    unit: PropTypes.number,
 };
 
 const PureNumberField = pure(NumberField);

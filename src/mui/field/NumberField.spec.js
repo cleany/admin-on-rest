@@ -64,4 +64,12 @@ describe('<NumberField />', () => {
             ).html(),
             '<span>2</span>'
         ));
+
+    it('should render a number with a unit', () =>
+        assert.equal(
+            shallow(
+                <NumberField record={{ foo: 1 }} source="foo" unit="m" />
+            ).html(),
+            '<span>1 m</span>'
+        ));
 });

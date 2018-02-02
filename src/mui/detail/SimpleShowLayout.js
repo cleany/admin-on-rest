@@ -1,6 +1,7 @@
 import React, { Children } from 'react';
 import PropTypes from 'prop-types';
 import Labeled from '../input/Labeled';
+import get from 'lodash.get';
 
 const defaultStyle = { padding: '0 1em 1em 1em' };
 const SimpleShowLayout = ({
@@ -21,6 +22,10 @@ const SimpleShowLayout = ({
             }
 
             if (childrenFilter(resource, field)) {
+                const content = get(record, field.props.source);
+                if (!content && field.props.autoHideLabel) {
+                    return null;
+                }
                 return (
                     <div
                         key={field.props.source}
