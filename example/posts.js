@@ -47,13 +47,14 @@ import {
 import RichTextInput from 'aor-rich-text-input';
 import Chip from 'material-ui/Chip';
 
-export PostIcon from 'material-ui/svg-icons/action/book';
+import BookIcon from 'material-ui/svg-icons/action/book';
+export const PostIcon = BookIcon;
 
 const QuickFilter = translate(({ label, translate }) => (
     <Chip style={{ marginBottom: 8 }}>{translate(label)}</Chip>
 ));
 
-const PostFilter = ({ ...props }) => (
+const PostFilter = props => (
     <Filter {...props}>
         <TextInput label="post.list.search" source="q" alwaysOn />
         <TextInput
@@ -77,7 +78,7 @@ const titleFieldStyle = {
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
 };
-export const PostList = ({ ...props }) => (
+export const PostList = props => (
     <List
         {...props}
         filters={<PostFilter />}
@@ -144,7 +145,9 @@ const PostCreateToolbar = props => (
     </Toolbar>
 );
 
-export const PostCreate = ({ ...props }) => (
+const getDefaultDate = () => new Date();
+
+export const PostCreate = props => (
     <Create {...props}>
         <SimpleForm
             toolbar={<PostCreateToolbar />}
@@ -168,7 +171,7 @@ export const PostCreate = ({ ...props }) => (
             <TextInput source="password" type="password" />
             <TextInput source="teaser" options={{ multiLine: true }} />
             <RichTextInput source="body" />
-            <DateInput source="published_at" />
+            <DateInput source="published_at" defaultValue={getDefaultDate} />
             <NumberInput source="average_note" />
             <BooleanInput source="commentable" defaultValue />
         </SimpleForm>
@@ -176,8 +179,9 @@ export const PostCreate = ({ ...props }) => (
 );
 
 const emptyKeycode = [];
+const validateAverageNote = [required, number, minValue(0)];
 
-export const PostEdit = ({ ...props }) => (
+export const PostEdit = props => (
     <Edit title={<PostTitle />} {...props}>
         <TabbedForm defaultValue={{ average_note: 0 }}>
             <FormTab label="post.form.summary">
@@ -224,7 +228,7 @@ export const PostEdit = ({ ...props }) => (
                 />
                 <NumberInput
                     source="average_note"
-                    validate={[required, number, minValue(0)]}
+                    validate={validateAverageNote}
                 />
                 <BooleanInput source="commentable" defaultValue />
                 <DisabledInput source="views" />
@@ -247,7 +251,7 @@ export const PostEdit = ({ ...props }) => (
     </Edit>
 );
 
-export const PostShow = ({ ...props }) => (
+export const PostShow = props => (
     <Show title={<PostTitle />} {...props}>
         <TabbedShowLayout>
             <Tab label="post.form.summary">

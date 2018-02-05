@@ -6,7 +6,7 @@ import get from 'lodash.get';
 const defaultStyle = { padding: '0 1em 1em 1em' };
 const SimpleShowLayout = ({
     basePath,
-    children,
+    children = [],
     childrenFilter = () => {
         return true;
     },
@@ -20,42 +20,40 @@ const SimpleShowLayout = ({
             if (!field) {
                 return;
             }
-
             if (childrenFilter(resource, field)) {
                 const content = get(record, field.props.source);
                 if (!content && field.props.autoHideLabel) {
-                    return null;
+                    return;
                 }
-                return (
-                    <div
-                        key={field.props.source}
-                        style={field.props.style}
-                        className={`aor-field aor-field-${field.props.source}`}
-                    >
-                        {field.props.addLabel ? (
-                            <Labeled
-                                record={record}
-                                resource={resource}
-                                basePath={basePath}
-                                label={field.props.label}
-                                source={field.props.source}
-                                disabled={false}
-                            >
-                                {field}
-                            </Labeled>
-                        ) : typeof field.type === 'string' ? (
-                            field
-                        ) : (
-                            React.cloneElement(field, {
-                                record,
-                                resource,
-                                basePath,
-                            })
-                        )}
-                    </div>
-                );
             }
-            return;
+            return (
+                <div
+                    key={field.props.source}
+                    style={field.props.style}
+                    className={`aor-field aor-field-${field.props.source}`}
+                >
+                    {field.props.addLabel ? (
+                        <Labeled
+                            record={record}
+                            resource={resource}
+                            basePath={basePath}
+                            label={field.props.label}
+                            source={field.props.source}
+                            disabled={false}
+                        >
+                            {field}
+                        </Labeled>
+                    ) : typeof field.type === 'string' ? (
+                        field
+                    ) : (
+                        React.cloneElement(field, {
+                            record,
+                            resource,
+                            basePath,
+                        })
+                    )}
+                </div>
+            );
         })}
     </div>
 );

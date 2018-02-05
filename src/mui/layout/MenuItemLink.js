@@ -17,7 +17,13 @@ export class MenuItemLinkComponent extends Component {
         this.props.onClick();
     };
     render() {
-    const { history, match, location, staticContext, ...props } = this.props; // eslint-disable-line
+        const {
+            history,
+            match,
+            location,
+            staticContext,
+            ...props
+        } = this.props; // eslint-disable-line
         const customStyle = {
             color: 'white',
         };

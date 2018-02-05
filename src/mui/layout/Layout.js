@@ -8,7 +8,6 @@ import CircularProgress from 'material-ui/CircularProgress';
 import withWidth from 'material-ui/utils/withWidth';
 import compose from 'recompose/compose';
 
-import AdminRoutes from '../../AdminRoutes';
 import AppBar from './AppBar';
 import Sidebar from './Sidebar';
 import Menu from './Menu';
@@ -30,7 +29,7 @@ const styles = {
     body: {
         backgroundColor: '#edecec',
         display: 'flex',
-        flex: 1,
+        flex: '1 1 auto',
         overflowY: 'hidden',
         overflowX: 'scroll',
     },
@@ -66,12 +65,10 @@ class Layout extends Component {
     render() {
         const {
             children,
-            customRoutes,
             dashboard,
             isLoading,
             logout,
             menu,
-            catchAll,
             theme,
             title,
             width,
@@ -113,13 +110,7 @@ class Layout extends Component {
                                     )
                                 }
                             >
-                                <AdminRoutes
-                                    customRoutes={customRoutes}
-                                    dashboard={dashboard}
-                                    catchAll={catchAll}
-                                >
-                                    {children}
-                                </AdminRoutes>
+                                {children}
                             </div>
                             <Sidebar theme={theme}>
                                 {createElement(menu || Menu, {
@@ -152,8 +143,6 @@ const componentPropType = PropTypes.oneOfType([
 
 Layout.propTypes = {
     children: PropTypes.oneOfType([PropTypes.func, PropTypes.node]),
-    catchAll: componentPropType,
-    customRoutes: PropTypes.array,
     dashboard: componentPropType,
     isLoading: PropTypes.bool.isRequired,
     logout: PropTypes.oneOfType([

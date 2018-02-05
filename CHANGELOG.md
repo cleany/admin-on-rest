@@ -1,5 +1,44 @@
 # Changelog
 
+## v1.3.4
+
+* Add Croatian translation ([ariskemper](https://github.com/ariskemper))
+* Add Indonesian translation ([ronadi](https://github.com/ronadi))
+* Add Arabic translation ([aymendhaya](https://github.com/aymendhaya))
+* Add Finnish translation ([Joni-Aaltonen](https://github.com/Joni-Aaltonen))
+* Fix spelling of Labeled in documentation ([jyash97](https://github.com/jyash97))
+* Fix documentation for Writing Actions ([danyalaytekin](https://github.com/danyalaytekin))
+* Fix check that window exists before checking for devToolsExtension ([twDuke](https://github.com/twDuke))
+* Fix missing key warning for SaveButton ([MadalenaGoncalves](https://github.com/MadalenaGoncalves))
+* Fix RestClient example in documentation ([alexanderankin](https://github.com/alexanderankin))
+* Fix documentation menu on mobile ([djhi](https://github.com/djhi))
+* Add shadow under doc menu bar on mobile ([djhi](https://github.com/djhi))
+* Fix SelectArrayInput by upgrade material-ui-chip-input ([djhi](https://github.com/djhi))
+* Fix Bottom Toolbars on mobile ([djhi](https://github.com/djhi))
+* Fix documentation, Prop name is validate not validation ([alauper](https://github.com/alauper))
+* Fix AutocompleteInput does not render text for existing value on initial render ([hasghari](https://github.com/hasghari))
+* Fix BooleanInput warning about uncontrolled to controlled component ([djhi](https://github.com/djhi))
+* Fix title is not updated when record changes ([djhi](https://github.com/djhi))
+* Fix vertical scroll issue on page on IE11 ([activist](https://github.com/activist))
+
+## v1.3.3
+
+* Add `aor-xmysql` to the list of REST clients ([soaserele](https://github.com/soaserele))
+* Add Slovenian translation ([ariskemper](https://github.com/ariskemper))
+* Fix wrong code sample in Translations docs ([fzaninotto](https://github.com/fzaninotto))
+* Add `getResources` function to allow ressource injection in custom components ([fzaninotto](https://github.com/fzaninotto))
+* Fix typo in Actions documentation ([xiaomingplus](https://github.com/xiaomingplus))
+* Add mention of `ra-component-factory` to the list of related packages ([zifnab87](https://github.com/zifnab87))
+* Fix exception when using React 16 and hot reloading ([natrim](https://github.com/natrim))
+* Fix custom menu documentation ([fzaninotto](https://github.com/fzaninotto))
+* Fix installation documentation ([faviouz](https://github.com/faviouz))
+* Fix typo in English translations ([netsgnut](https://github.com/netsgnut))
+* Add a link to the updated Hebrew translations ([motro](https://github.com/motro))
+* Fix linting problems ([fzaninotto](https://github.com/fzaninotto))
+* Fix missing import in `<List>` documentation ([clementtalleu](https://github.com/clementtalleu))
+* Fix Refresh button does not refresh data in `<ReferenceManyField>` ([fzaninotto](https://github.com/fzaninotto))
+* Fix `refreshView` is undefined when using custom actions in list ([natrim](https://github.com/natrim))
+
 ## v1.3.2
 
 * Fix JS error on `<WithPermission>` ([fzaninotto](https://github.com/fzaninotto))
