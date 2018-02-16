@@ -25,14 +25,17 @@ import {
     translate,
 } from 'admin-on-rest'; // eslint-disable-line import/no-unresolved
 
-export UserIcon from 'material-ui/svg-icons/social/people';
+import PeopleIcon from 'material-ui/svg-icons/social/people';
+export const UserIcon = PeopleIcon;
 
-const UserFilter = ({ ...props }) => (
+const UserFilter = props => (
     <Filter {...props}>
         {permissions => [
-            <TextInput label="user.list.search" source="q" alwaysOn />,
-            <TextInput source="name" />,
-            permissions === 'admin' ? <TextInput source="role" /> : null,
+            <TextInput key="q" label="user.list.search" source="q" alwaysOn />,
+            <TextInput key="name" source="name" />,
+            permissions === 'admin' ? (
+                <TextInput key="role" source="role" />
+            ) : null,
         ]}
     </Filter>
 );
@@ -43,7 +46,7 @@ const titleFieldStyle = {
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
 };
-export const UserList = ({ ...props }) => (
+export const UserList = props => (
     <List
         {...props}
         filters={<UserFilter />}
@@ -51,11 +54,12 @@ export const UserList = ({ ...props }) => (
     >
         {permissions => (
             <Responsive
+                key="userList"
                 small={
                     <SimpleList
                         primaryText={record => record.name}
                         secondaryText={record =>
-                            permissions === 'admin' ? record.role : null}
+                            permissions === 'admin' ? record.role : ''}
                     />
                 }
                 medium={
@@ -96,7 +100,7 @@ const UserCreateToolbar = ({ permissions, ...props }) => (
     </Toolbar>
 );
 
-export const UserCreate = ({ ...props }) => (
+export const UserCreate = props => (
     <Create {...props}>
         {permissions => (
             <SimpleForm
@@ -112,7 +116,7 @@ export const UserCreate = ({ ...props }) => (
     </Create>
 );
 
-export const UserEdit = ({ ...props }) => (
+export const UserEdit = props => (
     <Edit title={<UserTitle />} {...props}>
         {permissions => (
             <TabbedForm defaultValue={{ role: 'user' }}>
@@ -130,7 +134,7 @@ export const UserEdit = ({ ...props }) => (
     </Edit>
 );
 
-export const UserShow = ({ ...props }) => (
+export const UserShow = props => (
     <Show title={<UserTitle />} {...props}>
         {permissions => (
             <TabbedShowLayout>

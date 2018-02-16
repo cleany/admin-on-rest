@@ -1,3 +1,4 @@
+/* eslint no-console: ["error", { allow: ["warn", "error"] }] */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -80,6 +81,16 @@ export class List extends Component {
     state = {};
 
     componentDidMount() {
+        if (
+            !this.props.query.page &&
+            !this.props.ids.length &&
+            this.props.params.page > 1 &&
+            this.props.total > 0
+        ) {
+            this.setPage(this.props.params.page - 1);
+            return;
+        }
+
         this.updateData();
         if (Object.keys(this.props.query).length > 0) {
             this.props.changeListParams(this.props.resource, this.props.query);
@@ -112,7 +123,8 @@ export class List extends Component {
             nextProps.version === this.props.version &&
             JSON.stringify(nextProps.filter) ===
                 JSON.stringify(this.props.filter) &&
-            nextState === this.state
+            nextState === this.state &&
+            nextProps.data === this.props.data
         ) {
             return false;
         }
@@ -151,12 +163,15 @@ export class List extends Component {
         if (!query.perPage) {
             query.perPage = this.props.perPage;
         }
+        if (!query.page) {
+            query.page = 1;
+        }
         return query;
     }
 
     updateData(query) {
         const params = query || this.getQuery();
-        const { sort, order, page, perPage, filter } = params;
+        const { sort, order, page = 1, perPage, filter } = params;
         const pagination = {
             page: parseInt(page, 10),
             perPage: parseInt(perPage, 10),
@@ -207,7 +222,7 @@ export class List extends Component {
 
     refresh = () => {
         if (process.env !== 'production') {
-            console.warn( // eslint-disable-line
+            console.warn(
                 'Deprecation warning: The preferred way to refresh the List view is to connect your custom button with redux and dispatch the `refreshView` action.'
             );
         }
@@ -232,6 +247,7 @@ export class List extends Component {
             theme,
             version,
         } = this.props;
+
         const query = this.getQuery();
         const filterValues = query.filter;
         const basePath = this.getBasePath();
@@ -248,7 +264,6 @@ export class List extends Component {
         );
         const muiTheme = getMuiTheme(theme);
         const prefix = autoprefixer(muiTheme);
-
         return (
             <div className="list-page">
                 <Card style={{ opacity: isLoading ? 0.8 : 1 }}>
@@ -278,7 +293,8 @@ export class List extends Component {
                         })}
                     {isLoading || total > 0 ? (
                         <div key={version}>
-                            {children &&
+                            {ids.length > 0 &&
+                                children &&
                                 React.cloneElement(children, {
                                     resource,
                                     ids,
@@ -291,10 +307,21 @@ export class List extends Component {
                                     isLoading,
                                     setSort: this.setSort,
                                 })}
+                            {!isLoading &&
+                            !ids.length && (
+                                <CardText style={styles.noResults}>
+                                    {translate(
+                                        'aor.navigation.no_more_results',
+                                        {
+                                            page: query.page,
+                                        }
+                                    )}
+                                </CardText>
+                            )}
                             {pagination &&
                                 React.cloneElement(pagination, {
                                     total,
-                                    page: parseInt(query.page, 10),
+                                    page: parseInt(query.page || 1, 10),
                                     perPage: parseInt(query.perPage, 10),
                                     setPage: this.setPage,
                                 })}

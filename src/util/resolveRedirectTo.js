@@ -7,9 +7,9 @@ export default (redirectTo, basePath, id) => {
         case 'create':
             return `${basePath}/create`;
         case 'edit':
-            return linkToRecord(basePath, id);
+            return `${linkToRecord(basePath, id)}/edit`;
         case 'show':
-            return `${linkToRecord(basePath, id)}/show`;
+            return linkToRecord(basePath, id);
         default:
             return redirectTo;
     }

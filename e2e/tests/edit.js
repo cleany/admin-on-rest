@@ -3,7 +3,7 @@ import driver from '../chromeDriver';
 import editPageFactory from '../pages/EditPage';
 
 describe('Edit Page', () => {
-    const EditPage = editPageFactory('http://localhost:8083/#/posts/5/edit')(
+    const EditPage = editPageFactory('http://localhost:8083/#/posts/25/edit')(
         driver
     );
 
@@ -13,7 +13,7 @@ describe('Edit Page', () => {
         it('should display the title in a TextField', async () => {
             assert.equal(
                 await EditPage.getInputValue('title'),
-                'Sed quo et et fugiat modi'
+                'Fusce massa lorem, pulvinar a posuere ut, accumsan ac nisi'
             );
         });
 
@@ -37,7 +37,7 @@ describe('Edit Page', () => {
 
         it('should allow to switch tabs', async () => {
             await EditPage.gotoTab(2);
-            assert.equal(await EditPage.getInputValue('average_note'), '3');
+            assert.equal(await EditPage.getInputValue('average_note'), '4');
         });
 
         it('should keep DateInput value after opening datapicker', async () => {

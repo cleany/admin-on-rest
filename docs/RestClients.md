@@ -40,6 +40,7 @@ Admin-on-rest ships 2 REST client by default:
 
 You can find REST clients for various backends in third-party repositories:
 
+* **[DynamoDb](https://github.com/abiglobalhealth/aor-dynamodb-client)**: [abiglobalhealth/aor-dynamodb-client](https://github.com/abiglobalhealth/aor-dynamodb-client)
 * **[Epilogue](https://github.com/dchester/epilogue)**: [dunghuynh/aor-epilogue-client](https://github.com/dunghuynh/aor-epilogue-client)
 * **[Feathersjs](http://www.feathersjs.com/)**: [josx/aor-feathers-client](https://github.com/josx/aor-feathers-client)
 * **[Firebase](https://firebase.google.com/)**: [sidferreira/aor-firebase-client](https://github.com/sidferreira/aor-firebase-client)
@@ -49,6 +50,7 @@ You can find REST clients for various backends in third-party repositories:
 * **[Loopback](http://loopback.io/)**: [kimkha/aor-loopback](https://github.com/kimkha/aor-loopback)
 * **[Parse Server](https://github.com/ParsePlatform/parse-server)**: [leperone/aor-parseserver-client](https://github.com/leperone/aor-parseserver-client)
 * **[PostgREST](http://postgrest.com/en/v0.4/)**: [tomberek/aor-postgrest-client](https://github.com/tomberek/aor-postgrest-client)
+* **[Xmysql](https://github.com/o1lab/xmysql)**: [soaserele/aor-xmysql](https://github.com/soaserele/aor-xmysql)
 
 If you've written a REST client for another backend, and open-sourced it, please help complete this list with your package.
 
@@ -58,7 +60,7 @@ This REST client fits APIs using simple GET parameters for filters and sorting. 
 
 | REST verb            | API calls
 |----------------------|----------------------------------------------------------------
-| `GET_LIST`           | `GET http://my.api.url/posts?sort=['title','ASC']&range=[0, 24]&filter={title:'bar'}`
+| `GET_LIST`           | `GET http://my.api.url/posts?sort=["title","ASC"]&range=[0, 24]&filter={"title":"bar"}`
 | `GET_ONE`            | `GET http://my.api.url/posts/123`
 | `CREATE`             | `POST http://my.api.url/posts/123`
 | `UPDATE`             | `PUT http://my.api.url/posts/123`
@@ -197,7 +199,7 @@ Instead of writing your own REST client or using a third-party one, you can enha
  */
 const convertFileToBase64 = file => new Promise((resolve, reject) => {
     const reader = new FileReader();
-    reader.readAsDataURL(file);
+    reader.readAsDataURL(file.rawFile);
 
     reader.onload = () => resolve(reader.result);
     reader.onerror = reject;
@@ -211,8 +213,8 @@ const addUploadCapabilities = requestHandler => (type, resource, params) => {
     if (type === 'UPDATE' && resource === 'posts') {
         if (params.data.pictures && params.data.pictures.length) {
             // only freshly dropped pictures are instance of File
-            const formerPictures = params.data.pictures.filter(p => !(p instanceof File));
-            const newPictures = params.data.pictures.filter(p => p instanceof File);
+            const formerPictures = params.data.pictures.filter(p => !(p.rawFile instanceof File));
+            const newPictures = params.data.pictures.filter(p => p.rawFile instanceof File);
 
             return Promise.all(newPictures.map(convertFileToBase64))
                 .then(base64Pictures => base64Pictures.map(picture64 => ({

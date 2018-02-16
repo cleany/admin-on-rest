@@ -38,7 +38,7 @@ describe('Create Page', () => {
         ];
         await CreatePage.setValues(values);
         await CreatePage.submit();
-        await driver.wait(until.urlIs('http://localhost:8083/#/posts/27/show'));
+        await driver.wait(until.urlIs('http://localhost:8083/#/posts/27'));
         await DeletePage.navigate();
         await DeletePage.delete();
         await driver.sleep(3000); // let the notification for deletion disappear (could block further submits)

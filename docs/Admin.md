@@ -156,7 +156,7 @@ If you want to add or remove menu items, for instance to link to non-resources p
 // in src/Menu.js
 import React from 'react';
 import { connect } from 'react-redux';
-import { MenuItemLink } from 'admin-on-rest';
+import { MenuItemLink, getResources } from 'admin-on-rest';
 
 const Menu = ({ resources, onMenuTap, logout }) => (
     <div>
@@ -434,6 +434,7 @@ const App = () => (
 ```
 
 ## `initialState`
+
 The `initialState` prop lets you pass preloaded state to Redux. See the [Redux Documentation](http://redux.js.org/docs/api/createStore.html#createstorereducer-preloadedstate-enhancer) for more details.
 
 ## `history`
