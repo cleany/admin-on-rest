@@ -27,11 +27,11 @@ export const parseInput = number => {
     return new asYouTypeIntl('FR').input(number);
 };
 
-const PhoneInput = ({ label, source }) => {
+const PhoneInput = props => {
     return (
         <Field
-            name={source}
-            label={label}
+            {...props}
+            name={props.source}
             component={TextInput}
             parse={parseInput}
         />
@@ -39,12 +39,14 @@ const PhoneInput = ({ label, source }) => {
 };
 
 PhoneInput.propTypes = {
+    elStyle: PropTypes.object,
+    isRequired: PropTypes.bool,
     label: PropTypes.string,
+    options: PropTypes.object,
+    resource: PropTypes.string,
     source: PropTypes.string.isRequired,
 };
 
-PhoneInput.defaultProps = {
-    label: '',
-};
+PhoneInput.defaultProps = {};
 
 export default PhoneInput;
