@@ -37,46 +37,46 @@ const styles = {
 };
 
 /**
- * List page component
- *
- * The <List> component renders the list layout (title, buttons, filters, pagination),
- * and fetches the list of records from the REST API.
- * It then delegates the rendering of the list of records to its child component.
- * Usually, it's a <Datagrid>, responsible for displaying a table with one row for each post.
- *
- * In Redux terms, <List> is a connected component, and <Datagrid> is a dumb component.
- *
- * Props:
- *   - title
- *   - perPage
- *   - sort
- *   - filter (the permanent filter to apply to the query)
- *   - actions
- *   - filters (a React Element used to display the filter form)
- *   - pagination
- *
- * @example
- *     const PostFilter = (props) => (
- *         <Filter {...props}>
- *             <TextInput label="Search" source="q" alwaysOn />
- *             <TextInput label="Title" source="title" />
- *         </Filter>
- *     );
- *     export const PostList = (props) => (
- *         <List {...props}
- *             title="List of posts"
- *             sort={{ field: 'published_at' }}
- *             filter={{ is_published: true }}
- *             filters={<PostFilter />}
- *         >
- *             <Datagrid>
- *                 <TextField source="id" />
- *                 <TextField source="title" />
- *                 <EditButton />
- *             </Datagrid>
- *         </List>
- *     );
- */
+* List page component
+*
+* The <List> component renders the list layout (title, buttons, filters, pagination),
+* and fetches the list of records from the REST API.
+* It then delegates the rendering of the list of records to its child component.
+* Usually, it's a <Datagrid>, responsible for displaying a table with one row for each post.
+*
+* In Redux terms, <List> is a connected component, and <Datagrid> is a dumb component.
+*
+* Props:
+*   - title
+*   - perPage
+*   - sort
+*   - filter (the permanent filter to apply to the query)
+*   - actions
+*   - filters (a React Element used to display the filter form)
+*   - pagination
+*
+* @example
+*     const PostFilter = (props) => (
+*         <Filter {...props}>
+*             <TextInput label="Search" source="q" alwaysOn />
+*             <TextInput label="Title" source="title" />
+*         </Filter>
+*     );
+*     export const PostList = (props) => (
+*         <List {...props}
+*             title="List of posts"
+*             sort={{ field: 'published_at' }}
+*             filter={{ is_published: true }}
+*             filters={<PostFilter />}
+*         >
+*             <Datagrid>
+*                 <TextField source="id" />
+*                 <TextField source="title" />
+*                 <EditButton />
+*             </Datagrid>
+*         </List>
+*     );
+*/
 export class List extends Component {
     state = {};
 
@@ -121,6 +121,8 @@ export class List extends Component {
             nextProps.isLoading === this.props.isLoading &&
             nextProps.width === this.props.width &&
             nextProps.version === this.props.version &&
+            JSON.stringify(nextProps.filter) ===
+                JSON.stringify(this.props.filter) &&
             nextState === this.state &&
             nextProps.data === this.props.data
         ) {
@@ -129,16 +131,26 @@ export class List extends Component {
         return true;
     }
 
+    componentDidUpdate(prevProps) {
+        if (
+            JSON.stringify(prevProps.filter) ===
+            JSON.stringify(this.props.filter)
+        ) {
+            return;
+        }
+        this.updateData();
+    }
+
     getBasePath() {
         return this.props.location.pathname.replace(/\/$/, '');
     }
 
     /**
-     * Merge list params from 3 different sources:
-     *   - the query string
-     *   - the params stored in the state (from previous navigation)
-     *   - the props passed to the List component
-     */
+  * Merge list params from 3 different sources:
+  *   - the query string
+  *   - the params stored in the state (from previous navigation)
+  *   - the props passed to the List component
+  */
     getQuery() {
         const query =
             Object.keys(this.props.query).length > 0
