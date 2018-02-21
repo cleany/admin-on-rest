@@ -66,7 +66,7 @@ NumberField.propTypes = {
     options: PropTypes.object,
     record: PropTypes.object,
     source: PropTypes.string.isRequired,
-    unit: PropTypes.number,
+    unit: PropTypes.string,
 };
 
 const PureNumberField = pure(NumberField);
