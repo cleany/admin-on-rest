@@ -97,13 +97,19 @@ class Datagrid extends Component {
             bodyOptions,
             rowOptions,
             rowClickable,
+            labelEmptyData,
         } = this.props;
+        if (Object.keys(data).length === 0) {
+          return (
+            <div style={{fontSize:16, padding:'1em 0'}}>{labelEmptyData}</div>
+          );
+        }
         return (
             <Table
                 style={options && options.fixedHeader ? null : styles.table}
                 fixedHeader={false}
                 {...options}
-            >
+              >
                 <TableHeader
                     displaySelectAll={false}
                     adjustForCheckbox={false}
@@ -177,11 +183,13 @@ Datagrid.propTypes = {
     rowStyle: PropTypes.func,
     setSort: PropTypes.func,
     styles: PropTypes.object,
+    labelEmptyData: PropTypes.string,
 };
 
 Datagrid.defaultProps = {
     data: {},
     ids: [],
+    labelEmptyData: 'No data',
 };
 
 export default muiThemeable()(Datagrid);

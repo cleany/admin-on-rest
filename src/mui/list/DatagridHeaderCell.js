@@ -13,13 +13,11 @@ const styles = {
     },
     nonSortableLabel: {
         position: 'relative',
-        paddingLeft: 16,
-        paddingRight: 16,
         verticalAlign: 'middle',
         letterSpacing: 0,
-        textTransform: 'uppercase',
-        fontWeight: 500,
-        fontSize: 14,
+        fontWeight: 700,
+        fontSize: 13,
+        opacity: .3,
     },
 };
 
@@ -44,20 +42,26 @@ export const DatagridHeaderCell = ({
                     onClick={updateSort}
                     data-sort={field.props.source}
                     label={
-                        <FieldTitle
-                            label={field.props.label}
-                            source={field.props.source}
-                            resource={resource}
-                        />
+                      <span style={styles.nonSortableLabel}>
+                          {
+                              <FieldTitle
+                                  label={field.props.label}
+                                  source={field.props.source}
+                                  resource={resource}
+                              />
+                          }
+                      </span>
                     }
                     icon={
                         field.props.source === currentSort.field ? (
                             <ContentSort
                                 style={
                                     currentSort.order === 'ASC' ? (
-                                        { transform: 'rotate(180deg)' }
+                                        { transform: 'rotate(180deg)',
+                                          opacity:.3,
+                                        }
                                     ) : (
-                                        {}
+                                        {opacity:.3}
                                     )
                                 }
                             />
