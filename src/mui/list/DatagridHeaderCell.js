@@ -13,8 +13,6 @@ const styles = {
     },
     nonSortableLabel: {
         position: 'relative',
-        paddingLeft: 16,
-        paddingRight: 16,
         verticalAlign: 'middle',
         letterSpacing: 0,
         fontWeight: 700,
@@ -44,11 +42,15 @@ export const DatagridHeaderCell = ({
                     onClick={updateSort}
                     data-sort={field.props.source}
                     label={
-                        <FieldTitle
-                            label={field.props.label}
-                            source={field.props.source}
-                            resource={resource}
-                        />
+                      <span style={styles.nonSortableLabel}>
+                          {
+                              <FieldTitle
+                                  label={field.props.label}
+                                  source={field.props.source}
+                                  resource={resource}
+                              />
+                          }
+                      </span>
                     }
                     icon={
                         field.props.source === currentSort.field ? (

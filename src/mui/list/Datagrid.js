@@ -106,59 +106,59 @@ class Datagrid extends Component {
         }
         return (
             <Table
-              style={options && options.fixedHeader ? null : styles.table}
-              fixedHeader={false}
-              {...options}
-            >
-              <TableHeader
-                  displaySelectAll={false}
-                  adjustForCheckbox={false}
-                  {...headerOptions}
+                style={options && options.fixedHeader ? null : styles.table}
+                fixedHeader={false}
+                {...options}
               >
-                  <TableRow style={muiTheme.tableRow}>
-                      {React.Children.map(children, (field, index) => {
-                          if (childrenFilter(resource, field)) {
-                              return field ? (
-                                  <DatagridHeaderCell
-                                      key={field.props.source || index}
-                                      field={field}
-                                      defaultStyle={
-                                          index === 0 ? (
-                                              styles.header['th:first-child']
-                                          ) : (
-                                              styles.header.th
-                                          )
-                                      }
-                                      currentSort={currentSort}
-                                      isSorting={
-                                          field.props.source ===
-                                          currentSort.field
-                                      }
-                                      updateSort={this.updateSort}
-                                      resource={resource}
-                                  />
-                              ) : null;
-                          }
-                          return;
-                      })}
-                  </TableRow>
-              </TableHeader>
-              <DatagridBody
-                  resource={resource}
-                  ids={ids}
-                  data={data}
-                  basePath={basePath}
-                  styles={styles}
-                  rowStyle={rowStyle}
-                  isLoading={isLoading}
-                  options={bodyOptions}
-                  rowOptions={rowOptions}
-                  rowClickable={rowClickable}
-                  childrenFilter={childrenFilter}
-              >
-                  {children}
-              </DatagridBody>
-          </Table>
+                <TableHeader
+                    displaySelectAll={false}
+                    adjustForCheckbox={false}
+                    {...headerOptions}
+                >
+                    <TableRow style={muiTheme.tableRow}>
+                        {React.Children.map(children, (field, index) => {
+                            if (childrenFilter(resource, field)) {
+                                return field ? (
+                                    <DatagridHeaderCell
+                                        key={field.props.source || index}
+                                        field={field}
+                                        defaultStyle={
+                                            index === 0 ? (
+                                                styles.header['th:first-child']
+                                            ) : (
+                                                styles.header.th
+                                            )
+                                        }
+                                        currentSort={currentSort}
+                                        isSorting={
+                                            field.props.source ===
+                                            currentSort.field
+                                        }
+                                        updateSort={this.updateSort}
+                                        resource={resource}
+                                    />
+                                ) : null;
+                            }
+                            return;
+                        })}
+                    </TableRow>
+                </TableHeader>
+                <DatagridBody
+                    resource={resource}
+                    ids={ids}
+                    data={data}
+                    basePath={basePath}
+                    styles={styles}
+                    rowStyle={rowStyle}
+                    isLoading={isLoading}
+                    options={bodyOptions}
+                    rowOptions={rowOptions}
+                    rowClickable={rowClickable}
+                    childrenFilter={childrenFilter}
+                >
+                    {children}
+                </DatagridBody>
+            </Table>
         );
     }
 }
