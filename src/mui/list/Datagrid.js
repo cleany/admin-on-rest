@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import muiThemeable from 'material-ui/styles/muiThemeable';
-import { Table, TableHeader, TableRow } from 'material-ui/Table';
+import { Table, TableBody, TableHeader, TableRow, TableRowColumn } from 'material-ui/Table';
 import DatagridHeaderCell from './DatagridHeaderCell';
 import DatagridBody from './DatagridBody';
 
@@ -97,62 +97,68 @@ class Datagrid extends Component {
             bodyOptions,
             rowOptions,
             rowClickable,
+            labelEmptyData,
         } = this.props;
+        if (Object.keys(data).length === 0) {
+          return (
+            <div style={{fontSize:16, padding:'1em 0'}}>{labelEmptyData}</div>
+          );
+        }
         return (
             <Table
-                style={options && options.fixedHeader ? null : styles.table}
-                fixedHeader={false}
-                {...options}
+              style={options && options.fixedHeader ? null : styles.table}
+              fixedHeader={false}
+              {...options}
             >
-                <TableHeader
-                    displaySelectAll={false}
-                    adjustForCheckbox={false}
-                    {...headerOptions}
-                >
-                    <TableRow style={muiTheme.tableRow}>
-                        {React.Children.map(children, (field, index) => {
-                            if (childrenFilter(resource, field)) {
-                                return field ? (
-                                    <DatagridHeaderCell
-                                        key={field.props.source || index}
-                                        field={field}
-                                        defaultStyle={
-                                            index === 0 ? (
-                                                styles.header['th:first-child']
-                                            ) : (
-                                                styles.header.th
-                                            )
-                                        }
-                                        currentSort={currentSort}
-                                        isSorting={
-                                            field.props.source ===
-                                            currentSort.field
-                                        }
-                                        updateSort={this.updateSort}
-                                        resource={resource}
-                                    />
-                                ) : null;
-                            }
-                            return;
-                        })}
-                    </TableRow>
-                </TableHeader>
-                <DatagridBody
-                    resource={resource}
-                    ids={ids}
-                    data={data}
-                    basePath={basePath}
-                    styles={styles}
-                    rowStyle={rowStyle}
-                    isLoading={isLoading}
-                    options={bodyOptions}
-                    rowOptions={rowOptions}
-                    rowClickable={rowClickable}
-                    childrenFilter={childrenFilter}
-                >
-                    {children}
-                </DatagridBody>
-            </Table>
+              <TableHeader
+                  displaySelectAll={false}
+                  adjustForCheckbox={false}
+                  {...headerOptions}
+              >
+                  <TableRow style={muiTheme.tableRow}>
+                      {React.Children.map(children, (field, index) => {
+                          if (childrenFilter(resource, field)) {
+                              return field ? (
+                                  <DatagridHeaderCell
+                                      key={field.props.source || index}
+                                      field={field}
+                                      defaultStyle={
+                                          index === 0 ? (
+                                              styles.header['th:first-child']
+                                          ) : (
+                                              styles.header.th
+                                          )
+                                      }
+                                      currentSort={currentSort}
+                                      isSorting={
+                                          field.props.source ===
+                                          currentSort.field
+                                      }
+                                      updateSort={this.updateSort}
+                                      resource={resource}
+                                  />
+                              ) : null;
+                          }
+                          return;
+                      })}
+                  </TableRow>
+              </TableHeader>
+              <DatagridBody
+                  resource={resource}
+                  ids={ids}
+                  data={data}
+                  basePath={basePath}
+                  styles={styles}
+                  rowStyle={rowStyle}
+                  isLoading={isLoading}
+                  options={bodyOptions}
+                  rowOptions={rowOptions}
+                  rowClickable={rowClickable}
+                  childrenFilter={childrenFilter}
+              >
+                  {children}
+              </DatagridBody>
+          </Table>
         );
     }
 }
@@ -177,11 +183,13 @@ Datagrid.propTypes = {
     rowStyle: PropTypes.func,
     setSort: PropTypes.func,
     styles: PropTypes.object,
+    labelEmptyData: PropTypes.string,
 };
 
 Datagrid.defaultProps = {
     data: {},
     ids: [],
+    labelEmptyData: 'No data',
 };
 
 export default muiThemeable()(Datagrid);

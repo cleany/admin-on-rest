@@ -17,9 +17,9 @@ const styles = {
         paddingRight: 16,
         verticalAlign: 'middle',
         letterSpacing: 0,
-        textTransform: 'uppercase',
-        fontWeight: 500,
-        fontSize: 14,
+        fontWeight: 700,
+        fontSize: 13,
+        opacity: .3,
     },
 };
 
@@ -55,9 +55,11 @@ export const DatagridHeaderCell = ({
                             <ContentSort
                                 style={
                                     currentSort.order === 'ASC' ? (
-                                        { transform: 'rotate(180deg)' }
+                                        { transform: 'rotate(180deg)',
+                                          opacity:.3,
+                                        }
                                     ) : (
-                                        {}
+                                        {opacity:.3}
                                     )
                                 }
                             />
