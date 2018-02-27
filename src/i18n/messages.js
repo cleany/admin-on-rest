@@ -27,6 +27,9 @@ export default {
             not_found: 'Not Found',
         },
         input: {
+            autocomplete: {
+                none: 'None',
+            },
             file: {
                 upload_several:
                     'Drop some files to upload, or click to select one.',
@@ -37,6 +40,13 @@ export default {
                     'Drop some pictures to upload, or click to select one.',
                 upload_single:
                     'Drop a picture to upload, or click to select it.',
+            },
+            references: {
+                all_missing: 'Unable to find references data.',
+                many_missing:
+                    'At least one of the associated references no longer appears to be available.',
+                single_missing:
+                    'Associated reference no longer appears to be available',
             },
         },
         message: {
