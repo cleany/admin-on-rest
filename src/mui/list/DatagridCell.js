@@ -27,7 +27,6 @@ export const DatagridCell = ({
         field.type.defaultProps ? field.type.defaultProps.style : {},
         defaultStyle
     );
-
     const handleClick = clickable
         ? () => {
               history.push(linkToRecord(basePath, record.id));

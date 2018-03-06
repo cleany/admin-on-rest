@@ -4,6 +4,12 @@ import shouldUpdate from 'recompose/shouldUpdate';
 import { TableBody, TableRow } from 'material-ui/Table';
 import DatagridCell from './DatagridCell';
 
+const trStyles = {
+  border: 'solid 1px rgba(0,0,0,0.1)',
+  borderRadius: 4,
+  padding: '4px 0',
+}
+
 const DatagridBody = ({
     resource,
     children,
@@ -29,9 +35,10 @@ const DatagridBody = ({
         {...options}
     >
         {ids.map((id, rowIndex) => {
-            return (
+            return [
+                <TableRow style={{height: '4px'}}/>,
                 <TableRow
-                    style={rowStyle ? rowStyle(data[id], rowIndex) : styles.tr}
+                    style={trStyles}
                     key={id}
                     selectable={false}
                     {...rowOptions}
@@ -47,7 +54,7 @@ const DatagridBody = ({
                                         index === 0 ? (
                                             styles.cell['td:first-child']
                                         ) : (
-                                            styles.cell.td
+                                            index === children.length - 1 ? styles.cell['td:last-child'] : styles.cell.td
                                         )
                                     }
                                     clickable={rowClickable}
@@ -58,7 +65,7 @@ const DatagridBody = ({
                         return;
                     })}
                 </TableRow>
-            );
+            ];
         })}
     </TableBody>
 );

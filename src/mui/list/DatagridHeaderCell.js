@@ -8,6 +8,11 @@ import ContentSort from 'material-ui/svg-icons/content/sort';
 import FieldTitle from '../../util/FieldTitle';
 
 const styles = {
+    button: {
+      padding: 0,
+      width: 'auto',
+      height: 'auto',
+    },
     sortButton: {
         minWidth: 40,
     },
@@ -15,9 +20,10 @@ const styles = {
         position: 'relative',
         verticalAlign: 'middle',
         letterSpacing: 0,
-        fontWeight: 700,
-        fontSize: 13,
-        opacity: .3,
+        fontWeight: 800,
+        fontSize: 12,
+        opacity: .4,
+        textAlign: 'left',
     },
 };
 
@@ -41,6 +47,8 @@ export const DatagridHeaderCell = ({
                     labelPosition="before"
                     onClick={updateSort}
                     data-sort={field.props.source}
+                    style={styles.button}
+                    labelStyle={{padding: 0}}
                     label={
                       <span style={styles.nonSortableLabel}>
                           {

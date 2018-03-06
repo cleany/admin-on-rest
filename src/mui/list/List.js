@@ -48,6 +48,7 @@ export const styles = {
       fontFamily: 'Nunito, sans-serif',
       fontSize: '22px',
       fontWeight: 600,
+      color: '#3CA3DB',
     },
 };
 

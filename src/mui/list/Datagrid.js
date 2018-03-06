@@ -8,28 +8,43 @@ import DatagridBody from './DatagridBody';
 const defaultStyles = {
     table: {
         tableLayout: 'auto',
+        borderCollapse: 'separate',
     },
     tbody: {
         height: 'inherit',
     },
     header: {
         th: {
-            padding: 0,
-            textAlign: 'center',
+            padding: '0 16px',
+            textAlign: 'left',
         },
         'th:first-child': {
-            padding: '0 0 0 12px',
+            padding: '0 16px',
         },
     },
     cell: {
         td: {
-            padding: '0 12px',
+            padding: '0 16px',
             whiteSpace: 'normal',
-            textAlign: 'center',
+            textAlign: 'left',
+            borderTop: 'solid 1px rgba(31,51,61,0.2)',
+            borderBottom: 'solid 1px rgba(31,51,61,0.2)',
         },
         'td:first-child': {
-            padding: '0 12px 0 16px',
+            padding: '0 16px',
             whiteSpace: 'normal',
+            borderTop: 'solid 1px rgba(31,51,61,0.2)',
+            borderBottom: 'solid 1px rgba(31,51,61,0.2)',
+            borderLeft: 'solid 1px rgba(31,51,61,0.2)',
+            borderRadius: '4px 0 0 4px',
+        },
+        'td:last-child': {
+            padding: '0 16px',
+            whiteSpace: 'normal',
+            borderTop: 'solid 1px rgba(31,51,61,0.2)',
+            borderBottom: 'solid 1px rgba(31,51,61,0.2)',
+            borderRight: 'solid 1px rgba(31,51,61,0.2)',
+            borderRadius: '0 4px 4px 0',
         },
     },
 };
