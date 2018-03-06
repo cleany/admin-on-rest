@@ -11,6 +11,20 @@ import DefaultActions from './ShowActions';
 import translate from '../../i18n/translate';
 import withPermissionsFilteredChildren from '../../auth/withPermissionsFilteredChildren';
 
+export const styles = {
+    header: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+    title: {
+      fontFamily: 'Nunito, sans-serif',
+      fontSize: '22px',
+      fontWeight: 600,
+      color: '#3CA3DB',
+    },
+};
+
 export class Show extends Component {
     componentDidMount() {
         this.updateData();
@@ -71,32 +85,30 @@ export class Show extends Component {
         );
 
         return (
-            <div>
-                <Card
-                    className="aor-show-layout"
-                    style={{ opacity: isLoading ? 0.8 : 1 }}
-                >
-                    <div className="aor-show-actions">
-                        {actions &&
-                            React.cloneElement(actions, {
-                                basePath,
-                                data,
-                                hasDelete,
-                                hasEdit,
-                                refresh: this.refresh,
-                                resource,
-                            })}
-                    </div>
-                    <ViewTitle title={titleElement} />
-                    {data &&
-                        React.cloneElement(children, {
-                            resource,
+            <div style={{ opacity: isLoading ? 0.8 : 1 }}>
+              <div style={styles.header}>
+                <ViewTitle title={titleElement} style={styles.title}/>
+                <div className="aor-show-actions">
+                    {actions &&
+                        React.cloneElement(actions, {
                             basePath,
-                            record: data,
-                            translate,
-                            version,
+                            data,
+                            hasDelete,
+                            hasEdit,
+                            refresh: this.refresh,
+                            resource,
                         })}
-                </Card>
+                </div>
+              </div>
+
+              {data &&
+                  React.cloneElement(children, {
+                      resource,
+                      basePath,
+                      record: data,
+                      translate,
+                      version,
+                  })}
             </div>
         );
     }
