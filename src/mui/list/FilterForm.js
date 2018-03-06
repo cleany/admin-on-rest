@@ -65,11 +65,9 @@ export class FilterForm extends Component {
                                     prefix(styles.body)
                                 }
                             >
-                                {filterElement.props.alwaysOn ? (
-                                    <div style={prefix(styles.spacer)}>
-                                        &nbsp;
-                                    </div>
-                                ) : (
+                                {filterElement.props.alwaysOn ?
+                                  null
+                                : (
                                     <IconButton
                                         iconStyle={prefix(styles.icon)}
                                         className="hide-filter"

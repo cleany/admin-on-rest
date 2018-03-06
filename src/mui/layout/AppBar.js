@@ -9,6 +9,7 @@ import { toggleSidebar as toggleSidebarAction } from '../../actions';
 const AppBar = ({ title, toggleSidebar }) => (
     <MuiAppBar
         className="aor-layout-appbar"
+        titleStyle={{textAlign:'center',fontWeight:400}}
         title={title}
         onLeftIconButtonTouchTap={toggleSidebar}
     />

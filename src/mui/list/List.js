@@ -28,11 +28,26 @@ import removeKey from '../../util/removeKey';
 import defaultTheme from '../defaultTheme';
 import withPermissionsFilteredChildren from '../../auth/withPermissionsFilteredChildren';
 
-const styles = {
-    noResults: { padding: 20 },
+export const styles = {
+    noResults: {
+      padding: '16px',
+      fontSize: '22px',
+      fontWeight: 700,
+    },
     header: {
         display: 'flex',
         justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+    card: {
+      overflow: 'hidden',
+      padding: '1em',
+      boxShadow: '0 2px 4px 0 rgba(0, 0, 0, 0.1)',
+    },
+    title: {
+      fontFamily: 'Nunito, sans-serif',
+      fontSize: '22px',
+      fontWeight: 600,
     },
 };
 
@@ -265,73 +280,75 @@ export class List extends Component {
         const muiTheme = getMuiTheme(theme);
         const prefix = autoprefixer(muiTheme);
         return (
-            <div className="list-page">
-                <Card style={{ opacity: isLoading ? 0.8 : 1 }}>
-                    <div style={prefix(styles.header)}>
-                        <ViewTitle title={titleElement} />
-                        {actions &&
-                            React.cloneElement(actions, {
+            <div className="list-page" style={{ opacity: isLoading ? 0.8 : 1 }}>
+              <div style={prefix(styles.header)}>
+                <ViewTitle title={titleElement} style={styles.title}/>
+                <div style={prefix(styles.header)}>
+                  {filters &&
+                      React.cloneElement(filters, {
+                          resource,
+                          hideFilter: this.hideFilter,
+                          filterValues,
+                          displayedFilters: this.state,
+                          setFilters: this.setFilters,
+                          context: 'form',
+                      })}
+                  {actions &&
+                    React.cloneElement(actions, {
+                        resource,
+                        filters,
+                        filterValues,
+                        basePath,
+                        hasCreate,
+                        displayedFilters: this.state,
+                        showFilter: this.showFilter,
+                        theme,
+                        refresh: this.refresh,
+                    })}
+                </div>
+              </div>
+              <Card style={prefix(styles.card)}>
+                {isLoading || total > 0 ? (
+                    <div key={version}>
+                        {ids.length > 0 &&
+                            children &&
+                            React.cloneElement(children, {
                                 resource,
-                                filters,
-                                filterValues,
+                                ids,
+                                data,
+                                currentSort: {
+                                    field: query.sort,
+                                    order: query.order,
+                                },
                                 basePath,
-                                hasCreate,
-                                displayedFilters: this.state,
-                                showFilter: this.showFilter,
-                                theme,
-                                refresh: this.refresh,
+                                isLoading,
+                                setSort: this.setSort,
+                            })}
+                        {!isLoading &&
+                        !ids.length && (
+                            <CardText style={styles.noResults}>
+                                {translate(
+                                    'aor.navigation.no_more_results',
+                                    {
+                                        page: query.page,
+                                    }
+                                )}
+                            </CardText>
+                        )}
+                        {pagination &&
+                            React.cloneElement(pagination, {
+                                total,
+                                page: parseInt(query.page || 1, 10),
+                                perPage: parseInt(query.perPage, 10),
+                                setPage: this.setPage,
                             })}
                     </div>
-                    {filters &&
-                        React.cloneElement(filters, {
-                            resource,
-                            hideFilter: this.hideFilter,
-                            filterValues,
-                            displayedFilters: this.state,
-                            setFilters: this.setFilters,
-                            context: 'form',
-                        })}
-                    {isLoading || total > 0 ? (
-                        <div key={version}>
-                            {ids.length > 0 &&
-                                children &&
-                                React.cloneElement(children, {
-                                    resource,
-                                    ids,
-                                    data,
-                                    currentSort: {
-                                        field: query.sort,
-                                        order: query.order,
-                                    },
-                                    basePath,
-                                    isLoading,
-                                    setSort: this.setSort,
-                                })}
-                            {!isLoading &&
-                            !ids.length && (
-                                <CardText style={styles.noResults}>
-                                    {translate(
-                                        'aor.navigation.no_more_results',
-                                        {
-                                            page: query.page,
-                                        }
-                                    )}
-                                </CardText>
-                            )}
-                            {pagination &&
-                                React.cloneElement(pagination, {
-                                    total,
-                                    page: parseInt(query.page || 1, 10),
-                                    perPage: parseInt(query.perPage, 10),
-                                    setPage: this.setPage,
-                                })}
-                        </div>
-                    ) : (
-                        <CardText style={styles.noResults}>
-                            {translate('aor.navigation.no_results')}
-                        </CardText>
-                    )}
-                </Card>
+                ) : (
+                    <CardText style={styles.noResults}>
+                        {translate('aor.navigation.no_results')}
+                    </CardText>
+                )}
+              </Card>
             </div>
         );
     }

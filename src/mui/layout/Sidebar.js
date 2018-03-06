@@ -45,27 +45,15 @@ class Sidebar extends PureComponent {
         const styles = getStyles(muiTheme);
 
         return (
-            <Responsive
-                small={
-                    <Drawer
-                        docked={false}
-                        open={open}
-                        onRequestChange={setSidebarVisibility}
-                    >
-                        {React.cloneElement(children, {
-                            onMenuTap: this.handleClose,
-                        })}
-                    </Drawer>
-                }
-                medium={
-                    <Paper
-                        className="aor-layout-sidebar"
-                        style={open ? styles.sidebarOpen : styles.sidebarClosed}
-                    >
-                        {children}
-                    </Paper>
-                }
-            />
+          <Drawer
+              docked={false}
+              open={open}
+              onRequestChange={setSidebarVisibility}
+          >
+              {React.cloneElement(children, {
+                  onMenuTap: this.handleClose,
+              })}
+          </Drawer>
         );
     }
 }

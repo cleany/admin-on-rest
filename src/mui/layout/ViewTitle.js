@@ -3,11 +3,11 @@ import { CardTitle } from 'material-ui/Card';
 import withWidth from 'material-ui/utils/withWidth';
 import AppBarMobile from './AppBarMobile';
 
-const ViewTitle = ({ title, width }) =>
+const ViewTitle = ({ title, width, style }) =>
     width === 1 ? (
         <AppBarMobile title={title} />
     ) : (
-        <CardTitle title={title} className="title" />
+        <h1 className="title" style={style}>{title}</h1>
     );
 
 export default withWidth()(ViewTitle);
