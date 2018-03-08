@@ -22,6 +22,15 @@ export const styles = {
       fontSize: '22px',
       fontWeight: 600,
       color: '#3CA3DB',
+      margin: '8px 0 16px',
+    },
+    breadcrumb: {
+      fontSize: '12px',
+      color: 'rgba(31, 51, 61, 0.4)',
+      textDecoration: 'none',
+      fontFamily: 'Nunito, sans-serif',
+      fontWeight: 700,
+      textTransform: 'capitalize',
     },
 };
 
@@ -87,7 +96,12 @@ export class Show extends Component {
         return (
             <div style={{ opacity: isLoading ? 0.8 : 1 }}>
               <div style={styles.header}>
-                <ViewTitle title={titleElement} style={styles.title}/>
+                <div>
+                  <a href={`#/${this.props.resource}`} style={styles.breadcrumb}>
+                    {`${this.props.resource} /`}
+                  </a>
+                  <ViewTitle title={titleElement} style={styles.title}/>
+                </div>
                 <div className="aor-show-actions">
                     {actions &&
                         React.cloneElement(actions, {

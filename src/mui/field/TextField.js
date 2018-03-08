@@ -4,6 +4,7 @@ import get from 'lodash.get';
 import pure from 'recompose/pure';
 
 const TextField = ({ source, record = {}, elStyle }) => {
+    console.log(record);
     return <span style={elStyle}>{get(record, source)}</span>;
 };
 

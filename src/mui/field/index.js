@@ -6,6 +6,7 @@ export EmailField from './EmailField';
 export FileField from './FileField';
 export ImageField from './ImageField';
 export FunctionField from './FunctionField';
+export MultipleTextField from './MultipleTextField';
 export NumberField from './NumberField';
 export ReferenceField from './ReferenceField';
 export ReferenceArrayField from './ReferenceArrayField';
