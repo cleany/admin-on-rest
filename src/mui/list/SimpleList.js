@@ -19,9 +19,10 @@ const SimpleList = ({
     rightIcon,
     itemStyle,
     itemInnerDivStyle,
+    parentStyle,
     disabled,
 }) => (
-    <List>
+    <List style={parentStyle}>
         {ids.map(id => (
             <ListItem
                 key={id}
@@ -64,6 +65,7 @@ SimpleList.propTypes = {
     rightIcon: PropTypes.func,
     itemStyle: PropTypes.object,
     itemInnerDivStyle: PropTypes.object,
+    parentStyle: PropTypes.object,
     disabled: PropTypes.bool,
 };
 

@@ -116,7 +116,7 @@ class Datagrid extends Component {
         } = this.props;
         if (Object.keys(data).length === 0) {
           return (
-            <div style={{fontSize:16, padding:'1em 0'}}>{labelEmptyData}</div>
+            <div style={{fontSize:16, padding:'0 1em 1em'}}>{labelEmptyData}</div>
           );
         }
         return (
