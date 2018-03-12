@@ -102,17 +102,7 @@ export class Show extends Component {
                   </a>
                   <ViewTitle title={titleElement} style={styles.title}/>
                 </div>
-                <div className="aor-show-actions">
-                    {actions &&
-                        React.cloneElement(actions, {
-                            basePath,
-                            data,
-                            hasDelete,
-                            hasEdit,
-                            refresh: this.refresh,
-                            resource,
-                        })}
-                </div>
+
               </div>
 
               {data &&

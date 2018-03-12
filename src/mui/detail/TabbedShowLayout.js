@@ -33,13 +33,6 @@ const styles = {
     fontWeight: 600,
     boxShadow: '0 0 2px 0 rgba(0,0,0,.1)',
   },
-  container: {
-    overflow: 'hidden',
-    padding: '1em',
-    boxShadow: '0 2px 4px 0 rgba(0, 0, 0, 0.1)',
-    backgroundColor: '#FFFFFF',
-    borderRadius: '6px',
-  },
 };
 
 class TabbedShowLayout extends Component {
@@ -65,7 +58,7 @@ class TabbedShowLayout extends Component {
             version,
         } = this.props;
         return (
-            <div key={version} style={styles.container}>
+            <div key={version}>
                 <Tabs
                     value={this.state.value}
                     onChange={this.handleChange}
@@ -110,7 +103,7 @@ TabbedShowLayout.propTypes = {
 };
 
 TabbedShowLayout.defaultProps = {
-    contentContainerStyle: { borderTop: 'solid 1px #e0e0e0' },
+    contentContainerStyle: {},
 };
 
 export default TabbedShowLayout;
