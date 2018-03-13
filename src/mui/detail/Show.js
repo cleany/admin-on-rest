@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Card } from 'material-ui/Card';
 import compose from 'recompose/compose';
 import inflection from 'inflection';
+import withWidth from 'material-ui/utils/withWidth';
 import ViewTitle from '../layout/ViewTitle';
 import Title from '../layout/Title';
 import { crudGetOne as crudGetOneAction } from '../../actions/dataActions';
@@ -31,6 +32,9 @@ export const styles = {
       fontFamily: 'Nunito, sans-serif',
       fontWeight: 700,
       textTransform: 'capitalize',
+    },
+    mobile: {
+      padding: '0 1em',
     },
 };
 
@@ -73,6 +77,7 @@ export class Show extends Component {
             hasEdit,
             translate,
             version,
+            width,
         } = this.props;
 
         if (!children) return null;
@@ -96,7 +101,7 @@ export class Show extends Component {
         return (
             <div style={{ opacity: isLoading ? 0.8 : 1 }}>
               <div style={styles.header}>
-                <div>
+                <div style={width === 1 ? styles.mobile : null}>
                   <a href={`#/${this.props.resource}`} style={styles.breadcrumb}>
                     {`${this.props.resource} /`}
                   </a>
@@ -134,6 +139,7 @@ Show.propTypes = {
     title: PropTypes.any,
     translate: PropTypes.func,
     version: PropTypes.number.isRequired,
+    width: PropTypes.number,
 };
 
 function mapStateToProps(state, props) {
@@ -151,6 +157,7 @@ function mapStateToProps(state, props) {
 
 const enhance = compose(
     connect(mapStateToProps, { crudGetOne: crudGetOneAction }),
+    withWidth(),
     translate,
     withPermissionsFilteredChildren
 );
