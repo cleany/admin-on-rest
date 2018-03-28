@@ -29,7 +29,6 @@ export default {
         input: {
             autocomplete: {
                 none: 'None',
-                all: 'All',
             },
             file: {
                 upload_several:
