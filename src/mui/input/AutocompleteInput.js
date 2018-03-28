@@ -102,7 +102,7 @@ export class AutocompleteInput extends Component {
         );
         const searchText =
             (selectedSource && this.getSuggestion(selectedSource)) ||
-            translate('aor.input.autocomplete.none');
+            translate(`aor.input.autocomplete.${props.allForEmpty?'all':'none'}`);
         this.setState({ searchText });
     }
 
@@ -142,7 +142,7 @@ export class AutocompleteInput extends Component {
             return [
                 {
                     value: '',
-                    text: translate('aor.input.autocomplete.none'),
+                    text: translate(`aor.input.autocomplete.${this.props.allForEmpty?'all':'none'}`),
                 },
                 ...choices,
             ];
@@ -222,6 +222,7 @@ AutocompleteInput.propTypes = {
     source: PropTypes.string,
     translate: PropTypes.func.isRequired,
     translateChoice: PropTypes.bool.isRequired,
+    allForEmpty:  PropTypes.bool,
 };
 
 AutocompleteInput.defaultProps = {
@@ -232,6 +233,7 @@ AutocompleteInput.defaultProps = {
     optionText: 'name',
     optionValue: 'id',
     translateChoice: true,
+    allForEmpty: false,
 };
 
 export default translate(AutocompleteInput);
