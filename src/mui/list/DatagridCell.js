@@ -53,7 +53,8 @@ DatagridCell.propTypes = {
     style: PropTypes.object,
     defaultStyle: PropTypes.shape({
         td: PropTypes.object,
-        'td:first-child': PropTypes.object,
+        'td:first-child': PropTypes.objesct,
+        'td:last-child': PropTypes.object,
     }),
     history: PropTypes.object,
     match: PropTypes.object.isRequired,

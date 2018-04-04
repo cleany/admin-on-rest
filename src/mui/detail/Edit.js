@@ -5,6 +5,7 @@ import { Card, CardText } from 'material-ui/Card';
 import compose from 'recompose/compose';
 import inflection from 'inflection';
 import { reset } from 'redux-form';
+import withWidth from 'material-ui/utils/withWidth';
 import ViewTitle from '../layout/ViewTitle';
 import Title from '../layout/Title';
 import {
@@ -14,6 +15,32 @@ import {
 import DefaultActions from './EditActions';
 import translate from '../../i18n/translate';
 import withPermissionsFilteredChildren from '../../auth/withPermissionsFilteredChildren';
+
+const styles = {
+    header: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+    title: {
+      fontFamily: 'Nunito, sans-serif',
+      fontSize: '22px',
+      fontWeight: 600,
+      color: '#3CA3DB',
+      margin: '8px 0 16px',
+    },
+    breadcrumb: {
+      fontSize: '12px',
+      color: 'rgba(31, 51, 61, 0.4)',
+      textDecoration: 'none',
+      fontFamily: 'Nunito, sans-serif',
+      fontWeight: 700,
+      textTransform: 'capitalize',
+    },
+    mobile: {
+      padding: '0 1em',
+    },
+};
 
 export class Edit extends Component {
     componentDidMount() {
@@ -59,7 +86,7 @@ export class Edit extends Component {
 
     render() {
         const {
-            actions = <DefaultActions />,
+            actions,
             children,
             data,
             hasDelete,
@@ -71,6 +98,7 @@ export class Edit extends Component {
             title,
             translate,
             version,
+            width,
         } = this.props;
 
         if (!children) return null;
@@ -93,35 +121,44 @@ export class Edit extends Component {
         );
 
         return (
-            <div className="edit-page">
-                <Card style={{ opacity: isLoading ? 0.8 : 1 }}>
-                    {actions &&
-                        React.cloneElement(actions, {
-                            basePath,
-                            data,
-                            hasDelete,
-                            hasShow,
-                            hasList,
-                            resource,
-                        })}
-                    <ViewTitle title={titleElement} />
-                    {data ? (
-                        React.cloneElement(children, {
-                            save: this.save,
-                            resource,
-                            basePath,
-                            record: data,
-                            translate,
-                            version,
-                            redirect:
-                                typeof children.props.redirect === 'undefined'
-                                    ? this.defaultRedirectRoute()
-                                    : children.props.redirect,
-                        })
-                    ) : (
-                        <CardText>&nbsp;</CardText>
-                    )}
-                </Card>
+            <div className="edit-page" style={{ opacity: isLoading ? 0.8 : 1 }}>
+              <div style={styles.header}>
+                <div style={width === 1 ? styles.mobile : null}>
+                  <a href={`#/${this.props.resource}`} style={styles.breadcrumb}>
+                    {`${this.props.resource} / `}
+                  </a>
+                  {this.props.data && this.props.data.account_name
+                    ? <a href={`#/${this.props.resource}/${this.props.data.id}`} style={styles.breadcrumb}>
+                    {` ${this.props.data.account_name} / `}
+                  </a> : null}
+                  <ViewTitle title={titleElement} style={styles.title}/>
+                </div>
+                <div>
+                  {actions &&
+                      React.cloneElement(actions, {
+                          basePath,
+                          data,
+                          hasDelete,
+                          hasShow,
+                          hasList,
+                          resource,
+                      })}
+                </div>
+              </div>
+              {data
+                ? (React.cloneElement(children, {
+                      save: this.save,
+                      resource,
+                      basePath,
+                      record: data,
+                      translate,
+                      version,
+                      redirect:
+                          typeof children.props.redirect === 'undefined'
+                              ? this.defaultRedirectRoute()
+                              : children.props.redirect,
+                  })
+              ) : null}
             </div>
         );
     }
@@ -144,6 +181,7 @@ Edit.propTypes = {
     title: PropTypes.any,
     translate: PropTypes.func,
     version: PropTypes.number.isRequired,
+    width: PropTypes.number,
 };
 
 function mapStateToProps(state, props) {
@@ -165,6 +203,7 @@ const enhance = compose(
         crudUpdate: crudUpdateAction,
         resetForm: reset,
     }),
+    withWidth(),
     translate,
     withPermissionsFilteredChildren
 );

@@ -56,7 +56,7 @@ const Toolbar = ({
             </MuiToolbar>
         }
         medium={
-            <MuiToolbar>
+            <MuiToolbar style={{backgroundColor: 'transparent', padding: 0, justifyContent: 'flex-end'}}>
                 <ToolbarGroup>
                     {Children.count(children) === 0 ? (
                         <SaveButton

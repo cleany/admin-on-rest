@@ -64,6 +64,13 @@ import FieldTitle from '../../util/FieldTitle';
  *
  * The object passed as `options` props is passed to the material-ui <SelectField> component
  */
+
+const style = {
+  underline: {
+
+  }
+}
+
 export class SelectInput extends Component {
     /*
      * Using state to bypass a redux-form comparison but which prevents re-rendering
@@ -125,7 +132,7 @@ export class SelectInput extends Component {
     render() {
         const {
             choices,
-            elStyle,
+            elStyle = style,
             isRequired,
             label,
             meta,
@@ -139,7 +146,6 @@ export class SelectInput extends Component {
             );
         }
         const { touched, error } = meta;
-
         return (
             <SelectField
                 value={this.state.value}
@@ -151,11 +157,14 @@ export class SelectInput extends Component {
                         isRequired={isRequired}
                     />
                 }
+                floatingLabelFixed={true}
                 onChange={this.handleChange}
                 autoWidth
-                style={elStyle}
                 errorText={touched && error}
                 {...options}
+                underlineStyle={elStyle.underline}
+                style={elStyle.select}
+                labelStyle={elStyle.label}
             >
                 {this.addAllowEmpty(choices.map(this.renderMenuItem))}
             </SelectField>

@@ -67,6 +67,7 @@ export class TextInput extends Component {
                         isRequired={isRequired}
                     />
                 }
+                floatingLabelFixed={true}
                 errorText={touched && error}
                 style={elStyle}
                 {...options}

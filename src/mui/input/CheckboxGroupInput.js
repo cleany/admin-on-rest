@@ -37,6 +37,51 @@ const getStyles = muiTheme => {
     };
 };
 
+const style = {
+  box: {
+    border: `solid 1px #1F333D`,
+    borderRadius: '4px',
+    opacity: '.4',
+    marginRight: '1em',
+    marginBottom: '.5em',
+    minWidth: '180px',
+    Width: '180px',
+    maxWidth: '100%',
+  },
+  boxSelected: {
+    border: `solid 1px #3CA3DB`,
+    borderRadius: '4px',
+    opacity: '1',
+    marginRight: '1em',
+    marginBottom: '.5em',
+    minWidth: '180px',
+    width: '180px',
+    maxWidth: '100%',
+  },
+  label: {
+    color: '#1F333D',
+    float: 'inherit',
+    width: '100%',
+    textTransform: 'capitalize',
+    padding: '1em',
+    fontSize: 12,
+    whiteSpace: 'pre-wrap',
+    lineHeight: '1.6',
+  },
+  labelSelected: {
+    color: '#3CA3DB',
+    float: 'inherit',
+    width: '100%',
+    textTransform: 'capitalize',
+    padding: '1em',
+    fontSize: 12,
+    whiteSpace: 'pre-wrap',
+    lineHeight: '1.6',
+  },
+  icon: {
+    display: 'none',
+  },
+};
 /**
  * An Input component for a checkbox group, using an array of objects for the options
  *
@@ -102,7 +147,6 @@ const getStyles = muiTheme => {
 export class CheckboxGroupInputComponent extends Component {
     handleCheck = (event, isChecked) => {
         const { input: { value, onChange } } = this.props;
-
         if (isChecked) {
             onChange([...value, ...[event.target.value]]);
         } else {
@@ -124,17 +168,15 @@ export class CheckboxGroupInputComponent extends Component {
             : typeof optionText === 'function'
               ? optionText(choice)
               : get(choice, optionText);
+        const isChecked = value
+        ? (value.find(v => v == get(choice, optionValue)) !== undefined)
+        : (false);
         return (
+          <div style={isChecked ? style.boxSelected : style.box }>
             <Checkbox
                 key={get(choice, optionValue)}
-                checked={
-                    value ? (
-                        value.find(v => v == get(choice, optionValue)) !==
-                        undefined
-                    ) : (
-                        false
-                    )
-                }
+                checked={isChecked}
+                iconStyle={style.icon}
                 onCheck={this.handleCheck}
                 value={get(choice, optionValue)}
                 label={
@@ -144,8 +186,10 @@ export class CheckboxGroupInputComponent extends Component {
                         choiceName
                     )
                 }
+                labelStyle={isChecked ? style.labelSelected : style.label }
                 {...options}
             />
+          </div>
         );
     };
 
@@ -160,7 +204,6 @@ export class CheckboxGroupInputComponent extends Component {
         } = this.props;
         const styles = getStyles(muiTheme);
         const { prepareStyles } = muiTheme;
-
         return (
             <div>
                 <div style={prepareStyles(styles.labelContainer)}>
@@ -173,7 +216,9 @@ export class CheckboxGroupInputComponent extends Component {
                         />
                     </div>
                 </div>
-                {choices.map(this.renderCheckbox)}
+                <div style={{display: 'flex', flexWrap: 'wrap'}}>
+                  {choices.map(this.renderCheckbox)}
+                </div>
             </div>
         );
     }

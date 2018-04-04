@@ -41,7 +41,7 @@ export const DatagridHeaderCell = ({
         defaultStyle
     );
     return (
-        <TableHeaderColumn style={style}>
+        <TableHeaderColumn>
             {field.props.sortable !== false && field.props.source ? (
                 <FlatButton
                     labelPosition="before"

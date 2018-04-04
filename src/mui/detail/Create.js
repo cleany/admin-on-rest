@@ -4,12 +4,39 @@ import { connect } from 'react-redux';
 import { Card } from 'material-ui/Card';
 import compose from 'recompose/compose';
 import inflection from 'inflection';
+import withWidth from 'material-ui/utils/withWidth';
 import ViewTitle from '../layout/ViewTitle';
 import Title from '../layout/Title';
 import { crudCreate as crudCreateAction } from '../../actions/dataActions';
 import DefaultActions from './CreateActions';
 import translate from '../../i18n/translate';
 import withPermissionsFilteredChildren from '../../auth/withPermissionsFilteredChildren';
+
+const styles = {
+    header: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+    title: {
+      fontFamily: 'Nunito, sans-serif',
+      fontSize: '22px',
+      fontWeight: 600,
+      color: '#3CA3DB',
+      margin: '8px 0 16px',
+    },
+    breadcrumb: {
+      fontSize: '12px',
+      color: 'rgba(31, 51, 61, 0.4)',
+      textDecoration: 'none',
+      fontFamily: 'Nunito, sans-serif',
+      fontWeight: 700,
+      textTransform: 'capitalize',
+    },
+    mobile: {
+      padding: '0 1em',
+    },
+};
 
 class Create extends Component {
     getBasePath() {
@@ -38,7 +65,7 @@ class Create extends Component {
 
     render() {
         const {
-            actions = <DefaultActions />,
+            actions,
             children,
             isLoading,
             resource,
@@ -46,6 +73,7 @@ class Create extends Component {
             translate,
             record,
             hasList,
+            width,
         } = this.props;
 
         if (!children) return null;
@@ -63,27 +91,34 @@ class Create extends Component {
         );
 
         return (
-            <div className="create-page">
-                <Card style={{ opacity: isLoading ? 0.8 : 1 }}>
-                    {actions &&
-                        React.cloneElement(actions, {
-                            basePath,
-                            resource,
-                            hasList,
-                        })}
-                    <ViewTitle title={titleElement} />
-                    {React.cloneElement(children, {
-                        save: this.save,
-                        resource,
-                        basePath,
-                        record,
-                        translate,
-                        redirect:
-                            typeof children.props.redirect === 'undefined'
-                                ? this.defaultRedirectRoute()
-                                : children.props.redirect,
-                    })}
-                </Card>
+            <div className="create-page" style={{ opacity: isLoading ? 0.8 : 1 }}>
+              <div style={styles.header}>
+                <div style={width === 1 ? styles.mobile : null}>
+                  <a href={`#/${this.props.resource}`} style={styles.breadcrumb}>
+                    {`${this.props.resource} / `}
+                  </a>
+                  <ViewTitle title={titleElement} style={styles.title}/>
+                </div>
+                <div>
+                  {actions &&
+                      React.cloneElement(actions, {
+                          basePath,
+                          resource,
+                          hasList,
+                      })}
+                </div>
+              </div>
+                {React.cloneElement(children, {
+                      save: this.save,
+                      resource,
+                      basePath,
+                      record,
+                      translate,
+                      redirect:
+                          typeof children.props.redirect === 'undefined'
+                              ? this.defaultRedirectRoute()
+                              : children.props.redirect,
+                  })}
             </div>
         );
     }
@@ -100,6 +135,7 @@ Create.propTypes = {
     translate: PropTypes.func.isRequired,
     record: PropTypes.object,
     hasList: PropTypes.bool,
+    width: PropTypes.number,
 };
 
 Create.defaultProps = {
@@ -114,6 +150,7 @@ function mapStateToProps(state) {
 
 const enhance = compose(
     connect(mapStateToProps, { crudCreate: crudCreateAction }),
+    withWidth(),
     translate,
     withPermissionsFilteredChildren
 );

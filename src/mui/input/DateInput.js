@@ -3,6 +3,10 @@ import PropTypes from 'prop-types';
 import DatePicker from 'material-ui/DatePicker';
 import FieldTitle from '../../util/FieldTitle';
 
+const defaultStyle = {
+  width: '100%'
+}
+
 export const datify = input => {
     if (!input) {
         return null;
@@ -44,6 +48,7 @@ class DateInput extends Component {
             source,
             elStyle,
             resource,
+            elTextStyle = defaultStyle,
         } = this.props;
         if (typeof meta === 'undefined') {
             throw new Error(
@@ -64,6 +69,7 @@ class DateInput extends Component {
                         isRequired={isRequired}
                     />
                 }
+                floatingLabelFixed={true}
                 DateTimeFormat={Intl.DateTimeFormat}
                 container="inline"
                 autoOk
@@ -72,6 +78,7 @@ class DateInput extends Component {
                 onBlur={this.onBlur}
                 onDismiss={this.onDismiss}
                 style={elStyle}
+                textFieldStyle={elTextStyle}
                 {...options}
             />
         );
@@ -88,6 +95,7 @@ DateInput.propTypes = {
     options: PropTypes.object,
     resource: PropTypes.string,
     source: PropTypes.string,
+    elTextStyle: PropTypes.object,
 };
 
 DateInput.defaultProps = {

@@ -163,6 +163,9 @@ export class AutocompleteInput extends Component {
             optionValue,
             resource,
             source,
+            inputStyle,
+            elListStyle,
+            elMenuStyle,
         } = this.props;
         if (typeof meta === 'undefined') {
             throw new Error(
@@ -190,6 +193,7 @@ export class AutocompleteInput extends Component {
                         isRequired={isRequired}
                     />
                 }
+                floatingLabelFixed={true}
                 filter={filter}
                 onNewRequest={this.handleNewRequest}
                 onUpdateInput={this.handleUpdateInput}
@@ -197,6 +201,9 @@ export class AutocompleteInput extends Component {
                 style={elStyle}
                 errorText={touched && error}
                 {...options}
+                textFieldStyle={inputStyle}
+                listStyle={elListStyle}
+                menuItemStyle={elMenuStyle}
             />
         );
     }
@@ -222,6 +229,9 @@ AutocompleteInput.propTypes = {
     source: PropTypes.string,
     translate: PropTypes.func.isRequired,
     translateChoice: PropTypes.bool.isRequired,
+    inputStyle: PropTypes.object,
+    elMenuStyle: PropTypes.object,
+    elListStyle: PropTypes.object,
 };
 
 AutocompleteInput.defaultProps = {
