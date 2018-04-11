@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Labeled from '../input/Labeled';
 import get from 'lodash.get';
 
-const defaultStyle = { padding: '0 1em 1em 1em' };
 const SimpleShowLayout = ({
     basePath,
     children = [],
@@ -12,10 +11,10 @@ const SimpleShowLayout = ({
     },
     record,
     resource,
-    style = defaultStyle,
+    style,
     version,
 }) => (
-    <div style={style} key={version}>
+    <div key={version}>
         {Children.map(children, field => {
             if (!field) {
                 return;
@@ -27,31 +26,27 @@ const SimpleShowLayout = ({
                 }
             }
             return (
-                <div
-                    key={field.props.source}
-                    style={field.props.style}
-                    className={`aor-field aor-field-${field.props.source}`}
-                >
-                    {field.props.addLabel ? (
-                        <Labeled
-                            record={record}
-                            resource={resource}
-                            basePath={basePath}
-                            label={field.props.label}
-                            source={field.props.source}
-                            disabled={false}
-                        >
-                            {field}
-                        </Labeled>
-                    ) : typeof field.type === 'string' ? (
-                        field
-                    ) : (
-                        React.cloneElement(field, {
-                            record,
-                            resource,
-                            basePath,
-                        })
-                    )}
+                <div>
+                  {field.props.addLabel ? (
+                      <Labeled
+                          record={record}
+                          resource={resource}
+                          basePath={basePath}
+                          label={field.props.label}
+                          source={field.props.source}
+                          disabled={false}
+                      >
+                          {field}
+                      </Labeled>
+                  ) : typeof field.type === 'string' ? (
+                      field
+                  ) : (
+                      React.cloneElement(field, {
+                          record,
+                          resource,
+                          basePath,
+                      })
+                  )}
                 </div>
             );
         })}

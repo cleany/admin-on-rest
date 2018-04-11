@@ -6,23 +6,26 @@ import { Link } from 'react-router-dom';
 const tertiaryStyle = { float: 'right', opacity: 0.541176 };
 
 const SimpleList = ({
-    ids,
-    data,
-    basePath,
-    primaryText,
-    secondaryText,
-    secondaryTextLines,
-    tertiaryText,
-    leftAvatar,
-    leftIcon,
-    rightAvatar,
-    rightIcon,
-    itemStyle,
-    itemInnerDivStyle,
-    disabled,
+  ids,
+  data,
+  basePath,
+  primaryText,
+  secondaryText,
+  secondaryTextLines,
+  tertiaryText,
+  leftAvatar,
+  leftIcon,
+  rightAvatar,
+  rightIcon,
+  itemStyle,
+  itemInnerDivStyle,
+  parentStyle,
+  elStyle,
+  disabled,
 }) => (
-    <List>
-        {ids.map(id => (
+  <List style={parentStyle}>
+      {ids.map(id => (
+          <div style={elStyle}>
             <ListItem
                 key={id}
                 primaryText={
@@ -46,25 +49,28 @@ const SimpleList = ({
                 innerDivStyle={itemInnerDivStyle}
                 disabled={disabled}
             />
-        ))}
-    </List>
+          </div>
+      ))}
+  </List>
 );
 
 SimpleList.propTypes = {
-    ids: PropTypes.array,
-    data: PropTypes.object,
-    basePath: PropTypes.string,
-    primaryText: PropTypes.func,
-    secondaryText: PropTypes.func,
-    secondaryTextLines: PropTypes.number,
-    tertiaryText: PropTypes.func,
-    leftAvatar: PropTypes.func,
-    leftIcon: PropTypes.func,
-    rightAvatar: PropTypes.func,
-    rightIcon: PropTypes.func,
-    itemStyle: PropTypes.object,
-    itemInnerDivStyle: PropTypes.object,
-    disabled: PropTypes.bool,
+  ids: PropTypes.array,
+  data: PropTypes.object,
+  basePath: PropTypes.string,
+  primaryText: PropTypes.func,
+  secondaryText: PropTypes.func,
+  secondaryTextLines: PropTypes.number,
+  tertiaryText: PropTypes.func,
+  leftAvatar: PropTypes.func,
+  leftIcon: PropTypes.func,
+  rightAvatar: PropTypes.func,
+  rightIcon: PropTypes.func,
+  itemStyle: PropTypes.object,
+  itemInnerDivStyle: PropTypes.object,
+  parentStyle: PropTypes.object,
+  elStyle: PropTypes.object,
+  disabled: PropTypes.bool,
 };
 
 export default SimpleList;
