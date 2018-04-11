@@ -6,6 +6,8 @@ import createHistory from 'history/createHashHistory';
 import { ConnectedRouter, routerMiddleware } from 'react-router-redux';
 import createSagaMiddleware from 'redux-saga';
 import { all, fork } from 'redux-saga/effects';
+import { persistStore } from 'redux-persist'
+import { PersistGate } from 'redux-persist/integration/react'
 import withContext from 'recompose/withContext';
 import ReactGA from 'react-ga';
 import { Route, Switch } from 'react-router-dom';
@@ -60,6 +62,8 @@ const Admin = ({
     );
     sagaMiddleware.run(saga);
 
+    const persistor = persistStore(store);
+
     const logout = authClient ? createElement(logoutButton || Logout) : null;
 
     if (idAnalytics) {
@@ -79,6 +83,7 @@ const Admin = ({
 
     return (
         <Provider store={store}>
+          <PersistGate loading={null} persistor={persistor}>
             <TranslationProvider messages={messages}>
                 <ConnectedRouter history={routerHistory}>
                     <Switch>
@@ -120,6 +125,7 @@ const Admin = ({
                     </Switch>
                 </ConnectedRouter>
             </TranslationProvider>
+          </PersistGate>
         </Provider>
     );
 };
