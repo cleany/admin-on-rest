@@ -7,27 +7,15 @@ import FlatButton from 'material-ui/FlatButton';
 import ContentSort from 'material-ui/svg-icons/content/sort';
 import FieldTitle from '../../util/FieldTitle';
 
-const styles = {
-    sortButton: {
-        minWidth: 40,
-    },
-    nonSortableLabel: {
-        position: 'relative',
-        verticalAlign: 'middle',
-        letterSpacing: 0,
-        fontWeight: 700,
-        fontSize: 13,
-        opacity: .3,
-    },
-};
-
 export const DatagridHeaderCell = ({
     field,
     defaultStyle,
     currentSort,
     updateSort,
     resource,
+    styles,
 }) => {
+    console.log(styles);
     const style = defaultsDeep(
         {},
         field.props.headerStyle,
@@ -70,6 +58,7 @@ export const DatagridHeaderCell = ({
                         )
                     }
                     style={styles.sortButton}
+                    labelStyle={styles.label}
                 />
             ) : (
                 <span style={styles.nonSortableLabel}>
@@ -102,6 +91,7 @@ DatagridHeaderCell.propTypes = {
     sortable: PropTypes.bool,
     resource: PropTypes.string,
     updateSort: PropTypes.func.isRequired,
+    styles: PropTypes.object,
 };
 
 export default shouldUpdate(

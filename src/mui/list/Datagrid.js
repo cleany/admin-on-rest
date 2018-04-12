@@ -5,35 +5,6 @@ import { Table, TableHeader, TableRow } from 'material-ui/Table';
 import DatagridHeaderCell from './DatagridHeaderCell';
 import DatagridBody from './DatagridBody';
 
-const defaultStyles = {
-    table: {
-        tableLayout: 'auto',
-    },
-    tbody: {
-        height: 'inherit',
-    },
-    header: {
-        th: {
-            padding: 0,
-            textAlign: 'center',
-        },
-        'th:first-child': {
-            padding: '0 0 0 12px',
-        },
-    },
-    cell: {
-        td: {
-            padding: '0 12px',
-            whiteSpace: 'normal',
-            textAlign: 'center',
-        },
-        'td:first-child': {
-            padding: '0 12px 0 16px',
-            whiteSpace: 'normal',
-        },
-    },
-};
-
 /**
  * The Datagrid component renders a list of records as a table.
  * It is usually used as a child of the <List> and <ReferenceManyField> components.
@@ -89,7 +60,7 @@ class Datagrid extends Component {
             data,
             currentSort,
             basePath,
-            styles = defaultStyles,
+            styles,
             muiTheme,
             rowStyle,
             options,
@@ -136,6 +107,7 @@ class Datagrid extends Component {
                                         }
                                         updateSort={this.updateSort}
                                         resource={resource}
+                                        styles={styles}
                                     />
                                 ) : null;
                             }
@@ -190,6 +162,23 @@ Datagrid.defaultProps = {
     data: {},
     ids: [],
     labelEmptyData: 'No data',
+    styles: {
+      table: {},
+      tbody: {},
+      header: {
+          th: {},
+          'th:first-child': {},
+      },
+      cell: {
+          td: {},
+          'td:first-child': {},
+          'td:last-child': {},
+      },
+      button: {},
+      label: {},
+      sortButton: {},
+      nonSortableLabel: {},
+    },
 };
 
 export default muiThemeable()(Datagrid);
