@@ -24,47 +24,47 @@ export const DatagridHeaderCell = ({
     );
     return (
         <TableHeaderColumn style={style}>
-          <FlatButton
-            labelPosition="before"
-            onClick={
-              field.props.sortable !== false && field.props.source
-              ? updateSort
-              : null
-            }
-            data-sort={
-              field.props.sortable !== false && field.props.source
-              ? field.props.source
-              : null
-            }
-            label={
-              <span style={styles.nonSortableLabel}>
-                <FieldTitle
-                  label={field.props.label}
-                  source={field.props.source}
-                  resource={resource}
-                />
-              </span>
-            }
-            icon={
-              field.props.sortable !== false &&
-              field.props.source === currentSort.field ? (
-                <ContentSort
-                  style={
-                    currentSort.order === 'ASC'
-                    ? ({ transform: 'rotate(180deg)', opacity:.3 })
-                    : ({ opacity:.3 })
-                  }
-                />
-              ) : ( false )
-            }
-            style={
-              field.props.sortable !== false
-              ? styles.sortButton
-              : styles.nonSortButton
-            }
-            labelStyle={styles.label}
-            disableTouchRipple
-          />
+            <FlatButton
+                labelPosition="before"
+                onClick={
+                    field.props.sortable !== false && field.props.source
+                    ? updateSort
+                    : null
+                }
+                data-sort={
+                    field.props.sortable !== false && field.props.source
+                    ? field.props.source
+                    : null
+                }
+                label={
+                    <span style={styles.nonSortableLabel}>
+                        <FieldTitle
+                            label={field.props.label}
+                            source={field.props.source}
+                            resource={resource}
+                        />
+                    </span>
+                }
+                icon={
+                    field.props.sortable !== false &&
+                    field.props.source === currentSort.field ? (
+                        <ContentSort
+                            style={
+                              currentSort.order === 'ASC'
+                              ? ({ transform: 'rotate(180deg)', opacity:.3 })
+                              : ({ opacity:.3 })
+                            }
+                        />
+                    ) : ( false )
+                }
+                style={
+                  field.props.sortable !== false
+                  ? styles.sortButton
+                  : styles.nonSortButton
+                }
+                labelStyle={styles.label}
+                disableTouchRipple
+            />
         </TableHeaderColumn>
     );
 };
