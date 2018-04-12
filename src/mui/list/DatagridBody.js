@@ -24,43 +24,43 @@ const DatagridBody = ({
     <TableBody
         displayRowCheckbox={false}
         className="datagrid-body"
-        showRowHover={true}
+        showRowHover={rowClickable}
         {...rest}
         {...options}
     >
-        {ids.map((id, rowIndex) => {
-            return [
-              <TableRow style={{height: '4px'}}/>,
-              <TableRow
-                  style={rowStyle ? rowStyle(data[id], rowIndex) : styles.tr}
-                  key={id}
-                  selectable={false}
-                  {...rowOptions}
-              >
-                {React.Children.map(children, (field, index) => {
-                      if (childrenFilter(resource, field)) {
-                          return field ? (
-                              <DatagridCell
-                                  key={`${id}-${field.props.source || index}`}
-                                  className={`column-${field.props.source}`}
-                                  record={data[id]}
-                                  defaultStyle={
-                                    index === 0 ? (
-                                        styles.cell['td:first-child']
-                                    ) : (
-                                        index === children.length - 1 ? styles.cell['td:last-child'] : styles.cell.td
-                                    )
-                                  }
-                                  clickable={rowClickable}
-                                  {...{ field, basePath, resource }}
-                              />
-                          ) : null;
-                      }
-                      return;
-                  })}
-              </TableRow>
-            ];
-        })}
+      {ids.map((id, rowIndex) => {
+        return [
+          <TableRow style={{height: '4px'}}/>,
+          <TableRow
+              style={rowStyle ? rowStyle(data[id], rowIndex) : styles.tr}
+              key={id}
+              selectable={false}
+              {...rowOptions}
+          >
+            {React.Children.map(children, (field, index) => {
+              if (childrenFilter(resource, field)) {
+                return field ? (
+                  <DatagridCell
+                    key={`${id}-${field.props.source || index}`}
+                    className={`column-${field.props.source}`}
+                    record={data[id]}
+                    defaultStyle={
+                      index === 0 ? (
+                        styles.cell['td:first-child']
+                      ) : (
+                        index === children.length - 1 ? styles.cell['td:last-child'] : styles.cell.td
+                      )
+                    }
+                    clickable={rowClickable}
+                    {...{ field, basePath, resource }}
+                  />
+                ) : null;
+              }
+              return;
+            })}
+          </TableRow>
+        ];
+      })}
     </TableBody>
 );
 
