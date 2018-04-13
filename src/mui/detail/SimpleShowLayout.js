@@ -26,7 +26,7 @@ const SimpleShowLayout = ({
                 }
             }
             return (
-                <div>
+                <div key={field.props.source}>
                   {field.props.addLabel ? (
                       <Labeled
                           record={record}

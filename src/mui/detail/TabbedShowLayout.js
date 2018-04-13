@@ -2,7 +2,26 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Tabs, Tab } from 'material-ui/Tabs';
 
-const divStyle = { padding: '0 1em 1em 1em' };
+
+/**
+ *
+  styles: {
+    tabs: {
+      Style for container for the tabs
+    },
+    inkBar: {
+      Style for showing when a tab is active
+    },
+    activeButton: {
+      Style for Tab active
+    },
+    button: {
+      Style for Tab inactive
+    },
+  }
+ *
+**/
+
 class TabbedShowLayout extends Component {
     constructor(props) {
         super(props);

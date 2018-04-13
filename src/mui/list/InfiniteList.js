@@ -20,37 +20,6 @@ import LinearProgress from 'material-ui/LinearProgress';
 import { List, mapStateToProps } from './List';
 import { defaultStyles } from '../defaultStyles';
 
-const InfiniteListTitle = ({ styles, titleElement, filters, actions, ...props }) => {
-  return (
-    <div style={styles.header}>
-      <ViewTitle title={titleElement} style={styles.title}/>
-      <div style={styles.header}>
-        {filters &&
-            React.cloneElement(filters, {
-                resource,
-                hideFilter: this.hideFilter,
-                filterValues,
-                displayedFilters: this.state,
-                setFilters: this.setFilters,
-                context: 'form',
-            })}
-        {actions &&
-          React.cloneElement(actions, {
-              resource,
-              filters,
-              filterValues,
-              basePath,
-              hasCreate,
-              displayedFilters: this.state,
-              showFilter: this.showFilter,
-              theme,
-              refresh: this.refresh,
-          })}
-      </div>
-    </div>
-  )
-}
-
 export class InfiniteList extends List {
     state = {};
 
@@ -141,35 +110,34 @@ export class InfiniteList extends List {
         );
         const muiTheme = getMuiTheme(theme);
         const prefix = autoprefixer(muiTheme);
-
         return (
             <Paper style={{background: 'transparent'}} zDepth={0}>
-            <div style={styles.header}>
-              <ViewTitle title={titleElement} style={styles.title}/>
               <div style={styles.header}>
-                {filters &&
-                    React.cloneElement(filters, {
-                        resource,
-                        hideFilter: this.hideFilter,
-                        filterValues,
-                        displayedFilters: this.state,
-                        setFilters: this.setFilters,
-                        context: 'form',
-                    })}
-                {actions &&
-                  React.cloneElement(actions, {
-                      resource,
-                      filters,
-                      filterValues,
-                      basePath,
-                      hasCreate,
-                      displayedFilters: this.state,
-                      showFilter: this.showFilter,
-                      theme,
-                      refresh: this.refresh,
-                  })}
+                  <ViewTitle title={titleElement} style={styles.title}/>
+                  <div style={styles.header}>
+                      {filters &&
+                          React.cloneElement(filters, {
+                              resource,
+                              hideFilter: this.hideFilter,
+                              filterValues,
+                              displayedFilters: this.state,
+                              setFilters: this.setFilters,
+                              context: 'form',
+                          })}
+                      {actions &&
+                        React.cloneElement(actions, {
+                            resource,
+                            filters,
+                            filterValues,
+                            basePath,
+                            hasCreate,
+                            displayedFilters: this.state,
+                            showFilter: this.showFilter,
+                            theme,
+                            refresh: this.refresh,
+                        })}
+                  </div>
               </div>
-            </div>
               <Card style={styles.card}>
                   {isLoading || total > 0 ? (
                       <InfiniteScroll
