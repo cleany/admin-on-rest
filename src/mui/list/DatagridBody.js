@@ -27,7 +27,7 @@ const DatagridBody = ({
         showRowHover={rowClickable}
         {...rest}
         {...options}
-    >   
+    >
         {ids.map((id, rowIndex) => {
             return [
                 <TableRow style={{height: '4px'}}/>,
@@ -48,7 +48,11 @@ const DatagridBody = ({
                                         index === 0 ? (
                                             styles.cell['td:first-child']
                                         ) : (
-                                            index === children.length - 1 ? styles.cell['td:last-child'] : styles.cell.td
+                                            index === children.length - 1 ? (
+                                              styles.cell['td:last-child']
+                                            ) : (
+                                              styles.cell.td
+                                            )
                                         )
                                     }
                                     clickable={rowClickable}

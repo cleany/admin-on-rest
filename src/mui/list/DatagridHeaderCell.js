@@ -15,7 +15,6 @@ export const DatagridHeaderCell = ({
     resource,
     styles,
 }) => {
-    console.log(styles);
     const style = defaultsDeep(
         {},
         field.props.headerStyle,
