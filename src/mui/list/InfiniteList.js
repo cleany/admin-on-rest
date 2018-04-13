@@ -17,14 +17,7 @@ import withPermissionsFilteredChildren from '../../auth/withPermissionsFilteredC
 import InfiniteScroll from 'react-infinite-scroller';
 import LinearProgress from 'material-ui/LinearProgress';
 import { List, mapStateToProps } from './List';
-
-const styles = {
-    noResults: { padding: 20 },
-    header: {
-        display: 'flex',
-        justifyContent: 'space-between',
-    },
-};
+import { defaultStyles } from '../defaultStyles';
 
 export class InfiniteList extends List {
     state = {};
@@ -98,6 +91,7 @@ export class InfiniteList extends List {
             translate,
             theme,
             version,
+            styles = defaultStyles,
         } = this.props;
         const query = this.getQuery();
         const filterValues = query.filter;
@@ -117,61 +111,63 @@ export class InfiniteList extends List {
         const prefix = autoprefixer(muiTheme);
 
         return (
-            <div className="list-page">
-                <Card style={{ opacity: isLoading ? 0.8 : 1 }}>
-                    <div style={prefix(styles.header)}>
-                        <ViewTitle title={titleElement} />
-                        {actions &&
-                            React.cloneElement(actions, {
-                                resource,
-                                filters,
-                                filterValues,
-                                basePath,
-                                hasCreate,
-                                displayedFilters: this.state,
-                                showFilter: this.showFilter,
-                                theme,
-                                refresh: this.refresh,
-                            })}
-                    </div>
-                    {filters &&
-                        React.cloneElement(filters, {
-                            resource,
-                            hideFilter: this.hideFilter,
-                            filterValues,
-                            displayedFilters: this.state,
-                            setFilters: this.setFilters,
-                            context: 'form',
-                        })}
-                    {isLoading || total > 0 ? (
-                        <InfiniteScroll
-                            pageStart={1}
-                            loadMore={this.getNextPage.bind(this)}
-                            hasMore={this.props.hasMore}
-                            loader={loader}
-                        >
-                            <div key={version}>
-                                {children &&
-                                    React.cloneElement(children, {
-                                        resource,
-                                        ids,
-                                        data,
-                                        currentSort: {
-                                            field: query.sort,
-                                            order: query.order,
-                                        },
-                                        basePath,
-                                        isLoading,
-                                        setSort: this.setSort,
-                                    })}
-                            </div>
-                        </InfiniteScroll>
-                    ) : (
-                        <CardText style={styles.noResults}>
-                            {translate('aor.navigation.no_results')}
-                        </CardText>
-                    )}
-                </Card>
+            <div className="list-page" style={{ opacity: isLoading ? 0.8 : 1 }}>
+              <div style={styles.header}>
+                <ViewTitle title={titleElement} style={styles.title}/>
+                <div style={styles.header}>
+                  {filters &&
+                      React.cloneElement(filters, {
+                          resource,
+                          hideFilter: this.hideFilter,
+                          filterValues,
+                          displayedFilters: this.state,
+                          setFilters: this.setFilters,
+                          context: 'form',
+                      })}
+                  {actions &&
+                    React.cloneElement(actions, {
+                        resource,
+                        filters,
+                        filterValues,
+                        basePath,
+                        hasCreate,
+                        displayedFilters: this.state,
+                        showFilter: this.showFilter,
+                        theme,
+                        refresh: this.refresh,
+                    })}
+                </div>
+              </div>
+              <Card style={styles.card}>
+                  {isLoading || total > 0 ? (
+                      <InfiniteScroll
+                          pageStart={1}
+                          loadMore={this.getNextPage.bind(this)}
+                          hasMore={this.props.hasMore}
+                          loader={loader}
+                      >
+                          <div key={version}>
+                              {children &&
+                                  React.cloneElement(children, {
+                                      resource,
+                                      ids,
+                                      data,
+                                      currentSort: {
+                                          field: query.sort,
+                                          order: query.order,
+                                      },
+                                      basePath,
+                                      isLoading,
+                                      setSort: this.setSort,
+                                  })}
+                          </div>
+                      </InfiniteScroll>
+                  ) : (
+                      <p style={styles.noResults}>
+                          {translate('aor.navigation.no_results')}
+                      </p>
+                  )}
+              </Card>
             </div>
         );
     }
