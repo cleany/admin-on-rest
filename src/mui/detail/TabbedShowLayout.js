@@ -7,16 +7,16 @@ import { Tabs, Tab } from 'material-ui/Tabs';
  *
   styles: {
     tabs: {
-      Style for container for the tabs
+      Style for tabs container
     },
     inkBar: {
-      Style for showing when a tab is active
+      Style for bar under the active Tab 
     },
     activeButton: {
-      Style for Tab active
+      Style for active Tab
     },
     button: {
-      Style for Tab inactive
+      Style for inactive Tab
     },
   }
  *
