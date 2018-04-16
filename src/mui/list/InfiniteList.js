@@ -5,8 +5,6 @@ import { Card, CardText } from 'material-ui/Card';
 import compose from 'recompose/compose';
 import inflection from 'inflection';
 import { Paper } from 'material-ui';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import autoprefixer from 'material-ui/utils/autoprefixer';
 import ViewTitle from '../layout/ViewTitle';
 import Title from '../layout/Title';
 import DefaultActions from './Actions';
@@ -108,66 +106,64 @@ export class InfiniteList extends List {
         const titleElement = (
             <Title title={title} defaultTitle={defaultTitle} />
         );
-        const muiTheme = getMuiTheme(theme);
-        const prefix = autoprefixer(muiTheme);
         return (
-            <Paper style={{background: 'transparent'}} zDepth={0}>
-              <div style={styles.header}>
-                  <ViewTitle title={titleElement} style={styles.title}/>
-                  <div style={styles.header}>
-                      {filters &&
-                          React.cloneElement(filters, {
-                              resource,
-                              hideFilter: this.hideFilter,
-                              filterValues,
-                              displayedFilters: this.state,
-                              setFilters: this.setFilters,
-                              context: 'form',
-                          })}
-                      {actions &&
-                        React.cloneElement(actions, {
-                            resource,
-                            filters,
-                            filterValues,
-                            basePath,
-                            hasCreate,
-                            displayedFilters: this.state,
-                            showFilter: this.showFilter,
-                            theme,
-                            refresh: this.refresh,
-                        })}
-                  </div>
-              </div>
-              <Card style={styles.card}>
-                  {isLoading || total > 0 ? (
-                      <InfiniteScroll
-                          pageStart={1}
-                          loadMore={this.getNextPage.bind(this)}
-                          hasMore={this.props.hasMore}
-                          loader={loader}
-                      >
-                          <div key={version}>
-                              {children &&
-                                  React.cloneElement(children, {
-                                      resource,
-                                      ids,
-                                      data,
-                                      currentSort: {
-                                          field: query.sort,
-                                          order: query.order,
-                                      },
-                                      basePath,
-                                      isLoading,
-                                      setSort: this.setSort,
-                                  })}
-                          </div>
-                      </InfiniteScroll>
-                  ) : (
-                      <p style={styles.noResults}>
-                          {translate('aor.navigation.no_results')}
-                      </p>
-                  )}
-              </Card>
+            <Paper style={{ background: 'transparent' }} zDepth={0}>
+                <div style={styles.header}>
+                    <ViewTitle title={titleElement} style={styles.title} />
+                    <div style={styles.header}>
+                        {filters &&
+                            React.cloneElement(filters, {
+                                resource,
+                                hideFilter: this.hideFilter,
+                                filterValues,
+                                displayedFilters: this.state,
+                                setFilters: this.setFilters,
+                                context: 'form',
+                            })}
+                        {actions &&
+                            React.cloneElement(actions, {
+                                resource,
+                                filters,
+                                filterValues,
+                                basePath,
+                                hasCreate,
+                                displayedFilters: this.state,
+                                showFilter: this.showFilter,
+                                theme,
+                                refresh: this.refresh,
+                            })}
+                    </div>
+                </div>
+                <Card style={styles.card}>
+                    {isLoading || total > 0 ? (
+                        <InfiniteScroll
+                            pageStart={1}
+                            loadMore={this.getNextPage.bind(this)}
+                            hasMore={this.props.hasMore}
+                            loader={loader}
+                        >
+                            <div key={version}>
+                                {children &&
+                                    React.cloneElement(children, {
+                                        resource,
+                                        ids,
+                                        data,
+                                        currentSort: {
+                                            field: query.sort,
+                                            order: query.order,
+                                        },
+                                        basePath,
+                                        isLoading,
+                                        setSort: this.setSort,
+                                    })}
+                            </div>
+                        </InfiniteScroll>
+                    ) : (
+                        <CardText style={styles.noResults}>
+                            {translate('aor.navigation.no_results')}
+                        </CardText>
+                    )}
+                </Card>
             </Paper>
         );
     }

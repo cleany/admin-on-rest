@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Card } from 'material-ui/Card';
 import compose from 'recompose/compose';
 import inflection from 'inflection';
 import ViewTitle from '../layout/ViewTitle';
@@ -73,37 +72,40 @@ export class Show extends Component {
         );
 
         return (
-          <div style={{ opacity: isLoading ? 0.8 : 1 }}>
-            <div style={styles.header}>
-              <div>
-                <a href={`#/${this.props.resource}`} style={styles.breadcrumb}>
-                  {`${this.props.resource} /`}
-                </a>
-                <ViewTitle title={titleElement} style={styles.title}/>
-              </div>
-              <div>
-                {actions &&
-                    React.cloneElement(actions, {
-                        basePath,
-                        data,
-                        hasDelete,
-                        hasEdit,
-                        refresh: this.refresh,
-                        resource,
-                    })}
-              </div>
-            </div>
+            <div style={{ opacity: isLoading ? 0.8 : 1 }}>
+                <div style={styles.header}>
+                    <div>
+                        <a
+                            href={`#/${this.props.resource}`}
+                            style={styles.breadcrumb}
+                        >
+                            {`${this.props.resource} /`}
+                        </a>
+                        <ViewTitle title={titleElement} style={styles.title} />
+                    </div>
+                    <div>
+                        {actions &&
+                            React.cloneElement(actions, {
+                                basePath,
+                                data,
+                                hasDelete,
+                                hasEdit,
+                                refresh: this.refresh,
+                                resource,
+                            })}
+                    </div>
+                </div>
 
-            {data &&
-                React.cloneElement(children, {
-                    resource,
-                    basePath,
-                    record: data,
-                    translate,
-                    version,
-                })}
-          </div>
-      );
+                {data &&
+                    React.cloneElement(children, {
+                        resource,
+                        basePath,
+                        record: data,
+                        translate,
+                        version,
+                    })}
+            </div>
+        );
     }
 }
 

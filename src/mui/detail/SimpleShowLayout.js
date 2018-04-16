@@ -11,7 +11,6 @@ const SimpleShowLayout = ({
     },
     record,
     resource,
-    style,
     version,
 }) => (
     <div key={version}>
@@ -27,26 +26,26 @@ const SimpleShowLayout = ({
             }
             return (
                 <div key={field.props.source}>
-                  {field.props.addLabel ? (
-                      <Labeled
-                          record={record}
-                          resource={resource}
-                          basePath={basePath}
-                          label={field.props.label}
-                          source={field.props.source}
-                          disabled={false}
-                      >
-                          {field}
-                      </Labeled>
-                  ) : typeof field.type === 'string' ? (
-                      field
-                  ) : (
-                      React.cloneElement(field, {
-                          record,
-                          resource,
-                          basePath,
-                      })
-                  )}
+                    {field.props.addLabel ? (
+                        <Labeled
+                            record={record}
+                            resource={resource}
+                            basePath={basePath}
+                            label={field.props.label}
+                            source={field.props.source}
+                            disabled={false}
+                        >
+                            {field}
+                        </Labeled>
+                    ) : typeof field.type === 'string' ? (
+                        field
+                    ) : (
+                        React.cloneElement(field, {
+                            record,
+                            resource,
+                            basePath,
+                        })
+                    )}
                 </div>
             );
         })}
@@ -59,7 +58,6 @@ SimpleShowLayout.propTypes = {
     childrenFilter: PropTypes.func,
     record: PropTypes.object,
     resource: PropTypes.string,
-    style: PropTypes.object,
     version: PropTypes.number,
 };
 

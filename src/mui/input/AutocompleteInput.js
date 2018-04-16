@@ -100,10 +100,12 @@ export class AutocompleteInput extends Component {
         const selectedSource = choices.find(
             choice => get(choice, optionValue) === input.value
         );
-        const message = emptyMessage !== '' ? emptyMessage : translate('aor.input.autocomplete.none')
+        const message =
+            emptyMessage !== ''
+                ? emptyMessage
+                : translate('aor.input.autocomplete.none');
         const searchText =
-            (selectedSource && this.getSuggestion(selectedSource)) ||
-            message;
+            (selectedSource && this.getSuggestion(selectedSource)) || message;
         this.setState({ searchText });
     }
 
@@ -143,7 +145,10 @@ export class AutocompleteInput extends Component {
             return [
                 {
                     value: '',
-                    text: emptyMessage !== '' ? emptyMessage : translate('aor.input.autocomplete.none'),
+                    text:
+                        emptyMessage !== ''
+                            ? emptyMessage
+                            : translate('aor.input.autocomplete.none'),
                 },
                 ...choices,
             ];
@@ -223,7 +228,7 @@ AutocompleteInput.propTypes = {
     source: PropTypes.string,
     translate: PropTypes.func.isRequired,
     translateChoice: PropTypes.bool.isRequired,
-    emptyMessage:  PropTypes.string,
+    emptyMessage: PropTypes.string,
 };
 
 AutocompleteInput.defaultProps = {

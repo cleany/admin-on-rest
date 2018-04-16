@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Tabs, Tab } from 'material-ui/Tabs';
 
-
 /**
  *
   styles: {
@@ -10,7 +9,7 @@ import { Tabs, Tab } from 'material-ui/Tabs';
       Style for tabs container
     },
     inkBar: {
-      Style for bar under the active Tab 
+      Style for bar under the active Tab
     },
     activeButton: {
       Style for active Tab
@@ -37,7 +36,6 @@ class TabbedShowLayout extends Component {
     render() {
         const {
             children,
-            contentContainerStyle,
             record,
             resource,
             basePath,
@@ -64,7 +62,13 @@ class TabbedShowLayout extends Component {
                                 })}
                                 value={index}
                                 icon={tab.props.icon}
-                                buttonStyle={index === this.state.value ? styles.activeButton : styles.button}
+                                buttonStyle={
+                                    index === this.state.value ? (
+                                        styles.activeButton
+                                    ) : (
+                                        styles.button
+                                    )
+                                }
                             >
                                 {React.cloneElement(tab, {
                                     resource,
@@ -81,7 +85,6 @@ class TabbedShowLayout extends Component {
 
 TabbedShowLayout.propTypes = {
     children: PropTypes.node,
-    contentContainerStyle: PropTypes.object,
     record: PropTypes.object,
     resource: PropTypes.string,
     basePath: PropTypes.string,
@@ -91,7 +94,6 @@ TabbedShowLayout.propTypes = {
 };
 
 TabbedShowLayout.defaultProps = {
-    contentContainerStyle: { borderTop: 'solid 1px #e0e0e0' },
     styles: {},
 };
 

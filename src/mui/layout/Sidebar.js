@@ -5,7 +5,6 @@ import compose from 'recompose/compose';
 import Drawer from 'material-ui/Drawer';
 import { setSidebarVisibility as setSidebarVisibilityAction } from '../../actions';
 
-
 // We shouldn't need PureComponent here as it's connected
 // but for some reason it keeps rendering even though mapStateToProps returns the same object
 class Sidebar extends PureComponent {
@@ -14,18 +13,18 @@ class Sidebar extends PureComponent {
     };
 
     render() {
-        const { open, setSidebarVisibility, children, muiTheme } = this.props;
+        const { open, setSidebarVisibility, children } = this.props;
 
         return (
-          <Drawer
-              docked={false}
-              open={open}
-              onRequestChange={setSidebarVisibility}
-          >
-              {React.cloneElement(children, {
-                  onMenuTap: this.handleClose,
-              })}
-          </Drawer>
+            <Drawer
+                docked={false}
+                open={open}
+                onRequestChange={setSidebarVisibility}
+            >
+                {React.cloneElement(children, {
+                    onMenuTap: this.handleClose,
+                })}
+            </Drawer>
         );
     }
 }
@@ -36,7 +35,7 @@ Sidebar.propTypes = {
     setSidebarVisibility: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state, props) => ({
+const mapStateToProps = state => ({
     open: state.admin.ui.sidebarOpen,
     locale: state.locale, // force redraw on locale change
 });

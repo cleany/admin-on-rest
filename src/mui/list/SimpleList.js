@@ -25,9 +25,8 @@ const SimpleList = ({
 }) => (
     <List style={parentStyle}>
         {ids.map(id => (
-            <div style={elStyle}>
+            <div style={elStyle} key={id}>
                 <ListItem
-                    key={id}
                     primaryText={
                         <div>
                             {primaryText(data[id], id)}

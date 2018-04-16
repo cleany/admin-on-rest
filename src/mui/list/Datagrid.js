@@ -100,16 +100,18 @@ class Datagrid extends Component {
             labelEmptyData,
         } = this.props;
         if (Object.keys(data).length === 0) {
-          return (
-            <div style={{fontSize:16, padding:'1em 0'}}>{labelEmptyData}</div>
-          );
+            return (
+                <div style={{ fontSize: 16, padding: '1em 0' }}>
+                    {labelEmptyData}
+                </div>
+            );
         }
         return (
             <Table
                 style={options && options.fixedHeader ? null : styles.table}
                 fixedHeader={false}
                 {...options}
-              >
+            >
                 <TableHeader
                     displaySelectAll={false}
                     adjustForCheckbox={false}
