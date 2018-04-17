@@ -1,7 +1,7 @@
 {
     "name": "@sebastien-cleany/admin-on-rest",
     "private": false,
-    "version": "1.4.6",
+    "version": "1.4.9",
     "description": "A frontend Framework for building admin applications on top of REST services, using ES6, React and Material UI",
     "files": [
         "*.md",
@@ -83,6 +83,7 @@
         "recompose": "~0.25.0",
         "redux": "~3.7.2",
         "redux-form": "~7.0.3",
+        "redux-persist": "^5.9.1",
         "redux-saga": "~0.15.0",
         "reselect": "~3.0.0"
     }

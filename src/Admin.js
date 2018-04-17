@@ -6,6 +6,8 @@ import createHistory from 'history/createHashHistory';
 import { ConnectedRouter, routerMiddleware } from 'react-router-redux';
 import createSagaMiddleware from 'redux-saga';
 import { all, fork } from 'redux-saga/effects';
+import { persistStore } from 'redux-persist'
+import { PersistGate } from 'redux-persist/integration/react'
 import withContext from 'recompose/withContext';
 import ReactGA from 'react-ga';
 import { Route, Switch } from 'react-router-dom';
@@ -60,6 +62,9 @@ const Admin = ({
     );
     sagaMiddleware.run(saga);
 
+    const persistor = persistStore(store);
+    const registry = persistor.getState().registry;
+
     const logout = authClient ? createElement(logoutButton || Logout) : null;
 
     if (idAnalytics) {
@@ -77,49 +82,60 @@ const Admin = ({
         return null;
     };
 
-    return (
-        <Provider store={store}>
-            <TranslationProvider messages={messages}>
-                <ConnectedRouter history={routerHistory}>
-                    <Switch>
-                        {loginPage && (
-                            <Route
-                                exact
-                                path="/login"
-                                render={({ location }) => {
-                                    logPageView();
-                                    return createElement(loginPage, {
-                                        location,
-                                        title,
-                                        theme,
-                                    });
-                                }}
-                            />
-                        )}
+    const AdminContent = () => {
+      return (
+        <TranslationProvider messages={messages}>
+            <ConnectedRouter history={routerHistory}>
+                <Switch>
+                    {loginPage && (
                         <Route
-                            path="/"
-                            render={routeProps => {
+                            exact
+                            path="/login"
+                            render={({ location }) => {
                                 logPageView();
-                                return (
-                                    <AdminRoutes
-                                        appLayout={appLayout}
-                                        catchAll={catchAll}
-                                        customRoutes={customRoutes}
-                                        dashboard={dashboard}
-                                        logout={logout}
-                                        menu={menu}
-                                        theme={theme}
-                                        title={title}
-                                        {...routeProps}
-                                    >
-                                        {children}
-                                    </AdminRoutes>
-                                );
+                                return createElement(loginPage, {
+                                    location,
+                                    title,
+                                    theme,
+                                });
                             }}
                         />
-                    </Switch>
-                </ConnectedRouter>
-            </TranslationProvider>
+                    )}
+                    <Route
+                        path="/"
+                        render={routeProps => {
+                            logPageView();
+                            return (
+                                <AdminRoutes
+                                    appLayout={appLayout}
+                                    catchAll={catchAll}
+                                    customRoutes={customRoutes}
+                                    dashboard={dashboard}
+                                    logout={logout}
+                                    menu={menu}
+                                    theme={theme}
+                                    title={title}
+                                    {...routeProps}
+                                >
+                                    {children}
+                                </AdminRoutes>
+                            );
+                        }}
+                    />
+                </Switch>
+            </ConnectedRouter>
+        </TranslationProvider>
+      );
+    }
+
+    return (
+        <Provider store={store}>
+          {registry.length ?
+            <PersistGate loading={null} persistor={persistor}>
+              <AdminContent />
+            </PersistGate> :
+            <AdminContent />
+          }
         </Provider>
     );
 };

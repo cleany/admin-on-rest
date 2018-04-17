@@ -4,6 +4,7 @@ import muiThemeable from 'material-ui/styles/muiThemeable';
 import { Table, TableHeader, TableRow } from 'material-ui/Table';
 import DatagridHeaderCell from './DatagridHeaderCell';
 import DatagridBody from './DatagridBody';
+import LinearProgress from 'material-ui/LinearProgress';
 
 const defaultStyles = {
     table: {
@@ -100,11 +101,14 @@ class Datagrid extends Component {
             labelEmptyData,
         } = this.props;
         if (Object.keys(data).length === 0) {
+          if (isLoading) {
             return (
-                <div style={{ fontSize: 16, padding: '1em 0' }}>
-                    {labelEmptyData}
-                </div>
+              <LinearProgress mode="indeterminate" />
             );
+          }
+          return (
+            <div style={{fontSize:16, padding:'1em 0'}}>{labelEmptyData}</div>
+          );
         }
         return (
             <Table
