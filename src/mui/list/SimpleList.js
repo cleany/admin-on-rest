@@ -19,33 +19,36 @@ const SimpleList = ({
     rightIcon,
     itemStyle,
     itemInnerDivStyle,
+    parentStyle,
+    elStyle,
     disabled,
 }) => (
-    <List>
+    <List style={parentStyle}>
         {ids.map(id => (
-            <ListItem
-                key={id}
-                primaryText={
-                    <div>
-                        {primaryText(data[id], id)}
-                        {tertiaryText && (
-                            <span style={tertiaryStyle}>
-                                {tertiaryText(data[id], id)}
-                            </span>
-                        )}
-                    </div>
-                }
-                secondaryText={secondaryText && secondaryText(data[id], id)}
-                secondaryTextLines={secondaryTextLines}
-                leftAvatar={leftAvatar && leftAvatar(data[id], id)}
-                leftIcon={leftIcon && leftIcon(data[id], id)}
-                rightAvatar={rightAvatar && rightAvatar(data[id], id)}
-                rightIcon={rightIcon && rightIcon(data[id], id)}
-                containerElement={<Link to={`${basePath}/${id}`} />}
-                style={itemStyle}
-                innerDivStyle={itemInnerDivStyle}
-                disabled={disabled}
-            />
+            <div style={elStyle} key={id}>
+                <ListItem
+                    primaryText={
+                        <div>
+                            {primaryText(data[id], id)}
+                            {tertiaryText && (
+                                <span style={tertiaryStyle}>
+                                    {tertiaryText(data[id], id)}
+                                </span>
+                            )}
+                        </div>
+                    }
+                    secondaryText={secondaryText && secondaryText(data[id], id)}
+                    secondaryTextLines={secondaryTextLines}
+                    leftAvatar={leftAvatar && leftAvatar(data[id], id)}
+                    leftIcon={leftIcon && leftIcon(data[id], id)}
+                    rightAvatar={rightAvatar && rightAvatar(data[id], id)}
+                    rightIcon={rightIcon && rightIcon(data[id], id)}
+                    containerElement={<Link to={`${basePath}/${id}`} />}
+                    style={itemStyle}
+                    innerDivStyle={itemInnerDivStyle}
+                    disabled={disabled}
+                />
+            </div>
         ))}
     </List>
 );
@@ -64,6 +67,8 @@ SimpleList.propTypes = {
     rightIcon: PropTypes.func,
     itemStyle: PropTypes.object,
     itemInnerDivStyle: PropTypes.object,
+    parentStyle: PropTypes.object,
+    elStyle: PropTypes.object,
     disabled: PropTypes.bool,
 };
 

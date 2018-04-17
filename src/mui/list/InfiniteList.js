@@ -4,8 +4,7 @@ import { push as pushAction } from 'react-router-redux';
 import { Card, CardText } from 'material-ui/Card';
 import compose from 'recompose/compose';
 import inflection from 'inflection';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import autoprefixer from 'material-ui/utils/autoprefixer';
+import { Paper } from 'material-ui';
 import ViewTitle from '../layout/ViewTitle';
 import Title from '../layout/Title';
 import DefaultActions from './Actions';
@@ -17,14 +16,7 @@ import withPermissionsFilteredChildren from '../../auth/withPermissionsFilteredC
 import InfiniteScroll from 'react-infinite-scroller';
 import LinearProgress from 'material-ui/LinearProgress';
 import { List, mapStateToProps } from './List';
-
-const styles = {
-    noResults: { padding: 20 },
-    header: {
-        display: 'flex',
-        justifyContent: 'space-between',
-    },
-};
+import { defaultStyles } from '../defaultStyles';
 
 export class InfiniteList extends List {
     state = {};
@@ -98,6 +90,7 @@ export class InfiniteList extends List {
             translate,
             theme,
             version,
+            styles = defaultStyles,
         } = this.props;
         const query = this.getQuery();
         const filterValues = query.filter;
@@ -113,14 +106,20 @@ export class InfiniteList extends List {
         const titleElement = (
             <Title title={title} defaultTitle={defaultTitle} />
         );
-        const muiTheme = getMuiTheme(theme);
-        const prefix = autoprefixer(muiTheme);
-
         return (
-            <div className="list-page">
-                <Card style={{ opacity: isLoading ? 0.8 : 1 }}>
-                    <div style={prefix(styles.header)}>
-                        <ViewTitle title={titleElement} />
+            <Paper style={{ background: 'transparent' }} zDepth={0}>
+                <div style={styles.header}>
+                    <ViewTitle title={titleElement} style={styles.title} />
+                    <div style={styles.header}>
+                        {filters &&
+                            React.cloneElement(filters, {
+                                resource,
+                                hideFilter: this.hideFilter,
+                                filterValues,
+                                displayedFilters: this.state,
+                                setFilters: this.setFilters,
+                                context: 'form',
+                            })}
                         {actions &&
                             React.cloneElement(actions, {
                                 resource,
@@ -134,15 +133,8 @@ export class InfiniteList extends List {
                                 refresh: this.refresh,
                             })}
                     </div>
-                    {filters &&
-                        React.cloneElement(filters, {
-                            resource,
-                            hideFilter: this.hideFilter,
-                            filterValues,
-                            displayedFilters: this.state,
-                            setFilters: this.setFilters,
-                            context: 'form',
-                        })}
+                </div>
+                <Card style={styles.card}>
                     {isLoading || total > 0 ? (
                         <InfiniteScroll
                             pageStart={1}
@@ -172,7 +164,7 @@ export class InfiniteList extends List {
                         </CardText>
                     )}
                 </Card>
-            </div>
+            </Paper>
         );
     }
 }

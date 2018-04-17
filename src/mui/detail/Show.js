@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Card } from 'material-ui/Card';
 import compose from 'recompose/compose';
 import inflection from 'inflection';
 import ViewTitle from '../layout/ViewTitle';
@@ -10,6 +9,7 @@ import { crudGetOne as crudGetOneAction } from '../../actions/dataActions';
 import DefaultActions from './ShowActions';
 import translate from '../../i18n/translate';
 import withPermissionsFilteredChildren from '../../auth/withPermissionsFilteredChildren';
+import { defaultStyles } from '../defaultStyles';
 
 export class Show extends Component {
     componentDidMount() {
@@ -50,6 +50,7 @@ export class Show extends Component {
             hasEdit,
             translate,
             version,
+            styles = defaultStyles,
         } = this.props;
 
         if (!children) return null;
@@ -71,12 +72,18 @@ export class Show extends Component {
         );
 
         return (
-            <div>
-                <Card
-                    className="aor-show-layout"
-                    style={{ opacity: isLoading ? 0.8 : 1 }}
-                >
-                    <div className="aor-show-actions">
+            <div style={{ opacity: isLoading ? 0.8 : 1 }}>
+                <div style={styles.header}>
+                    <div>
+                        <a
+                            href={`#/${this.props.resource}`}
+                            style={styles.breadcrumb}
+                        >
+                            {`${this.props.resource} /`}
+                        </a>
+                        <ViewTitle title={titleElement} style={styles.title} />
+                    </div>
+                    <div>
                         {actions &&
                             React.cloneElement(actions, {
                                 basePath,
@@ -87,16 +94,16 @@ export class Show extends Component {
                                 resource,
                             })}
                     </div>
-                    <ViewTitle title={titleElement} />
-                    {data &&
-                        React.cloneElement(children, {
-                            resource,
-                            basePath,
-                            record: data,
-                            translate,
-                            version,
-                        })}
-                </Card>
+                </div>
+
+                {data &&
+                    React.cloneElement(children, {
+                        resource,
+                        basePath,
+                        record: data,
+                        translate,
+                        version,
+                    })}
             </div>
         );
     }
