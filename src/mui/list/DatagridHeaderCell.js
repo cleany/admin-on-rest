@@ -7,26 +7,13 @@ import FlatButton from 'material-ui/FlatButton';
 import ContentSort from 'material-ui/svg-icons/content/sort';
 import FieldTitle from '../../util/FieldTitle';
 
-const styles = {
-    sortButton: {
-        minWidth: 40,
-    },
-    nonSortableLabel: {
-        position: 'relative',
-        verticalAlign: 'middle',
-        letterSpacing: 0,
-        fontWeight: 700,
-        fontSize: 13,
-        opacity: .3,
-    },
-};
-
 export const DatagridHeaderCell = ({
     field,
     defaultStyle,
     currentSort,
     updateSort,
     resource,
+    styles,
 }) => {
     const style = defaultsDeep(
         {},
@@ -36,52 +23,47 @@ export const DatagridHeaderCell = ({
     );
     return (
         <TableHeaderColumn style={style}>
-            {field.props.sortable !== false && field.props.source ? (
-                <FlatButton
-                    labelPosition="before"
-                    onClick={updateSort}
-                    data-sort={field.props.source}
-                    label={
-                      <span style={styles.nonSortableLabel}>
-                          {
-                              <FieldTitle
-                                  label={field.props.label}
-                                  source={field.props.source}
-                                  resource={resource}
-                              />
-                          }
-                      </span>
-                    }
-                    icon={
-                        field.props.source === currentSort.field ? (
-                            <ContentSort
-                                style={
-                                    currentSort.order === 'ASC' ? (
-                                        { transform: 'rotate(180deg)',
-                                          opacity:.3,
-                                        }
-                                    ) : (
-                                        {opacity:.3}
-                                    )
-                                }
-                            />
-                        ) : (
-                            false
-                        )
-                    }
-                    style={styles.sortButton}
-                />
-            ) : (
-                <span style={styles.nonSortableLabel}>
-                    {
+            <FlatButton
+                labelPosition="before"
+                onClick={
+                    field.props.sortable !== false && field.props.source
+                    ? updateSort
+                    : null
+                }
+                data-sort={
+                    field.props.sortable !== false && field.props.source
+                    ? field.props.source
+                    : null
+                }
+                label={
+                    <span style={styles.nonSortableLabel}>
                         <FieldTitle
                             label={field.props.label}
                             source={field.props.source}
                             resource={resource}
                         />
-                    }
-                </span>
-            )}
+                    </span>
+                }
+                icon={
+                    field.props.sortable !== false &&
+                    field.props.source === currentSort.field ? (
+                        <ContentSort
+                            style={
+                              currentSort.order === 'ASC'
+                              ? ({ transform: 'rotate(180deg)', opacity:.3 })
+                              : ({ opacity:.3 })
+                            }
+                        />
+                    ) : ( false )
+                }
+                style={
+                  field.props.sortable !== false
+                  ? styles.sortButton
+                  : styles.nonSortButton
+                }
+                labelStyle={styles.label}
+                disableTouchRipple
+            />
         </TableHeaderColumn>
     );
 };
@@ -102,6 +84,7 @@ DatagridHeaderCell.propTypes = {
     sortable: PropTypes.bool,
     resource: PropTypes.string,
     updateSort: PropTypes.func.isRequired,
+    styles: PropTypes.object,
 };
 
 export default shouldUpdate(

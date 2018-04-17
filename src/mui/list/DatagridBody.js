@@ -24,12 +24,13 @@ const DatagridBody = ({
     <TableBody
         displayRowCheckbox={false}
         className="datagrid-body"
-        showRowHover={true}
+        showRowHover={rowClickable}
         {...rest}
         {...options}
     >
         {ids.map((id, rowIndex) => {
-            return (
+            return [
+                <TableRow style={{height: '4px'}}/>,
                 <TableRow
                     style={rowStyle ? rowStyle(data[id], rowIndex) : styles.tr}
                     key={id}
@@ -47,7 +48,11 @@ const DatagridBody = ({
                                         index === 0 ? (
                                             styles.cell['td:first-child']
                                         ) : (
-                                            styles.cell.td
+                                            index === children.length - 1 ? (
+                                              styles.cell['td:last-child']
+                                            ) : (
+                                              styles.cell.td
+                                            )
                                         )
                                     }
                                     clickable={rowClickable}
@@ -58,7 +63,7 @@ const DatagridBody = ({
                         return;
                     })}
                 </TableRow>
-            );
+            ];
         })}
     </TableBody>
 );
