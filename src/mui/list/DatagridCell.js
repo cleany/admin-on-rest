@@ -25,7 +25,8 @@ export const DatagridCell = ({
         style,
         field.props.style,
         field.type.defaultProps ? field.type.defaultProps.style : {},
-        defaultStyle
+        defaultStyle,
+        clickable ? { cursor: 'pointer' } : { cursor: 'default' },
     );
 
     const handleClick = clickable
@@ -33,11 +34,10 @@ export const DatagridCell = ({
               history.push(linkToRecord(basePath, record.id));
           }
         : undefined;
-
     return (
         <TableRowColumn
             className={className}
-            style={Object.assign(computedStyle, { cursor: 'pointer' })}
+            style={Object.assign(computedStyle)}
             {...rest}
             onClick={handleClick}
         >
