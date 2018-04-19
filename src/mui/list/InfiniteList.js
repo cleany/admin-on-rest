@@ -79,7 +79,7 @@ export class InfiniteList extends List {
         const {
             children,
             filters,
-            actions = <DefaultActions />,
+            actions,
             resource,
             hasCreate,
             title,
@@ -90,7 +90,7 @@ export class InfiniteList extends List {
             translate,
             theme,
             version,
-            styles = defaultStyles,
+            styles,
         } = this.props;
         const query = this.getQuery();
         const filterValues = query.filter;
@@ -108,9 +108,25 @@ export class InfiniteList extends List {
         );
         return (
             <Paper style={{ background: 'transparent' }} zDepth={0}>
-                <div style={styles.header}>
-                    <ViewTitle title={titleElement} style={styles.title} />
+                <div>
                     <div style={styles.header}>
+                        <ViewTitle title={titleElement} style={styles.title} />
+                        <div>
+                            {actions &&
+                                React.cloneElement(actions, {
+                                    resource,
+                                    filters,
+                                    filterValues,
+                                    basePath,
+                                    hasCreate,
+                                    displayedFilters: this.state,
+                                    showFilter: this.showFilter,
+                                    theme,
+                                    refresh: this.refresh,
+                                })}
+                        </div>
+                    </div>
+                    <div>
                         {filters &&
                             React.cloneElement(filters, {
                                 resource,
@@ -120,18 +136,7 @@ export class InfiniteList extends List {
                                 setFilters: this.setFilters,
                                 context: 'form',
                             })}
-                        {actions &&
-                            React.cloneElement(actions, {
-                                resource,
-                                filters,
-                                filterValues,
-                                basePath,
-                                hasCreate,
-                                displayedFilters: this.state,
-                                showFilter: this.showFilter,
-                                theme,
-                                refresh: this.refresh,
-                            })}
+
                     </div>
                 </div>
                 <Card style={styles.card}>
