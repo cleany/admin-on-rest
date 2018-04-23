@@ -32,7 +32,6 @@ PureBooleanField.defaultProps = {
     addLabel: true,
     elStyle: {
         display: 'block',
-        margin: 'auto',
     },
 };
 

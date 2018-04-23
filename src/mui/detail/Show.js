@@ -79,7 +79,7 @@ export class Show extends Component {
                             href={`#/${this.props.resource}`}
                             style={styles.breadcrumb}
                         >
-                            {`${this.props.resource} /`}
+                            {`${resourceName} /`}
                         </a>
                         <ViewTitle title={titleElement} style={styles.title} />
                     </div>

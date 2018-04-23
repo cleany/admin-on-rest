@@ -79,7 +79,7 @@ export class InfiniteList extends List {
         const {
             children,
             filters,
-            actions,
+            actions = <DefaultActions />,
             resource,
             hasCreate,
             title,
