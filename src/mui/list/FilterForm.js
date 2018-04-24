@@ -21,7 +21,7 @@ const getStyles = ({ palette: { primary1Color } }) => ({
         flexWrap: 'wrap',
     },
     body: { display: 'flex', alignItems: 'flex-end' },
-    spacer: { width: 48, display: 'none' },
+    spacer: { display: 'none' },
     icon: { color: primary1Color || '#00bcd4', paddingBottom: 0 },
     clearFix: { clear: 'right' },
 });
