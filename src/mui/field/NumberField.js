@@ -73,8 +73,8 @@ const PureNumberField = pure(NumberField);
 
 PureNumberField.defaultProps = {
     addLabel: true,
-    style: { textAlign: 'right' },
-    headerStyle: { textAlign: 'right' },
+    style: { },
+    headerStyle: { },
 };
 
 export default PureNumberField;

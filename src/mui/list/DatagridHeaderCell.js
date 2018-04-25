@@ -63,6 +63,10 @@ export const DatagridHeaderCell = ({
                 }
                 labelStyle={styles.label}
                 disableTouchRipple
+                disabled={
+                  field.props.sortable === false
+                  || !field.props.source
+                }
             />
         </TableHeaderColumn>
     );

@@ -6,11 +6,11 @@ import { hideNotification as hideNotificationAction } from '../../actions/notifi
 import translate from '../../i18n/translate';
 
 function getStyles(context) {
-    if (!context) return { primary1Color: '#00bcd4', accent1Color: '#ff4081' };
+    if (!context) return { success: '#00bcd4', accent1Color: '#ff4081' };
     const {
-        muiTheme: { baseTheme: { palette: { primary1Color, accent1Color } } },
+        muiTheme: { baseTheme: { palette: { success, accent1Color } } },
     } = context;
-    return { primary1Color, accent1Color };
+    return { success, accent1Color };
 }
 
 class Notification extends React.Component {
@@ -20,13 +20,14 @@ class Notification extends React.Component {
 
     render() {
         const style = {};
-        const { primary1Color, accent1Color } = getStyles(this.context);
+        const { success, accent1Color } = getStyles(this.context);
         const { type, translate, message, translateVars } = this.props;
+
         if (type === 'warning') {
             style.backgroundColor = accent1Color;
         }
-        if (type === 'confirm') {
-            style.backgroundColor = primary1Color;
+        if (type === 'confirm' || type === 'info') {
+            style.backgroundColor = success;
         }
         return (
             <Snackbar
