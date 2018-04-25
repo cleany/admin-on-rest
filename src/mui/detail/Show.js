@@ -51,6 +51,7 @@ export class Show extends Component {
             translate,
             version,
             styles = defaultStyles,
+            displayBreadcrumb = true,
         } = this.props;
 
         if (!children) return null;
@@ -74,16 +75,18 @@ export class Show extends Component {
         return (
             <div style={{ opacity: isLoading ? 0.8 : 1 }}>
                 <div style={styles.header}>
-                    <div>
-                        <a
-                            href={`#/${this.props.resource}`}
-                            style={styles.breadcrumb}
-                        >
-                            {`${resourceName} /`}
-                        </a>
+                    <div style={styles.headerTitle}>
+                        {displayBreadcrumb &&
+                          <a
+                              href={`#/${this.props.resource}`}
+                              style={styles.breadcrumb}
+                          >
+                              {`${resourceName} /`}
+                          </a>
+                        }
                         <ViewTitle title={titleElement} style={styles.title} />
                     </div>
-                    <div>
+                    <div style={styles.headerActions}>
                         {actions &&
                             React.cloneElement(actions, {
                                 basePath,
@@ -125,6 +128,7 @@ Show.propTypes = {
     title: PropTypes.any,
     translate: PropTypes.func,
     version: PropTypes.number.isRequired,
+    displayBreadcrumb: PropTypes.bool,
 };
 
 function mapStateToProps(state, props) {
