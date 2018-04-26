@@ -19,7 +19,6 @@ class Breadcrumbs extends Component {
         { smart_count: 2,
         _: inflection.humanize(inflection.singularize(resource)),
     });
-    console.log(data);
     if (!display) return null;
 
     return (
