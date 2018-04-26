@@ -5,6 +5,7 @@ import compose from 'recompose/compose';
 import inflection from 'inflection';
 import ViewTitle from '../layout/ViewTitle';
 import Title from '../layout/Title';
+import Breadcrumbs from '../layout/Breadcrumbs';
 import { crudGetOne as crudGetOneAction } from '../../actions/dataActions';
 import DefaultActions from './ShowActions';
 import translate from '../../i18n/translate';
@@ -73,27 +74,19 @@ export class Show extends Component {
         );
 
         return (
-            <div
-                style={{ opacity: isLoading ? 0.8 : 1 }}
-                className="aor-show-layout"
-            >
+            <div className="show-page aor-show-layout">
                 <div style={styles.header}>
-                    <div style={styles.headerTitle}>
-                        {displayBreadcrumb && (
-                            <a
-                                href={`#/${this.props.resource}`}
-                                style={styles.breadcrumb}
-                                className="aor-no-print"
-                            >
-                                {`${resourceName} /`}
-                            </a>
-                        )}
+                    <div>
+                        <Breadcrumbs
+                          data={data}
+                          display={displayBreadcrumb}
+                          resource={resource}
+                          styles={styles.breadcrumb}
+                          view="show"
+                        />
                         <ViewTitle title={titleElement} style={styles.title} />
                     </div>
-                    <div
-                        style={styles.headerActions}
-                        className="aor-show-actions"
-                    >
+                    <div className="aor-show-actions">
                         {actions &&
                             React.cloneElement(actions, {
                                 basePath,

@@ -47,10 +47,6 @@ export class SaveButton extends Component {
                 }
                 onClick={this.handleClick}
                 primary={!saving}
-                style={{
-                    margin: '10px 24px',
-                    position: 'relative',
-                }}
                 disabled={disabled}
             />
         );

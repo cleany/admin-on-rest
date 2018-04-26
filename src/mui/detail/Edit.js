@@ -6,6 +6,7 @@ import compose from 'recompose/compose';
 import inflection from 'inflection';
 import { reset } from 'redux-form';
 import ViewTitle from '../layout/ViewTitle';
+import Breadcrumbs from '../layout/Breadcrumbs';
 import Title from '../layout/Title';
 import {
     crudGetOne as crudGetOneAction,
@@ -14,6 +15,7 @@ import {
 import DefaultActions from './EditActions';
 import translate from '../../i18n/translate';
 import withPermissionsFilteredChildren from '../../auth/withPermissionsFilteredChildren';
+import { defaultStyles } from '../defaultStyles';
 
 export class Edit extends Component {
     componentDidMount() {
@@ -71,6 +73,8 @@ export class Edit extends Component {
             title,
             translate,
             version,
+            styles = defaultStyles,
+            displayBreadcrumb = true,
         } = this.props;
 
         if (!children) return null;
@@ -94,34 +98,45 @@ export class Edit extends Component {
 
         return (
             <div className="edit-page">
-                <Card style={{ opacity: isLoading ? 0.8 : 1 }}>
-                    {actions &&
-                        React.cloneElement(actions, {
-                            basePath,
-                            data,
-                            hasDelete,
-                            hasShow,
-                            hasList,
-                            resource,
-                        })}
-                    <ViewTitle title={titleElement} />
-                    {data ? (
-                        React.cloneElement(children, {
-                            save: this.save,
-                            resource,
-                            basePath,
-                            record: data,
-                            translate,
-                            version,
-                            redirect:
-                                typeof children.props.redirect === 'undefined'
-                                    ? this.defaultRedirectRoute()
-                                    : children.props.redirect,
-                        })
-                    ) : (
-                        <CardText>&nbsp;</CardText>
-                    )}
-                </Card>
+                <div style={styles.header}>
+                    <div>
+                        <Breadcrumbs
+                          data={data}
+                          display={displayBreadcrumb}
+                          resource={resource}
+                          styles={styles.breadcrumb}
+                          view="edit"
+                        />
+                        <ViewTitle title={titleElement} style={styles.title} />
+                    </div>
+                    <div>
+                        {actions &&
+                            React.cloneElement(actions, {
+                                basePath,
+                                data,
+                                hasDelete,
+                                hasShow,
+                                hasList,
+                                resource,
+                            })}
+                    </div>
+                </div>
+                {data ? (
+                    React.cloneElement(children, {
+                        save: this.save,
+                        resource,
+                        basePath,
+                        record: data,
+                        translate,
+                        version,
+                        redirect:
+                            typeof children.props.redirect === 'undefined'
+                                ? this.defaultRedirectRoute()
+                                : children.props.redirect,
+                    })
+                ) : (
+                    <div>&nbsp;</div>
+                )}
             </div>
         );
     }
