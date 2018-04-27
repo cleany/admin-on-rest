@@ -19,7 +19,7 @@ class Notification extends React.Component {
     };
 
     render() {
-        const style = {};
+        const style = { textAlign: 'center' };
         const { success, accent1Color } = getStyles(this.context);
         const { type, translate, message, translateVars } = this.props;
 

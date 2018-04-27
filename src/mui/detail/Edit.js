@@ -75,6 +75,7 @@ export class Edit extends Component {
             version,
             styles = defaultStyles,
             displayBreadcrumb = true,
+            redirect,
         } = this.props;
 
         if (!children) return null;
@@ -130,9 +131,9 @@ export class Edit extends Component {
                         translate,
                         version,
                         redirect:
-                            typeof children.props.redirect === 'undefined'
+                            typeof redirect === 'undefined'
                                 ? this.defaultRedirectRoute()
-                                : children.props.redirect,
+                                : redirect,
                     })
                 ) : (
                     <div>&nbsp;</div>
@@ -159,6 +160,9 @@ Edit.propTypes = {
     title: PropTypes.any,
     translate: PropTypes.func,
     version: PropTypes.number.isRequired,
+    styles: PropTypes.object,
+    displayBreadcrumb: PropTypes.bool,
+    redirect: PropTypes.string,
 };
 
 function mapStateToProps(state, props) {

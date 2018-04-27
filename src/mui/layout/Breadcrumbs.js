@@ -19,11 +19,11 @@ class Breadcrumbs extends Component {
         { smart_count: 2,
         _: inflection.humanize(inflection.singularize(resource)),
     });
-
+    console.log(data);
     if (!display) return null;
 
     return (
-        <div className="breadcrumb">
+        <div className="breadcrumbs">
             <Breadcrumb
               url={`#/${resource}`}
               text={`${resourceName} /`}
@@ -32,7 +32,11 @@ class Breadcrumbs extends Component {
             {view === 'edit' && data &&
                 <Breadcrumb
                   url={`#/${resource}/${data.id}`}
-                  text={` ${data.name} / `}
+                  text={
+                    !!data.account_name
+                    ? (` ${data.account_name} / `)
+                    : (!!data.name ? ` ${data.name} /` : ` ${data.fullname} /`)
+                  }
                   styles={styles}
                 />
             }
