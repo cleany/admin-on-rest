@@ -73,20 +73,27 @@ export class Show extends Component {
         );
 
         return (
-            <div style={{ opacity: isLoading ? 0.8 : 1 }}>
+            <div
+                style={{ opacity: isLoading ? 0.8 : 1 }}
+                className="aor-show-layout"
+            >
                 <div style={styles.header}>
                     <div style={styles.headerTitle}>
-                        {displayBreadcrumb &&
-                          <a
-                              href={`#/${this.props.resource}`}
-                              style={styles.breadcrumb}
-                          >
-                              {`${resourceName} /`}
-                          </a>
-                        }
+                        {displayBreadcrumb && (
+                            <a
+                                href={`#/${this.props.resource}`}
+                                style={styles.breadcrumb}
+                                className="aor-no-print"
+                            >
+                                {`${resourceName} /`}
+                            </a>
+                        )}
                         <ViewTitle title={titleElement} style={styles.title} />
                     </div>
-                    <div style={styles.headerActions}>
+                    <div
+                        style={styles.headerActions}
+                        className="aor-show-actions"
+                    >
                         {actions &&
                             React.cloneElement(actions, {
                                 basePath,

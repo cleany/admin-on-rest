@@ -6,8 +6,8 @@ import createHistory from 'history/createHashHistory';
 import { ConnectedRouter, routerMiddleware } from 'react-router-redux';
 import createSagaMiddleware from 'redux-saga';
 import { all, fork } from 'redux-saga/effects';
-import { persistStore } from 'redux-persist'
-import { PersistGate } from 'redux-persist/integration/react'
+import { persistStore } from 'redux-persist';
+import { PersistGate } from 'redux-persist/integration/react';
 import withContext from 'recompose/withContext';
 import ReactGA from 'react-ga';
 import { Route, Switch } from 'react-router-dom';
@@ -83,59 +83,60 @@ const Admin = ({
     };
 
     const AdminContent = () => {
-      return (
-        <TranslationProvider messages={messages}>
-            <ConnectedRouter history={routerHistory}>
-                <Switch>
-                    {loginPage && (
+        return (
+            <TranslationProvider messages={messages}>
+                <ConnectedRouter history={routerHistory}>
+                    <Switch>
+                        {loginPage && (
+                            <Route
+                                exact
+                                path="/login"
+                                render={({ location }) => {
+                                    logPageView();
+                                    return createElement(loginPage, {
+                                        location,
+                                        title,
+                                        theme,
+                                    });
+                                }}
+                            />
+                        )}
                         <Route
-                            exact
-                            path="/login"
-                            render={({ location }) => {
+                            path="/"
+                            render={routeProps => {
                                 logPageView();
-                                return createElement(loginPage, {
-                                    location,
-                                    title,
-                                    theme,
-                                });
+                                return (
+                                    <AdminRoutes
+                                        appLayout={appLayout}
+                                        catchAll={catchAll}
+                                        customRoutes={customRoutes}
+                                        dashboard={dashboard}
+                                        logout={logout}
+                                        menu={menu}
+                                        theme={theme}
+                                        title={title}
+                                        {...routeProps}
+                                    >
+                                        {children}
+                                    </AdminRoutes>
+                                );
                             }}
                         />
-                    )}
-                    <Route
-                        path="/"
-                        render={routeProps => {
-                            logPageView();
-                            return (
-                                <AdminRoutes
-                                    appLayout={appLayout}
-                                    catchAll={catchAll}
-                                    customRoutes={customRoutes}
-                                    dashboard={dashboard}
-                                    logout={logout}
-                                    menu={menu}
-                                    theme={theme}
-                                    title={title}
-                                    {...routeProps}
-                                >
-                                    {children}
-                                </AdminRoutes>
-                            );
-                        }}
-                    />
-                </Switch>
-            </ConnectedRouter>
-        </TranslationProvider>
-      );
-    }
+                    </Switch>
+                </ConnectedRouter>
+            </TranslationProvider>
+        );
+    };
 
     return (
         <Provider store={store}>
-          {registry.length ?
-            <PersistGate loading={null} persistor={persistor}>
-              <AdminContent />
-            </PersistGate> :
-            <AdminContent />
-          }
+            {registry.length ? (
+                <PersistGate loading={null} persistor={persistor}>
+                    <AdminContent />
+                </PersistGate>
+            ) : (
+                <AdminContent />
+            )}
         </Provider>
     );
 };

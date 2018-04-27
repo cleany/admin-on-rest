@@ -6,6 +6,35 @@ import DatagridHeaderCell from './DatagridHeaderCell';
 import DatagridBody from './DatagridBody';
 import LinearProgress from 'material-ui/LinearProgress';
 
+const defaultStyles = {
+    table: {
+        tableLayout: 'auto',
+    },
+    tbody: {
+        height: 'inherit',
+    },
+    header: {
+        th: {
+            padding: 0,
+            textAlign: 'center',
+        },
+        'th:first-child': {
+            padding: '0 0 0 12px',
+        },
+    },
+    cell: {
+        td: {
+            padding: '0 12px',
+            whiteSpace: 'normal',
+            textAlign: 'center',
+        },
+        'td:first-child': {
+            padding: '0 12px 0 16px',
+            whiteSpace: 'normal',
+        },
+    },
+};
+
 /**
  * The Datagrid component renders a list of records as a table.
  * It is usually used as a child of the <List> and <ReferenceManyField> components.
@@ -61,7 +90,7 @@ class Datagrid extends Component {
             data,
             currentSort,
             basePath,
-            styles,
+            styles = defaultStyles,
             muiTheme,
             rowStyle,
             options,
@@ -72,14 +101,14 @@ class Datagrid extends Component {
             labelEmptyData,
         } = this.props;
         if (Object.keys(data).length === 0) {
-          if (isLoading) {
+            if (isLoading) {
+                return <LinearProgress mode="indeterminate" />;
+            }
             return (
-              <LinearProgress mode="indeterminate" />
+                <div style={{ fontSize: 16, padding: '1em 0' }}>
+                    {labelEmptyData}
+                </div>
             );
-          }
-          return (
-            <div style={{fontSize:16, padding:'1em 0'}}>{labelEmptyData}</div>
-          );
         }
         return (
             <Table
@@ -92,34 +121,34 @@ class Datagrid extends Component {
                     adjustForCheckbox={false}
                     {...headerOptions}
                 >
-                  <TableRow style={muiTheme.tableRow}>
-                      {React.Children.map(children, (field, index) => {
-                          if (childrenFilter(resource, field)) {
-                              return field ? (
-                                <DatagridHeaderCell
-                                    key={field.props.source || index}
-                                    field={field}
-                                    defaultStyle={
-                                        index === 0 ? (
-                                            styles.header['th:first-child']
-                                        ) : (
-                                            styles.header.th
-                                        )
-                                    }
-                                    currentSort={currentSort}
-                                    isSorting={
-                                        field.props.source ===
-                                        currentSort.field
-                                    }
-                                    updateSort={this.updateSort}
-                                    resource={resource}
-                                    styles={styles}
-                                />
-                              ) : null;
-                          }
-                          return;
-                      })}
-                  </TableRow>
+                    <TableRow style={muiTheme.tableRow}>
+                        {React.Children.map(children, (field, index) => {
+                            if (childrenFilter(resource, field)) {
+                                return field ? (
+                                    <DatagridHeaderCell
+                                        key={field.props.source || index}
+                                        field={field}
+                                        defaultStyle={
+                                            index === 0 ? (
+                                                styles.header['th:first-child']
+                                            ) : (
+                                                styles.header.th
+                                            )
+                                        }
+                                        currentSort={currentSort}
+                                        isSorting={
+                                            field.props.source ===
+                                            currentSort.field
+                                        }
+                                        updateSort={this.updateSort}
+                                        resource={resource}
+                                        styles={styles}
+                                    />
+                                ) : null;
+                            }
+                            return;
+                        })}
+                    </TableRow>
                 </TableHeader>
                 <DatagridBody
                     resource={resource}
@@ -168,24 +197,6 @@ Datagrid.defaultProps = {
     data: {},
     ids: [],
     labelEmptyData: 'No data',
-    styles: {
-      table: {},
-      tbody: {},
-      header: {
-          th: {},
-          'th:first-child': {},
-      },
-      cell: {
-          td: {},
-          'td:first-child': {},
-          'td:last-child': {},
-      },
-      button: {},
-      label: {},
-      sortButton: {},
-      nonSortButton: {},
-      nonSortableLabel: {},
-    },
 };
 
 export default muiThemeable()(Datagrid);

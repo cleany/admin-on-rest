@@ -36,7 +36,7 @@ describe('<DatagridHeaderCell />', () => {
                 />
             );
 
-            assert.equal(wrapper.find('FlatButton').length, 0);
+            assert.equal(wrapper.find('FlatButton').length, 1);
         });
 
         it('should be disabled when sortable prop is explicitly set to false', () => {
@@ -53,7 +53,7 @@ describe('<DatagridHeaderCell />', () => {
                 />
             );
 
-            assert.equal(wrapper.find('FlatButton').length, 0);
+            assert.equal(wrapper.find('FlatButton').length, 1);
         });
     });
 });

@@ -90,7 +90,7 @@ export class InfiniteList extends List {
             translate,
             theme,
             version,
-            styles,
+            styles = defaultStyles,
         } = this.props;
         const query = this.getQuery();
         const filterValues = query.filter;
@@ -136,7 +136,6 @@ export class InfiniteList extends List {
                                 setFilters: this.setFilters,
                                 context: 'form',
                             })}
-
                     </div>
                 </div>
                 <Card style={styles.card}>
