@@ -77,13 +77,15 @@ export class Show extends Component {
             <div className="show-page aor-show-layout">
                 <div style={styles.header}>
                     <div>
-                        <Breadcrumbs
-                          data={data}
-                          display={displayBreadcrumb}
-                          resource={resource}
-                          styles={styles.breadcrumb}
-                          view="show"
-                        />
+                        {displayBreadcrumb && (
+                            <Breadcrumbs
+                              data={data}
+                              display={displayBreadcrumb}
+                              resource={resource}
+                              styles={styles.breadcrumb}
+                              view="show"
+                            />
+                        )}
                         <ViewTitle title={titleElement} style={styles.title} />
                     </div>
                     <div className="aor-show-actions">
