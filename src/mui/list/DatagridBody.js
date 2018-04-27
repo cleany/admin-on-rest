@@ -30,7 +30,7 @@ const DatagridBody = ({
     >
         {ids.map((id, rowIndex) => {
             return [
-                <TableRow style={{height: '4px'}}/>,
+                <TableRow className="aor-no-print" style={{ height: '4px' }} />,
                 <TableRow
                     style={rowStyle ? rowStyle(data[id], rowIndex) : styles.tr}
                     key={id}
@@ -47,12 +47,10 @@ const DatagridBody = ({
                                     defaultStyle={
                                         index === 0 ? (
                                             styles.cell['td:first-child']
+                                        ) : index === children.length - 1 ? (
+                                            styles.cell['td:last-child']
                                         ) : (
-                                            index === children.length - 1 ? (
-                                              styles.cell['td:last-child']
-                                            ) : (
-                                              styles.cell.td
-                                            )
+                                            styles.cell.td
                                         )
                                     }
                                     clickable={rowClickable}
@@ -62,7 +60,7 @@ const DatagridBody = ({
                         }
                         return;
                     })}
-                </TableRow>
+                </TableRow>,
             ];
         })}
     </TableBody>

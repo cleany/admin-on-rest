@@ -12,8 +12,9 @@ const SimpleShowLayout = ({
     record,
     resource,
     version,
+    style,
 }) => (
-    <div key={version}>
+    <div style={style} key={version}>
         {Children.map(children, field => {
             if (!field) {
                 return;
@@ -25,7 +26,11 @@ const SimpleShowLayout = ({
                 }
             }
             return (
-                <div key={field.props.source}>
+                <div
+                    key={field.props.source}
+                    className={`aor-field aor-field-${field.props.source}`}
+                    style={field.props.style}
+                >
                     {field.props.addLabel ? (
                         <Labeled
                             record={record}
@@ -59,6 +64,7 @@ SimpleShowLayout.propTypes = {
     record: PropTypes.object,
     resource: PropTypes.string,
     version: PropTypes.number,
+    style: PropTypes.object,
 };
 
 export default SimpleShowLayout;

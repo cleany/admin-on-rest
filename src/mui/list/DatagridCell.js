@@ -26,7 +26,7 @@ export const DatagridCell = ({
         field.props.style,
         field.type.defaultProps ? field.type.defaultProps.style : {},
         defaultStyle,
-        clickable ? { cursor: 'pointer' } : { cursor: 'default' },
+        clickable ? { cursor: 'pointer' } : { cursor: 'default' }
     );
 
     const handleClick = clickable

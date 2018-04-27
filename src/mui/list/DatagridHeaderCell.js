@@ -7,13 +7,20 @@ import FlatButton from 'material-ui/FlatButton';
 import ContentSort from 'material-ui/svg-icons/content/sort';
 import FieldTitle from '../../util/FieldTitle';
 
+const defaultStyles = {
+    th: {},
+    'th:first-child': {},
+    sortButton: {},
+    nonSortableLabel: {},
+};
+
 export const DatagridHeaderCell = ({
     field,
     defaultStyle,
     currentSort,
     updateSort,
     resource,
-    styles,
+    styles = defaultStyles,
 }) => {
     const style = defaultsDeep(
         {},
@@ -26,17 +33,17 @@ export const DatagridHeaderCell = ({
             <FlatButton
                 labelPosition="before"
                 onClick={
-                    field.props.sortable !== false && field.props.source
-                    ? updateSort
-                    : null
+                    field.props.sortable !== false && field.props.source ? (
+                        updateSort
+                    ) : null
                 }
                 data-sort={
-                    field.props.sortable !== false && field.props.source
-                    ? field.props.source
-                    : null
+                    field.props.sortable !== false && field.props.source ? (
+                        field.props.source
+                    ) : null
                 }
                 label={
-                    <span style={styles.nonSortableLabel}>
+                    <span style={styles ? styles.nonSortableLabel : null}>
                         <FieldTitle
                             label={field.props.label}
                             source={field.props.source}
@@ -49,24 +56,30 @@ export const DatagridHeaderCell = ({
                     field.props.source === currentSort.field ? (
                         <ContentSort
                             style={
-                              currentSort.order === 'ASC'
-                              ? ({ transform: 'rotate(180deg)', opacity:.3 })
-                              : ({ opacity:.3 })
+                                currentSort.order === 'ASC' ? (
+                                    {
+                                        transform: 'rotate(180deg)',
+                                        opacity: 0.3,
+                                    }
+                                ) : (
+                                    { opacity: 0.3 }
+                                )
                             }
                         />
-                    ) : ( false )
+                    ) : (
+                        false
+                    )
                 }
                 style={
-                  field.props.sortable !== false
-                  ? styles.sortButton
-                  : styles.nonSortButton
+                    field.props.sortable !== false ? (
+                        styles.sortButton
+                    ) : (
+                        styles.nonSortButton
+                    )
                 }
                 labelStyle={styles.label}
                 disableTouchRipple
-                disabled={
-                  field.props.sortable === false
-                  || !field.props.source
-                }
+                disabled={field.props.sortable === false || !field.props.source}
             />
         </TableHeaderColumn>
     );
