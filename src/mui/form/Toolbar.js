@@ -1,7 +1,7 @@
 import React, { Children } from 'react';
 import PropTypes from 'prop-types';
 import { Toolbar as MuiToolbar, ToolbarGroup } from 'material-ui/Toolbar';
-import { SaveButton } from '../button';
+import { SaveButton, CancelButton } from '../button';
 import Responsive from '../layout/Responsive';
 
 const styles = {
@@ -23,18 +23,21 @@ const Toolbar = ({
     submitOnEnter,
     handleSubmitWithRedirect,
     children,
+    basePath,
 }) => (
     <Responsive
         small={
-            <MuiToolbar style={styles.mobileToolbar} noGutter>
+            <MuiToolbar style={{ marginTop: '1em' }} noGutter>
                 <ToolbarGroup>
                     {Children.count(children) === 0 ? (
-                        <SaveButton
-                            handleSubmitWithRedirect={handleSubmitWithRedirect}
-                            invalid={invalid}
-                            raised={false}
-                            submitOnEnter={submitOnEnter}
-                        />
+                        <div>
+                            <SaveButton
+                                handleSubmitWithRedirect={handleSubmitWithRedirect}
+                                invalid={invalid}
+                                submitOnEnter={submitOnEnter}
+                            />
+                            <CancelButton basePath={basePath} />
+                        </div>
                     ) : (
                         Children.map(
                             children,
@@ -43,7 +46,6 @@ const Toolbar = ({
                                     ? React.cloneElement(button, {
                                           invalid,
                                           handleSubmitWithRedirect,
-                                          raised: false,
                                           submitOnEnter: valueOrDefault(
                                               button.props.submitOnEnter,
                                               submitOnEnter
@@ -56,14 +58,17 @@ const Toolbar = ({
             </MuiToolbar>
         }
         medium={
-            <MuiToolbar>
+            <MuiToolbar style={{ marginTop: '2em' }} noGutter>
                 <ToolbarGroup>
                     {Children.count(children) === 0 ? (
-                        <SaveButton
-                            handleSubmitWithRedirect={handleSubmitWithRedirect}
-                            invalid={invalid}
-                            submitOnEnter={submitOnEnter}
-                        />
+                        <div>
+                            <SaveButton
+                                handleSubmitWithRedirect={handleSubmitWithRedirect}
+                                invalid={invalid}
+                                submitOnEnter={submitOnEnter}
+                            />
+                            <CancelButton basePath={basePath} />
+                        </div>
                     ) : (
                         Children.map(
                             children,
@@ -91,6 +96,7 @@ Toolbar.propTypes = {
     handleSubmitWithRedirect: PropTypes.func,
     invalid: PropTypes.bool,
     submitOnEnter: PropTypes.bool,
+    basePath: PropTypes.string,
 };
 
 Toolbar.defaultProps = {

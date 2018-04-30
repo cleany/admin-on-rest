@@ -40,7 +40,7 @@ class Create extends Component {
 
     render() {
         const {
-            actions = <DefaultActions />,
+            actions = null,
             children,
             isLoading,
             resource,

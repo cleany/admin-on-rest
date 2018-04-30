@@ -14,13 +14,14 @@ import translate from '../../i18n/translate';
 
 const getStyles = ({ palette: { primary1Color } }) => ({
     card: {
-        padding: 0,
+        padding: '0 0 1em',
         display: 'flex',
         justifyContent: 'flex-start',
         alignItems: 'flex-start',
         flexWrap: 'wrap',
+        marginTop: '-1em',
     },
-    body: { display: 'flex', alignItems: 'flex-end' },
+    body: { display: 'flex', alignItems: 'flex-end', marginRight: '1em' },
     spacer: { display: 'none' },
     icon: { color: primary1Color || '#00bcd4', paddingBottom: 0 },
     clearFix: { clear: 'right' },

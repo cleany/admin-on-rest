@@ -5,14 +5,9 @@ import RaisedButton from 'material-ui/RaisedButton';
 import linkToRecord from '../../util/linkToRecord';
 import translate from '../../i18n/translate';
 
-const deleteStyle = {
-  bg: '#D63A38',
-  label: "#FFFFFF",
-};
-
-const DeleteButton = ({
+const CancelButton = ({
     basePath = '',
-    label = 'aor.action.delete',
+    label = 'aor.action.cancel',
     record = {},
     translate,
 }) => (
@@ -22,18 +17,18 @@ const DeleteButton = ({
             event.stopPropagation();
         }}
         containerElement={
-            <Link to={`${linkToRecord(basePath, record.id)}/delete`} />
+            <Link to={`${basePath}`} />
         }
-        backgroundColor={deleteStyle.bg}
-        labelColor={deleteStyle.label}
+        style={{
+          marginLeft: '16px',
+        }}
     />
 );
 
-DeleteButton.propTypes = {
+CancelButton.propTypes = {
     basePath: PropTypes.string,
     label: PropTypes.string,
-    record: PropTypes.object,
     translate: PropTypes.func.isRequired,
 };
 
-export default translate(DeleteButton);
+export default translate(CancelButton);

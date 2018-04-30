@@ -22,7 +22,7 @@ class Breadcrumbs extends Component {
     if (!display) return null;
 
     return (
-        <div className="breadcrumbs">
+        <div className="breadcrumbs aor-no-print">
             <Breadcrumb
               url={`#/${resource}`}
               text={`${resourceName} /`}

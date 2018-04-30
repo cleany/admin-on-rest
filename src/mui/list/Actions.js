@@ -37,7 +37,6 @@ const Actions = ({
                     context: 'button',
                 })}
             {hasCreate && <CreateButton basePath={basePath} />}
-            <RefreshButton />
         </CardActions>
     );
 };

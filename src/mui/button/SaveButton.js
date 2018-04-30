@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import RaisedButton from 'material-ui/RaisedButton';
-import FlatButton from 'material-ui/FlatButton';
-import ContentSave from 'material-ui/svg-icons/content/save';
 import CircularProgress from 'material-ui/CircularProgress';
 import translate from '../../i18n/translate';
 
@@ -32,21 +30,25 @@ export class SaveButton extends Component {
             redirect,
             disabled = false,
         } = this.props;
+        const successStyle = {
+          bg: '#3DCC91',
+          label: "#FFFFFF",
+        };
         const type = submitOnEnter ? 'submit' : 'button';
-        const ButtonComponent = raised ? RaisedButton : FlatButton;
         return (
-            <ButtonComponent
+            <RaisedButton
                 type={type}
                 label={label && translate(label, { _: label })}
                 icon={
                     saving && saving.redirect === redirect ? (
                         <CircularProgress size={25} thickness={2} />
                     ) : (
-                        <ContentSave />
+                        null
                     )
                 }
                 onClick={this.handleClick}
-                primary={!saving}
+                backgroundColor={successStyle.bg}
+                labelColor={successStyle.label}
                 disabled={disabled}
             />
         );
