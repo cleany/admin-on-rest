@@ -51,6 +51,7 @@ class Create extends Component {
             styles = defaultStyles,
             displayBreadcrumb = true,
             redirect,
+            displayTitle = true,
         } = this.props;
 
         if (!children) return null;
@@ -64,7 +65,7 @@ class Create extends Component {
             name: `${resourceName}`,
         });
         const titleElement = (
-            <Title title={title} defaultTitle={defaultTitle} />
+            <Title title={title} defaultTitle={defaultTitle}/>
         );
 
         return (
@@ -78,7 +79,9 @@ class Create extends Component {
                           styles={styles.breadcrumb}
                           view="create"
                         />
-                        <ViewTitle title={titleElement} style={styles.title} />
+                        {displayTitle
+                          ? <ViewTitle title={titleElement} style={styles.title} />
+                          : null}
                     </div>
                     <div>
                         {actions &&
@@ -119,6 +122,7 @@ Create.propTypes = {
     styles: PropTypes.object,
     displayBreadcrumb: PropTypes.bool,
     redirect: PropTypes.string,
+    displayTitle: PropTypes.bool,
 };
 
 Create.defaultProps = {
