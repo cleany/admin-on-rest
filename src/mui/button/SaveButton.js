@@ -30,6 +30,7 @@ export class SaveButton extends Component {
             translate,
             submitOnEnter,
             redirect,
+            disabled = false,
         } = this.props;
         const type = submitOnEnter ? 'submit' : 'button';
         const ButtonComponent = raised ? RaisedButton : FlatButton;
@@ -50,6 +51,7 @@ export class SaveButton extends Component {
                     margin: '10px 24px',
                     position: 'relative',
                 }}
+                disabled={disabled}
             />
         );
     }
@@ -63,6 +65,7 @@ SaveButton.propTypes = {
     submitOnEnter: PropTypes.bool,
     handleSubmitWithRedirect: PropTypes.func,
     redirect: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+    disabled: PropTypes.bool,
 };
 
 SaveButton.defaultProps = {
