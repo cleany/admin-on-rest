@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
 import CircularProgress from 'material-ui/CircularProgress';
 import translate from '../../i18n/translate';
 
@@ -32,11 +32,12 @@ export class SaveButton extends Component {
         } = this.props;
         const successStyle = {
           bg: '#3DCC91',
+          bgHover: '#2E996D',
           label: "#FFFFFF",
         };
         const type = submitOnEnter ? 'submit' : 'button';
         return (
-            <RaisedButton
+            <FlatButton
                 type={type}
                 label={label && translate(label, { _: label })}
                 icon={
@@ -48,7 +49,11 @@ export class SaveButton extends Component {
                 }
                 onClick={this.handleClick}
                 backgroundColor={successStyle.bg}
-                labelColor={successStyle.label}
+                hoverColor={successStyle.bgHover}
+                labelStyle={{
+                  color: successStyle.label,
+                  fontSize: 12,
+                }}
                 disabled={disabled}
             />
         );

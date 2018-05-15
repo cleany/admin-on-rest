@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import onlyUpdateForKeys from 'recompose/onlyUpdateForKeys';
-import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import withWidth from 'material-ui/utils/withWidth';
@@ -34,13 +34,16 @@ const CreateButton = ({
             <ContentAdd />
         </FloatingActionButton>
     ) : (
-        <RaisedButton
+        <FlatButton
             primary
             label={label && translate(label)}
             onClick={event => {
                 event.stopPropagation();
             }}
             containerElement={<Link to={`${basePath}/create`} />}
+            style={{
+              marginLeft: 10,
+            }}
         />
     );
 

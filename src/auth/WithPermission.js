@@ -16,6 +16,7 @@ export class WithPermissionComponent extends Component {
         resource: PropTypes.string,
         value: PropTypes.any,
         resolve: PropTypes.func,
+        style: PropTypes.object,
     };
 
     static defaultProps = {
@@ -72,6 +73,7 @@ export class WithPermissionComponent extends Component {
             resolve,
             value,
             exact,
+            style = {},
             ...props
         } = this.props;
 
@@ -89,11 +91,11 @@ export class WithPermissionComponent extends Component {
 
         if (Children.count(children) > 1) {
             return (
-                <span>
-                    {Children.map(
-                        children,
-                        child => (child ? cloneElement(child, props) : null)
-                    )}
+                <span style={style}>
+                  {Children.map(
+                      children,
+                      child => (child ? cloneElement(child, props) : null)
+                  )}
                 </span>
             );
         }

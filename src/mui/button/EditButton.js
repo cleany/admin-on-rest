@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import shouldUpdate from 'recompose/shouldUpdate';
 import compose from 'recompose/compose';
-import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
 import linkToRecord from '../../util/linkToRecord';
 import translate from '../../i18n/translate';
 
@@ -13,7 +13,7 @@ const EditButton = ({
     record = {},
     translate,
 }) => (
-    <RaisedButton
+    <FlatButton
         primary
         label={label && translate(label)}
         onClick={event => {

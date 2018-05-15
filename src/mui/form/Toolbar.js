@@ -30,7 +30,7 @@ const Toolbar = ({
             <MuiToolbar style={{ marginTop: '1em' }} noGutter>
                 <ToolbarGroup>
                     {Children.count(children) === 0 ? (
-                        <div>
+                        <div style={{ display: 'flex' }}>
                             <SaveButton
                                 handleSubmitWithRedirect={handleSubmitWithRedirect}
                                 invalid={invalid}
@@ -61,7 +61,7 @@ const Toolbar = ({
             <MuiToolbar style={{ marginTop: '2em' }} noGutter>
                 <ToolbarGroup>
                     {Children.count(children) === 0 ? (
-                        <div>
+                        <div style={{ display: 'flex' }}>
                             <SaveButton
                                 handleSubmitWithRedirect={handleSubmitWithRedirect}
                                 invalid={invalid}
