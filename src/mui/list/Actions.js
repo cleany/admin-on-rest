@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { CardActions } from 'material-ui/Card';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import autoprefixer from 'material-ui/utils/autoprefixer';
-import { CreateButton, RefreshButton } from '../button';
+import { CreateButton } from '../button';
 import onlyUpdateForKeys from 'recompose/onlyUpdateForKeys';
 
 const cardActionStyle = {

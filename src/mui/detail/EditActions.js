@@ -8,7 +8,7 @@ const cardActionStyle = {
     float: 'right',
 };
 
-const EditActions = ({ basePath, data, hasDelete, hasShow, hasList }) => (
+const EditActions = ({ basePath, data, hasDelete }) => (
     <CardActions style={cardActionStyle}>
         {hasDelete && <DeleteButton basePath={basePath} record={data} />}
     </CardActions>
