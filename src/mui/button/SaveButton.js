@@ -24,16 +24,15 @@ export class SaveButton extends Component {
         const {
             saving,
             label = 'aor.action.save',
-            raised = true,
             translate,
             submitOnEnter,
             redirect,
             disabled = false,
         } = this.props;
         const successStyle = {
-          bg: '#3DCC91',
-          bgHover: '#2E996D',
-          label: "#FFFFFF",
+            bg: '#3DCC91',
+            bgHover: '#2E996D',
+            label: '#FFFFFF',
         };
         const type = submitOnEnter ? 'submit' : 'button';
         return (
@@ -42,17 +41,19 @@ export class SaveButton extends Component {
                 label={label && translate(label, { _: label })}
                 icon={
                     saving && saving.redirect === redirect ? (
-                        <CircularProgress size={25} thickness={2} />
-                    ) : (
-                        null
-                    )
+                        <CircularProgress
+                          size={24}
+                          thickness={2}
+                          color="#ffffff"
+                        />
+                    ) : null
                 }
                 onClick={this.handleClick}
                 backgroundColor={successStyle.bg}
                 hoverColor={successStyle.bgHover}
                 labelStyle={{
-                  color: successStyle.label,
-                  fontSize: 12,
+                    color: successStyle.label,
+                    fontSize: 12,
                 }}
                 disabled={disabled}
             />
@@ -62,7 +63,6 @@ export class SaveButton extends Component {
 
 SaveButton.propTypes = {
     label: PropTypes.string,
-    raised: PropTypes.bool,
     saving: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
     translate: PropTypes.func.isRequired,
     submitOnEnter: PropTypes.bool,

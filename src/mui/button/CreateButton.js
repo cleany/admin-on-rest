@@ -42,7 +42,7 @@ const CreateButton = ({
             }}
             containerElement={<Link to={`${basePath}/create`} />}
             style={{
-              marginLeft: 10,
+                marginLeft: 10,
             }}
         />
     );

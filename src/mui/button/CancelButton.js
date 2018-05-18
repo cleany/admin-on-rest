@@ -16,11 +16,9 @@ const CancelButton = ({
         onClick={event => {
             event.stopPropagation();
         }}
-        containerElement={
-            <Link to={`${basePath}`} />
-        }
+        containerElement={<Link to={`${basePath}`} />}
         style={{
-          marginLeft: '10px',
+            marginLeft: '10px',
         }}
     />
 );
