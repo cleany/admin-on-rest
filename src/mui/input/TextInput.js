@@ -44,6 +44,8 @@ export class TextInput extends Component {
             resource,
             source,
             type,
+            labelFixed,
+            fullWidth,
         } = this.props;
         if (typeof meta === 'undefined') {
             throw new Error(
@@ -59,6 +61,7 @@ export class TextInput extends Component {
                 onFocus={this.handleFocus}
                 onChange={this.handleChange}
                 type={type}
+                floatingLabelFixed={labelFixed}
                 floatingLabelText={
                     <FieldTitle
                         label={label}
@@ -69,6 +72,7 @@ export class TextInput extends Component {
                 }
                 errorText={touched && error}
                 style={elStyle}
+                fullWidth={fullWidth}
                 {...options}
             />
         );
@@ -90,6 +94,8 @@ TextInput.propTypes = {
     resource: PropTypes.string,
     source: PropTypes.string,
     type: PropTypes.string,
+    labelFixed: PropTypes.bool,
+    fullWidth: PropTypes.bool,
 };
 
 TextInput.defaultProps = {
@@ -99,6 +105,8 @@ TextInput.defaultProps = {
     onFocus: () => {},
     options: {},
     type: 'text',
+    labelFixed: true,
+    fullWidth: true,
 };
 
 export default TextInput;

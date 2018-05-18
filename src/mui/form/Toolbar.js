@@ -4,17 +4,6 @@ import { Toolbar as MuiToolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import { SaveButton, CancelButton } from '../button';
 import Responsive from '../layout/Responsive';
 
-const styles = {
-    mobileToolbar: {
-        position: 'fixed',
-        bottom: 0,
-        width: '100%',
-        backgroundColor: 'white',
-        justifyContent: 'flex-end',
-        zIndex: 2,
-    },
-};
-
 const valueOrDefault = (value, defaultValue) =>
     typeof value === 'undefined' ? defaultValue : value;
 
@@ -32,7 +21,9 @@ const Toolbar = ({
                     {Children.count(children) === 0 ? (
                         <div style={{ display: 'flex' }}>
                             <SaveButton
-                                handleSubmitWithRedirect={handleSubmitWithRedirect}
+                                handleSubmitWithRedirect={
+                                    handleSubmitWithRedirect
+                                }
                                 invalid={invalid}
                                 submitOnEnter={submitOnEnter}
                             />
@@ -63,7 +54,9 @@ const Toolbar = ({
                     {Children.count(children) === 0 ? (
                         <div style={{ display: 'flex' }}>
                             <SaveButton
-                                handleSubmitWithRedirect={handleSubmitWithRedirect}
+                                handleSubmitWithRedirect={
+                                    handleSubmitWithRedirect
+                                }
                                 invalid={invalid}
                                 submitOnEnter={submitOnEnter}
                             />

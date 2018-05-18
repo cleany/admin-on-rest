@@ -132,6 +132,8 @@ export class SelectInput extends Component {
             options,
             resource,
             source,
+            labelFixed,
+            fullWidth,
         } = this.props;
         if (typeof meta === 'undefined') {
             throw new Error(
@@ -143,6 +145,7 @@ export class SelectInput extends Component {
         return (
             <SelectField
                 value={this.state.value}
+                floatingLabelFixed={labelFixed}
                 floatingLabelText={
                     <FieldTitle
                         label={label}
@@ -155,6 +158,7 @@ export class SelectInput extends Component {
                 autoWidth
                 style={elStyle}
                 errorText={touched && error}
+                fullWidth={fullWidth}
                 {...options}
             >
                 {this.addAllowEmpty(choices.map(this.renderMenuItem))}
@@ -183,6 +187,8 @@ SelectInput.propTypes = {
     source: PropTypes.string,
     translate: PropTypes.func.isRequired,
     translateChoice: PropTypes.bool.isRequired,
+    labelFixed: PropTypes.bool,
+    fullWidth: PropTypes.bool,
 };
 
 SelectInput.defaultProps = {
@@ -193,6 +199,8 @@ SelectInput.defaultProps = {
     optionText: 'name',
     optionValue: 'id',
     translateChoice: true,
+    labelFixed: true,
+    fullWidth: true,
 };
 
 export default translate(SelectInput);
