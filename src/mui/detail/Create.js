@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Card } from 'material-ui/Card';
 import compose from 'recompose/compose';
 import inflection from 'inflection';
 import Breadcrumbs from '../layout/Breadcrumbs';
 import ViewTitle from '../layout/ViewTitle';
 import Title from '../layout/Title';
 import { crudCreate as crudCreateAction } from '../../actions/dataActions';
-import DefaultActions from './CreateActions';
 import translate from '../../i18n/translate';
 import withPermissionsFilteredChildren from '../../auth/withPermissionsFilteredChildren';
 import { defaultStyles } from '../defaultStyles';
@@ -65,7 +63,7 @@ class Create extends Component {
             name: `${resourceName}`,
         });
         const titleElement = (
-            <Title title={title} defaultTitle={defaultTitle}/>
+            <Title title={title} defaultTitle={defaultTitle} />
         );
 
         return (
@@ -73,15 +71,18 @@ class Create extends Component {
                 <div style={styles.header}>
                     <div>
                         <Breadcrumbs
-                          data={record}
-                          display={displayBreadcrumb}
-                          resource={resource}
-                          styles={styles.breadcrumb}
-                          view="create"
+                            data={record}
+                            display={displayBreadcrumb}
+                            resource={resource}
+                            styles={styles.breadcrumb}
+                            view="create"
                         />
-                        {displayTitle
-                          ? <ViewTitle title={titleElement} style={styles.title} />
-                          : null}
+                        {displayTitle ? (
+                            <ViewTitle
+                                title={titleElement}
+                                style={styles.title}
+                            />
+                        ) : null}
                     </div>
                     <div>
                         {actions &&

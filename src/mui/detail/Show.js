@@ -45,7 +45,6 @@ export class Show extends Component {
             children,
             id,
             data,
-            isLoading,
             resource,
             hasDelete,
             hasEdit,
@@ -79,11 +78,11 @@ export class Show extends Component {
                     <div>
                         {displayBreadcrumb && (
                             <Breadcrumbs
-                              data={data}
-                              display={displayBreadcrumb}
-                              resource={resource}
-                              styles={styles.breadcrumb}
-                              view="show"
+                                data={data}
+                                display={displayBreadcrumb}
+                                resource={resource}
+                                styles={styles.breadcrumb}
+                                view="show"
                             />
                         )}
                         <ViewTitle title={titleElement} style={styles.title} />
@@ -123,7 +122,6 @@ Show.propTypes = {
     hasDelete: PropTypes.bool,
     hasEdit: PropTypes.bool,
     id: PropTypes.string.isRequired,
-    isLoading: PropTypes.bool.isRequired,
     location: PropTypes.object.isRequired,
     match: PropTypes.object.isRequired,
     resource: PropTypes.string.isRequired,
@@ -141,7 +139,6 @@ function mapStateToProps(state, props) {
                   decodeURIComponent(props.match.params.id)
               ]
             : null,
-        isLoading: state.admin.loading > 0,
         version: state.admin.ui.viewVersion,
     };
 }

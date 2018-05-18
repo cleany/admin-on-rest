@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Card, CardText } from 'material-ui/Card';
 import compose from 'recompose/compose';
 import inflection from 'inflection';
 import { reset } from 'redux-form';
@@ -68,7 +67,6 @@ export class Edit extends Component {
             hasShow,
             hasList,
             id,
-            isLoading,
             resource,
             title,
             translate,
@@ -102,11 +100,11 @@ export class Edit extends Component {
                 <div style={styles.header}>
                     <div>
                         <Breadcrumbs
-                          data={data}
-                          display={displayBreadcrumb}
-                          resource={resource}
-                          styles={styles.breadcrumb}
-                          view="edit"
+                            data={data}
+                            display={displayBreadcrumb}
+                            resource={resource}
+                            styles={styles.breadcrumb}
+                            view="edit"
                         />
                         <ViewTitle title={titleElement} style={styles.title} />
                     </div>
@@ -153,7 +151,6 @@ Edit.propTypes = {
     hasShow: PropTypes.bool,
     hasList: PropTypes.bool,
     id: PropTypes.string.isRequired,
-    isLoading: PropTypes.bool.isRequired,
     location: PropTypes.object.isRequired,
     match: PropTypes.object.isRequired,
     resource: PropTypes.string.isRequired,
@@ -173,7 +170,6 @@ function mapStateToProps(state, props) {
                   decodeURIComponent(props.match.params.id)
               ]
             : null,
-        isLoading: state.admin.loading > 0,
         version: state.admin.ui.viewVersion,
     };
 }
