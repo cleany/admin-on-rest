@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import inflection from 'inflection';
 import translate from '../../i18n/translate';
-import Breadcrumb from '../layout/Breadcrumb';
+import Breadcrumb from './Breadcrumb';
 
 class Breadcrumbs extends Component {
     render() {
