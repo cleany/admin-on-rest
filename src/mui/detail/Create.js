@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import compose from 'recompose/compose';
 import inflection from 'inflection';
-import Breadcrumbs from '../layout/Breadcrumbs';
+import Breadcrumb from '../layout/Breadcrumb';
 import ViewTitle from '../layout/ViewTitle';
 import Title from '../layout/Title';
 import { crudCreate as crudCreateAction } from '../../actions/dataActions';
@@ -70,7 +70,7 @@ class Create extends Component {
             <div className="create-page">
                 <div style={styles.header}>
                     <div>
-                        <Breadcrumbs
+                        <Breadcrumb
                             data={record}
                             display={displayBreadcrumb}
                             resource={resource}
@@ -100,9 +100,9 @@ class Create extends Component {
                     record,
                     translate,
                     redirect:
-                        typeof redirect === 'undefined'
+                        typeof children.props.redirect === 'undefined'
                             ? this.defaultRedirectRoute()
-                            : redirect,
+                            : children.props.redirect,
                 })}
             </div>
         );

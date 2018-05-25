@@ -10,5 +10,4 @@ export Responsive from './Responsive';
 export Sidebar from './Sidebar';
 export Title from './Title';
 export ViewTitle from './ViewTitle';
-export Breadcrumbs from './Breadcrumbs';
 export Breadcrumb from './Breadcrumb';

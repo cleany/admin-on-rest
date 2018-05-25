@@ -5,7 +5,7 @@ import compose from 'recompose/compose';
 import inflection from 'inflection';
 import ViewTitle from '../layout/ViewTitle';
 import Title from '../layout/Title';
-import Breadcrumbs from '../layout/Breadcrumbs';
+import Breadcrumb from '../layout/Breadcrumb';
 import { crudGetOne as crudGetOneAction } from '../../actions/dataActions';
 import DefaultActions from './ShowActions';
 import translate from '../../i18n/translate';
@@ -77,7 +77,7 @@ export class Show extends Component {
                 <div style={styles.header}>
                     <div>
                         {displayBreadcrumb && (
-                            <Breadcrumbs
+                            <Breadcrumb
                                 data={data}
                                 display={displayBreadcrumb}
                                 resource={resource}

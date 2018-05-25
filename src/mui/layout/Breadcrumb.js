@@ -1,43 +1,52 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import inflection from 'inflection';
+import translate from '../../i18n/translate';
+import BreadcrumbLink from './BreadcrumbLink';
 
 class Breadcrumb extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            hover: false,
-        };
-        this.hoverOn = this.hoverOn.bind(this);
-        this.hoverOff = this.hoverOff.bind(this);
-    }
-
-    hoverOn() {
-        this.setState({ hover: true });
-    }
-
-    hoverOff() {
-        this.setState({ hover: false });
-    }
-
     render() {
-        const { url, text, styles } = this.props;
+        const { data, display, resource, view, translate, styles } = this.props;
+        const resourceName = translate(`resources.${resource}.name`, {
+            smart_count: 2,
+            _: inflection.humanize(inflection.singularize(resource)),
+        });
+        if (!display) return null;
+
         return (
-            <a
-                href={url}
-                style={this.state.hover ? styles.hover : styles.noHover}
-                onMouseEnter={this.hoverOn}
-                onMouseLeave={this.hoverOff}
-            >
-                {text}
-            </a>
+            <div className="breadcrumb aor-no-print">
+                <BreadcrumbLink
+                    url={`#/${resource}`}
+                    text={`${resourceName} /`}
+                    styles={styles}
+                />
+                {view === 'edit' &&
+                data &&
+                (data.name || data.fullname) && (
+                    <BreadcrumbLink
+                        url={`#/${resource}/${data.id}`}
+                        text={
+                            data.name ? (
+                                ` ${data.name} /`
+                            ) : (
+                                ` ${data.fullname} /`
+                            )
+                        }
+                        styles={styles}
+                    />
+                )}
+            </div>
         );
     }
 }
 
 Breadcrumb.propTypes = {
-    url: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired,
+    data: PropTypes.object,
+    display: PropTypes.bool.isRequired,
+    resource: PropTypes.string.isRequired,
+    view: PropTypes.string.isRequired,
+    translate: PropTypes.func,
     styles: PropTypes.object,
 };
 
-export default Breadcrumb;
+export default translate(Breadcrumb);

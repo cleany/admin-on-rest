@@ -42,9 +42,9 @@ export class SaveButton extends Component {
                 icon={
                     saving && saving.redirect === redirect ? (
                         <CircularProgress
-                          size={24}
-                          thickness={2}
-                          color="#ffffff"
+                            size={24}
+                            thickness={2}
+                            color="#ffffff"
                         />
                     ) : null
                 }

@@ -5,7 +5,7 @@ import compose from 'recompose/compose';
 import inflection from 'inflection';
 import { reset } from 'redux-form';
 import ViewTitle from '../layout/ViewTitle';
-import Breadcrumbs from '../layout/Breadcrumbs';
+import Breadcrumb from '../layout/Breadcrumb';
 import Title from '../layout/Title';
 import {
     crudGetOne as crudGetOneAction,
@@ -99,7 +99,7 @@ export class Edit extends Component {
             <div className="edit-page">
                 <div style={styles.header}>
                     <div>
-                        <Breadcrumbs
+                        <Breadcrumb
                             data={data}
                             display={displayBreadcrumb}
                             resource={resource}
@@ -129,9 +129,9 @@ export class Edit extends Component {
                         translate,
                         version,
                         redirect:
-                            typeof redirect === 'undefined'
+                            typeof children.props.redirect === 'undefined'
                                 ? this.defaultRedirectRoute()
-                                : redirect,
+                                : children.props.redirect,
                     })
                 ) : (
                     <div>&nbsp;</div>
