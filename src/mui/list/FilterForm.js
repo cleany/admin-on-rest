@@ -21,7 +21,7 @@ const getStyles = () => ({
     },
     body: { display: 'flex', alignItems: 'center', marginRight: '1em' },
     spacer: { display: 'none' },
-    btn: {
+    button: {
         padding: '0 6px 0 0',
         width: 'auto',
         height: 'auto',
@@ -68,7 +68,7 @@ export class FilterForm extends Component {
                             <div style={prefix(styles.spacer)}>&nbsp;</div>
                         ) : (
                             <IconButton
-                                style={prefix(styles.btn)}
+                                style={prefix(styles.button)}
                                 iconStyle={prefix(styles.icon)}
                                 className="hide-filter"
                                 onClick={this.handleHide}

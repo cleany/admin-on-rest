@@ -48,7 +48,6 @@ class Create extends Component {
             hasList,
             styles = defaultStyles,
             displayBreadcrumb = true,
-            redirect,
             displayTitle = true,
         } = this.props;
 
@@ -122,7 +121,6 @@ Create.propTypes = {
     hasList: PropTypes.bool,
     styles: PropTypes.object,
     displayBreadcrumb: PropTypes.bool,
-    redirect: PropTypes.string,
     displayTitle: PropTypes.bool,
 };
 

@@ -73,7 +73,6 @@ export class Edit extends Component {
             version,
             styles = defaultStyles,
             displayBreadcrumb = true,
-            redirect,
         } = this.props;
 
         if (!children) return null;
@@ -159,7 +158,6 @@ Edit.propTypes = {
     version: PropTypes.number.isRequired,
     styles: PropTypes.object,
     displayBreadcrumb: PropTypes.bool,
-    redirect: PropTypes.string,
 };
 
 function mapStateToProps(state, props) {

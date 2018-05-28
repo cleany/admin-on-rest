@@ -99,9 +99,7 @@ export class InfiniteList extends List {
         const resourceName = translate(`resources.${resource}.name`, {
             smart_count: 2,
             _: inflection.humanize(inflection.pluralize(resource)),
-        })
-            .toString()
-            .toLowerCase();
+        });
         const defaultTitle = translate('aor.page.list', {
             name: `${resourceName}`,
         });
