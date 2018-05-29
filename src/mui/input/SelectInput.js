@@ -141,7 +141,6 @@ export class SelectInput extends Component {
             );
         }
         const { touched, error } = meta;
-
         return (
             <SelectField
                 value={this.state.value}

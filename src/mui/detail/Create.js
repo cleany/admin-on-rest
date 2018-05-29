@@ -64,7 +64,6 @@ class Create extends Component {
         const titleElement = (
             <Title title={title} defaultTitle={defaultTitle} />
         );
-
         return (
             <div className="create-page">
                 <div style={styles.header}>

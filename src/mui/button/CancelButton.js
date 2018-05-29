@@ -20,6 +20,7 @@ const CancelButton = ({
         style={{
             marginLeft: '10px',
         }}
+        backgroundColor="#d2d6d8"
     />
 );
 
