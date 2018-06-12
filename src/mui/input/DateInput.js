@@ -44,6 +44,8 @@ class DateInput extends Component {
             source,
             elStyle,
             resource,
+            labelFixed,
+            fullWidth,
         } = this.props;
         if (typeof meta === 'undefined') {
             throw new Error(
@@ -56,6 +58,8 @@ class DateInput extends Component {
             <DatePicker
                 {...input}
                 errorText={touched && error}
+                fullWidth={fullWidth}
+                floatingLabelFixed={labelFixed}
                 floatingLabelText={
                     <FieldTitle
                         label={label}
@@ -88,11 +92,15 @@ DateInput.propTypes = {
     options: PropTypes.object,
     resource: PropTypes.string,
     source: PropTypes.string,
+    labelFixed: PropTypes.bool,
+    fullWidth: PropTypes.bool,
 };
 
 DateInput.defaultProps = {
     addField: true,
     options: {},
+    labelFixed: true,
+    fullWidth: true,
 };
 
 export default DateInput;

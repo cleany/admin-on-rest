@@ -6,8 +6,9 @@ import muiThemeable from 'material-ui/styles/muiThemeable';
 import compose from 'recompose/compose';
 import { toggleSidebar as toggleSidebarAction } from '../../actions';
 
-const AppBar = ({ title, toggleSidebar }) => (
+const AppBar = ({ muiTheme, title, toggleSidebar, ...props }) => (
     <MuiAppBar
+        {...props}
         className="aor-layout-appbar"
         title={title}
         onLeftIconButtonTouchTap={toggleSidebar}
@@ -18,6 +19,9 @@ AppBar.propTypes = {
     title: PropTypes.oneOfType([PropTypes.string, PropTypes.element])
         .isRequired,
     toggleSidebar: PropTypes.func.isRequired,
+    iconElementRight: PropTypes.element,
+    titleStyle: PropTypes.object,
+    muiTheme: PropTypes.object,
 };
 
 const enhance = compose(

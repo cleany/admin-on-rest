@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Card } from 'material-ui/Card';
 import compose from 'recompose/compose';
 import inflection from 'inflection';
+import Breadcrumb from '../layout/Breadcrumb';
 import ViewTitle from '../layout/ViewTitle';
 import Title from '../layout/Title';
 import { crudCreate as crudCreateAction } from '../../actions/dataActions';
-import DefaultActions from './CreateActions';
 import translate from '../../i18n/translate';
 import withPermissionsFilteredChildren from '../../auth/withPermissionsFilteredChildren';
+import { defaultStyles } from '../defaultStyles';
 
 class Create extends Component {
     getBasePath() {
@@ -38,7 +38,7 @@ class Create extends Component {
 
     render() {
         const {
-            actions = <DefaultActions />,
+            actions = null,
             children,
             isLoading,
             resource,
@@ -46,6 +46,9 @@ class Create extends Component {
             translate,
             record,
             hasList,
+            styles = defaultStyles,
+            displayBreadcrumb = true,
+            displayTitle = true,
         } = this.props;
 
         if (!children) return null;
@@ -61,29 +64,44 @@ class Create extends Component {
         const titleElement = (
             <Title title={title} defaultTitle={defaultTitle} />
         );
-
         return (
             <div className="create-page">
-                <Card style={{ opacity: isLoading ? 0.8 : 1 }}>
-                    {actions &&
-                        React.cloneElement(actions, {
-                            basePath,
-                            resource,
-                            hasList,
-                        })}
-                    <ViewTitle title={titleElement} />
-                    {React.cloneElement(children, {
-                        save: this.save,
-                        resource,
-                        basePath,
-                        record,
-                        translate,
-                        redirect:
-                            typeof children.props.redirect === 'undefined'
-                                ? this.defaultRedirectRoute()
-                                : children.props.redirect,
-                    })}
-                </Card>
+                <div style={styles.header}>
+                    <div>
+                        <Breadcrumb
+                            data={record}
+                            display={displayBreadcrumb}
+                            resource={resource}
+                            styles={styles.breadcrumb}
+                            view="create"
+                        />
+                        {displayTitle ? (
+                            <ViewTitle
+                                title={titleElement}
+                                style={styles.title}
+                            />
+                        ) : null}
+                    </div>
+                    <div>
+                        {actions &&
+                            React.cloneElement(actions, {
+                                basePath,
+                                record,
+                                hasList,
+                            })}
+                    </div>
+                </div>
+                {React.cloneElement(children, {
+                    save: this.save,
+                    resource,
+                    basePath,
+                    record,
+                    translate,
+                    redirect:
+                        typeof children.props.redirect === 'undefined'
+                            ? this.defaultRedirectRoute()
+                            : children.props.redirect,
+                })}
             </div>
         );
     }
@@ -100,6 +118,9 @@ Create.propTypes = {
     translate: PropTypes.func.isRequired,
     record: PropTypes.object,
     hasList: PropTypes.bool,
+    styles: PropTypes.object,
+    displayBreadcrumb: PropTypes.bool,
+    displayTitle: PropTypes.bool,
 };
 
 Create.defaultProps = {

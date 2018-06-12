@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Card, CardText } from 'material-ui/Card';
 import compose from 'recompose/compose';
 import inflection from 'inflection';
 import { reset } from 'redux-form';
 import ViewTitle from '../layout/ViewTitle';
+import Breadcrumb from '../layout/Breadcrumb';
 import Title from '../layout/Title';
 import {
     crudGetOne as crudGetOneAction,
@@ -14,6 +14,7 @@ import {
 import DefaultActions from './EditActions';
 import translate from '../../i18n/translate';
 import withPermissionsFilteredChildren from '../../auth/withPermissionsFilteredChildren';
+import { defaultStyles } from '../defaultStyles';
 
 export class Edit extends Component {
     componentDidMount() {
@@ -66,11 +67,12 @@ export class Edit extends Component {
             hasShow,
             hasList,
             id,
-            isLoading,
             resource,
             title,
             translate,
             version,
+            styles = defaultStyles,
+            displayBreadcrumb = true,
         } = this.props;
 
         if (!children) return null;
@@ -94,34 +96,45 @@ export class Edit extends Component {
 
         return (
             <div className="edit-page">
-                <Card style={{ opacity: isLoading ? 0.8 : 1 }}>
-                    {actions &&
-                        React.cloneElement(actions, {
-                            basePath,
-                            data,
-                            hasDelete,
-                            hasShow,
-                            hasList,
-                            resource,
-                        })}
-                    <ViewTitle title={titleElement} />
-                    {data ? (
-                        React.cloneElement(children, {
-                            save: this.save,
-                            resource,
-                            basePath,
-                            record: data,
-                            translate,
-                            version,
-                            redirect:
-                                typeof children.props.redirect === 'undefined'
-                                    ? this.defaultRedirectRoute()
-                                    : children.props.redirect,
-                        })
-                    ) : (
-                        <CardText>&nbsp;</CardText>
-                    )}
-                </Card>
+                <div style={styles.header}>
+                    <div>
+                        <Breadcrumb
+                            data={data}
+                            display={displayBreadcrumb}
+                            resource={resource}
+                            styles={styles.breadcrumb}
+                            view="edit"
+                        />
+                        <ViewTitle title={titleElement} style={styles.title} />
+                    </div>
+                    <div>
+                        {actions &&
+                            React.cloneElement(actions, {
+                                basePath,
+                                data,
+                                hasDelete,
+                                hasShow,
+                                hasList,
+                                resource,
+                            })}
+                    </div>
+                </div>
+                {data ? (
+                    React.cloneElement(children, {
+                        save: this.save,
+                        resource,
+                        basePath,
+                        record: data,
+                        translate,
+                        version,
+                        redirect:
+                            typeof children.props.redirect === 'undefined'
+                                ? this.defaultRedirectRoute()
+                                : children.props.redirect,
+                    })
+                ) : (
+                    <div>&nbsp;</div>
+                )}
             </div>
         );
     }
@@ -137,13 +150,14 @@ Edit.propTypes = {
     hasShow: PropTypes.bool,
     hasList: PropTypes.bool,
     id: PropTypes.string.isRequired,
-    isLoading: PropTypes.bool.isRequired,
     location: PropTypes.object.isRequired,
     match: PropTypes.object.isRequired,
     resource: PropTypes.string.isRequired,
     title: PropTypes.any,
     translate: PropTypes.func,
     version: PropTypes.number.isRequired,
+    styles: PropTypes.object,
+    displayBreadcrumb: PropTypes.bool,
 };
 
 function mapStateToProps(state, props) {
@@ -154,7 +168,6 @@ function mapStateToProps(state, props) {
                   decodeURIComponent(props.match.params.id)
               ]
             : null,
-        isLoading: state.admin.loading > 0,
         version: state.admin.ui.viewVersion,
     };
 }

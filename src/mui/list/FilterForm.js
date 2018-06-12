@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
-import { CardText } from 'material-ui/Card';
 import IconButton from 'material-ui/IconButton';
 import ActionHide from 'material-ui/svg-icons/action/highlight-off';
 import compose from 'recompose/compose';
@@ -12,18 +11,25 @@ import lodashSet from 'lodash.set';
 
 import translate from '../../i18n/translate';
 
-const getStyles = ({ palette: { primary1Color } }) => ({
+const getStyles = () => ({
     card: {
-        padding: 0,
+        padding: '0 0 1em',
         display: 'flex',
         justifyContent: 'flex-start',
-        alignItems: 'flex-start',
         flexWrap: 'wrap',
+        marginTop: '-1em',
     },
-    body: { display: 'flex', alignItems: 'flex-end' },
+    body: { display: 'flex', alignItems: 'center', marginRight: '1em' },
     spacer: { display: 'none' },
-    icon: { color: primary1Color || '#00bcd4', paddingBottom: 0 },
-    clearFix: { clear: 'right' },
+    button: {
+        padding: '0 6px 0 0',
+        width: 'auto',
+        height: 'auto',
+    },
+    icon: {
+        color: 'rgba(0,0,0,.2)',
+        paddingBottom: 0,
+    },
 });
 
 const emptyRecord = {};
@@ -50,51 +56,40 @@ export class FilterForm extends Component {
         const styles = getStyles(muiTheme);
 
         return (
-            <div>
-                <CardText style={prefix(styles.card)}>
-                    {this.getShownFilters()
-                        .reverse()
-                        .map(filterElement => (
-                            <div
-                                key={filterElement.props.source}
-                                data-source={filterElement.props.source}
-                                className="filter-field"
-                                style={
-                                    filterElement.props.style ||
-                                    prefix(styles.body)
-                                }
+            <div style={prefix(styles.card)}>
+                {this.getShownFilters().map(filterElement => (
+                    <div
+                        key={filterElement.props.source}
+                        data-source={filterElement.props.source}
+                        className="filter-field"
+                        style={filterElement.props.style || prefix(styles.body)}
+                    >
+                        {filterElement.props.alwaysOn ? (
+                            <div style={prefix(styles.spacer)}>&nbsp;</div>
+                        ) : (
+                            <IconButton
+                                style={prefix(styles.button)}
+                                iconStyle={prefix(styles.icon)}
+                                className="hide-filter"
+                                onClick={this.handleHide}
+                                data-key={filterElement.props.source}
+                                tooltip={translate('aor.action.remove_filter')}
                             >
-                                {filterElement.props.alwaysOn ? (
-                                    <div style={prefix(styles.spacer)}>
-                                        &nbsp;
-                                    </div>
-                                ) : (
-                                    <IconButton
-                                        iconStyle={prefix(styles.icon)}
-                                        className="hide-filter"
-                                        onClick={this.handleHide}
-                                        data-key={filterElement.props.source}
-                                        tooltip={translate(
-                                            'aor.action.remove_filter'
-                                        )}
-                                    >
-                                        <ActionHide />
-                                    </IconButton>
-                                )}
-                                <div>
-                                    <Field
-                                        allowEmpty
-                                        {...filterElement.props}
-                                        name={filterElement.props.source}
-                                        component={filterElement.type}
-                                        resource={resource}
-                                        record={emptyRecord}
-                                    />
-                                </div>
-                            </div>
-                        ))}
-                </CardText>
-                <div style={prefix(styles.clearFix)} />
+                                <ActionHide />
+                            </IconButton>
+                        )}
+                        <div>
+                            <Field
+                                allowEmpty
+                                {...filterElement.props}
+                                name={filterElement.props.source}
+                                component={filterElement.type}
+                                resource={resource}
+                                record={emptyRecord}
+                            />
+                        </div>
+                    </div>
+                ))}
             </div>
         );
     }

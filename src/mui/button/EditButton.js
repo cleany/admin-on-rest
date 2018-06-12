@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import shouldUpdate from 'recompose/shouldUpdate';
 import compose from 'recompose/compose';
 import FlatButton from 'material-ui/FlatButton';
-import ContentCreate from 'material-ui/svg-icons/content/create';
 import linkToRecord from '../../util/linkToRecord';
 import translate from '../../i18n/translate';
 
@@ -17,14 +16,12 @@ const EditButton = ({
     <FlatButton
         primary
         label={label && translate(label)}
-        icon={<ContentCreate />}
         onClick={event => {
             event.stopPropagation();
         }}
         containerElement={
             <Link to={`${linkToRecord(basePath, record.id)}/edit`} />
         }
-        style={{ overflow: 'inherit' }}
     />
 );
 

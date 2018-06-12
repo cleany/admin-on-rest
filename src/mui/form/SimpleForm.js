@@ -7,7 +7,11 @@ import getDefaultValues from './getDefaultValues';
 import FormInput from './FormInput';
 import Toolbar from './Toolbar';
 
-const formStyle = { padding: '0 1em 3em 1em' };
+const defaultStyle = {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+};
 
 export class SimpleForm extends Component {
     handleSubmitWithRedirect = (redirect = this.props.redirect) =>
@@ -26,11 +30,12 @@ export class SimpleForm extends Component {
             submitOnEnter,
             toolbar,
             version,
+            style = defaultStyle,
         } = this.props;
 
         return (
             <form className="simple-form">
-                <div style={formStyle} key={version}>
+                <div key={version} style={style}>
                     {Children.map(
                         children,
                         input =>
@@ -49,6 +54,7 @@ export class SimpleForm extends Component {
                         handleSubmitWithRedirect: this.handleSubmitWithRedirect,
                         invalid,
                         submitOnEnter,
+                        basePath: basePath,
                     })}
             </form>
         );
@@ -70,6 +76,7 @@ SimpleForm.propTypes = {
     toolbar: PropTypes.element,
     validate: PropTypes.func,
     version: PropTypes.number,
+    style: PropTypes.object,
 };
 
 SimpleForm.defaultProps = {

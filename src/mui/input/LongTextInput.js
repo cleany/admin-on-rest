@@ -12,6 +12,7 @@ const LongTextInput = ({
     source,
     elStyle,
     resource,
+    labelFixed,
 }) => {
     if (typeof meta === 'undefined') {
         throw new Error(
@@ -25,6 +26,7 @@ const LongTextInput = ({
             {...input}
             multiLine
             fullWidth
+            floatingLabelFixed={labelFixed}
             floatingLabelText={
                 <FieldTitle
                     label={label}
@@ -55,11 +57,13 @@ LongTextInput.propTypes = {
         PropTypes.func,
         PropTypes.arrayOf(PropTypes.func),
     ]),
+    labelFixed: PropTypes.bool,
 };
 
 LongTextInput.defaultProps = {
     addField: true,
     options: {},
+    labelFixed: true,
 };
 
 export default LongTextInput;

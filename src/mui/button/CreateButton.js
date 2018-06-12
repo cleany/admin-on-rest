@@ -18,9 +18,6 @@ const styles = {
         left: 'auto',
         position: 'fixed',
     },
-    flat: {
-        overflow: 'inherit',
-    },
 };
 
 const CreateButton = ({
@@ -40,12 +37,13 @@ const CreateButton = ({
         <FlatButton
             primary
             label={label && translate(label)}
-            icon={<ContentAdd />}
             onClick={event => {
                 event.stopPropagation();
             }}
             containerElement={<Link to={`${basePath}/create`} />}
-            style={styles.flat}
+            style={{
+                marginLeft: 10,
+            }}
         />
     );
 

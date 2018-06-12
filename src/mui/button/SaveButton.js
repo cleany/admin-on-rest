@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
-import ContentSave from 'material-ui/svg-icons/content/save';
 import CircularProgress from 'material-ui/CircularProgress';
 import translate from '../../i18n/translate';
 
@@ -26,30 +24,36 @@ export class SaveButton extends Component {
         const {
             saving,
             label = 'aor.action.save',
-            raised = true,
             translate,
             submitOnEnter,
             redirect,
             disabled = false,
         } = this.props;
+        const successStyle = {
+            bg: '#3DCC91',
+            bgHover: '#2E996D',
+            label: '#FFFFFF',
+        };
         const type = submitOnEnter ? 'submit' : 'button';
-        const ButtonComponent = raised ? RaisedButton : FlatButton;
         return (
-            <ButtonComponent
+            <FlatButton
                 type={type}
                 label={label && translate(label, { _: label })}
                 icon={
                     saving && saving.redirect === redirect ? (
-                        <CircularProgress size={25} thickness={2} />
-                    ) : (
-                        <ContentSave />
-                    )
+                        <CircularProgress
+                            size={24}
+                            thickness={2}
+                            color="#ffffff"
+                        />
+                    ) : null
                 }
                 onClick={this.handleClick}
-                primary={!saving}
-                style={{
-                    margin: '10px 24px',
-                    position: 'relative',
+                backgroundColor={successStyle.bg}
+                hoverColor={successStyle.bgHover}
+                labelStyle={{
+                    color: successStyle.label,
+                    fontSize: 12,
                 }}
                 disabled={disabled}
             />
@@ -59,7 +63,6 @@ export class SaveButton extends Component {
 
 SaveButton.propTypes = {
     label: PropTypes.string,
-    raised: PropTypes.bool,
     saving: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
     translate: PropTypes.func.isRequired,
     submitOnEnter: PropTypes.bool,

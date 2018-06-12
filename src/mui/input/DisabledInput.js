@@ -10,13 +10,17 @@ const DisabledInput = ({
     source,
     elStyle,
     options,
+    labelFixed,
+    fullWidth,
 }) => (
     <TextField
         value={value}
+        floatingLabelFixed={labelFixed}
         floatingLabelText={
             <FieldTitle label={label} source={source} resource={resource} />
         }
         style={elStyle}
+        fullWidth={fullWidth}
         disabled
         {...options}
     />
@@ -30,10 +34,14 @@ DisabledInput.propTypes = {
     elStyle: PropTypes.object,
     input: PropTypes.object,
     addField: PropTypes.bool.isRequired,
+    labelFixed: PropTypes.bool,
+    fullWidth: PropTypes.bool,
 };
 
 DisabledInput.defaultProps = {
     addField: true,
+    labelFixed: true,
+    fullWidth: true,
 };
 
 export default DisabledInput;
