@@ -40,7 +40,6 @@ class Create extends Component {
         const {
             actions = null,
             children,
-            isLoading,
             resource,
             title,
             translate,
@@ -111,7 +110,6 @@ Create.propTypes = {
     actions: PropTypes.element,
     children: PropTypes.element,
     crudCreate: PropTypes.func.isRequired,
-    isLoading: PropTypes.bool.isRequired,
     location: PropTypes.object.isRequired,
     resource: PropTypes.string.isRequired,
     title: PropTypes.any,
@@ -127,14 +125,8 @@ Create.defaultProps = {
     record: {},
 };
 
-function mapStateToProps(state) {
-    return {
-        isLoading: state.admin.loading > 0,
-    };
-}
-
 const enhance = compose(
-    connect(mapStateToProps, { crudCreate: crudCreateAction }),
+    connect(null, { crudCreate: crudCreateAction }),
     translate,
     withPermissionsFilteredChildren
 );

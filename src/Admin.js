@@ -17,7 +17,6 @@ import Login from './mui/auth/Login';
 import createAppReducer from './reducer';
 import { crudSaga } from './sideEffect/saga';
 import Menu from './mui/layout/Menu';
-import Logout from './mui/auth/Logout';
 import TranslationProvider from './i18n/TranslationProvider';
 import AdminRoutes from './AdminRoutes';
 
@@ -64,8 +63,6 @@ const Admin = ({
 
     const persistor = persistStore(store);
     const registry = persistor.getState().registry;
-
-    const logout = authClient ? createElement(logoutButton || Logout) : null;
 
     if (idAnalytics) {
         ReactGA.initialize(idAnalytics);
