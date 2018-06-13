@@ -14,81 +14,81 @@ const Toolbar = ({
     children,
     basePath,
 }) => {
-  return (
-      <Responsive
-          small={
-              <MuiToolbar style={{ marginTop: '1em' }} noGutter>
-                  <ToolbarGroup>
-                      {Children.count(children) === 0 ? (
-                          <div style={{ display: 'flex' }}>
-                              <SaveButton
-                                  handleSubmitWithRedirect={
-                                      handleSubmitWithRedirect
-                                  }
-                                  invalid={invalid}
-                                  submitOnEnter={submitOnEnter}
-                              />
-                              <CancelButton basePath={basePath} />
-                          </div>
-                      ) : (
-                          Children.map(
-                              children,
-                              button =>
-                                  button
-                                      ? (button.type.muiName !== "FlatButton"
-                                        ? React.cloneElement(button, {
-                                              handleSubmitWithRedirect,
-                                              invalid,
-                                              submitOnEnter: valueOrDefault(
-                                                  button.props.submitOnEnter,
-                                                  submitOnEnter
-                                              ),
-                                          })
-                                        : React.cloneElement(button))
-                                      : null
-                          )
-                      )}
-                  </ToolbarGroup>
-              </MuiToolbar>
-          }
-          medium={
-              <MuiToolbar style={{ marginTop: '2em' }} noGutter>
-                  <ToolbarGroup>
-                      {Children.count(children) === 0 ? (
-                          <div style={{ display: 'flex' }}>
-                              <SaveButton
-                                  handleSubmitWithRedirect={
-                                      handleSubmitWithRedirect
-                                  }
-                                  invalid={invalid}
-                                  submitOnEnter={submitOnEnter}
-                              />
-                              <CancelButton basePath={basePath} />
-                          </div>
-                      ) : (
-                          Children.map(
-                              children,
-                              button =>
-                                  button
-                                      ? (button.type.muiName !== "FlatButton"
-                                        ? React.cloneElement(button, {
-                                              handleSubmitWithRedirect,
-                                              invalid,
-                                              submitOnEnter: valueOrDefault(
-                                                  button.props.submitOnEnter,
-                                                  submitOnEnter
-                                              ),
-                                          })
-                                        : React.cloneElement(button))
-                                      : null
-                          )
-                      )}
-                  </ToolbarGroup>
-              </MuiToolbar>
-          }
-      />
-  );
-}
+    return (
+        <Responsive
+            small={
+                <MuiToolbar style={{ marginTop: '1em' }} noGutter>
+                    <ToolbarGroup>
+                        {Children.count(children) === 0 ? (
+                            <div style={{ display: 'flex' }}>
+                                <SaveButton
+                                    handleSubmitWithRedirect={
+                                        handleSubmitWithRedirect
+                                    }
+                                    invalid={invalid}
+                                    submitOnEnter={submitOnEnter}
+                                />
+                                <CancelButton basePath={basePath} />
+                            </div>
+                        ) : (
+                            Children.map(
+                                children,
+                                button =>
+                                    button
+                                        ? button.type.muiName !== 'FlatButton'
+                                          ? React.cloneElement(button, {
+                                                handleSubmitWithRedirect,
+                                                invalid,
+                                                submitOnEnter: valueOrDefault(
+                                                    button.props.submitOnEnter,
+                                                    submitOnEnter
+                                                ),
+                                            })
+                                          : React.cloneElement(button)
+                                        : null
+                            )
+                        )}
+                    </ToolbarGroup>
+                </MuiToolbar>
+            }
+            medium={
+                <MuiToolbar style={{ marginTop: '2em' }} noGutter>
+                    <ToolbarGroup>
+                        {Children.count(children) === 0 ? (
+                            <div style={{ display: 'flex' }}>
+                                <SaveButton
+                                    handleSubmitWithRedirect={
+                                        handleSubmitWithRedirect
+                                    }
+                                    invalid={invalid}
+                                    submitOnEnter={submitOnEnter}
+                                />
+                                <CancelButton basePath={basePath} />
+                            </div>
+                        ) : (
+                            Children.map(
+                                children,
+                                button =>
+                                    button
+                                        ? button.type.muiName !== 'FlatButton'
+                                          ? React.cloneElement(button, {
+                                                handleSubmitWithRedirect,
+                                                invalid,
+                                                submitOnEnter: valueOrDefault(
+                                                    button.props.submitOnEnter,
+                                                    submitOnEnter
+                                                ),
+                                            })
+                                          : React.cloneElement(button)
+                                        : null
+                            )
+                        )}
+                    </ToolbarGroup>
+                </MuiToolbar>
+            }
+        />
+    );
+};
 
 Toolbar.propTypes = {
     children: PropTypes.node,
