@@ -29,8 +29,7 @@ const DatagridBody = ({
         {...options}
     >
         {ids.map((id, rowIndex) => {
-            return [
-                <TableRow className="aor-no-print" style={{ height: '4px' }} />,
+            return (
                 <TableRow
                     style={rowStyle ? rowStyle(data[id], rowIndex) : styles.tr}
                     key={id}
@@ -60,8 +59,8 @@ const DatagridBody = ({
                         }
                         return;
                     })}
-                </TableRow>,
-            ];
+                </TableRow>
+            );
         })}
     </TableBody>
 );
