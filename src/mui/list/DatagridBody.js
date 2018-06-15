@@ -19,6 +19,7 @@ const DatagridBody = ({
     rowClickable,
     options,
     rowOptions,
+    selectedRows = [],
     ...rest
 }) => (
     <TableBody
@@ -34,6 +35,13 @@ const DatagridBody = ({
                     style={rowStyle ? rowStyle(data[id], rowIndex) : styles.tr}
                     key={id}
                     selectable={false}
+                    selected={
+                        selectedRows === 'all' ? (
+                            true
+                        ) : (
+                            selectedRows.indexOf(rowIndex) !== -1
+                        )
+                    }
                     {...rowOptions}
                 >
                     {React.Children.map(children, (field, index) => {
@@ -77,6 +85,7 @@ DatagridBody.propTypes = {
     rowStyle: PropTypes.func,
     childrenFilter: PropTypes.func,
     rowClickable: PropTypes.bool,
+    selectedRows: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
 };
 
 DatagridBody.defaultProps = {
