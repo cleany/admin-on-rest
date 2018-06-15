@@ -99,6 +99,7 @@ class Datagrid extends Component {
             rowOptions,
             rowClickable,
             labelEmptyData,
+            selectedRows,
         } = this.props;
         if (Object.keys(data).length === 0) {
             if (isLoading) {
@@ -162,6 +163,7 @@ class Datagrid extends Component {
                     rowOptions={rowOptions}
                     rowClickable={rowClickable}
                     childrenFilter={childrenFilter}
+                    selectedRows={selectedRows}
                 >
                     {children}
                 </DatagridBody>
@@ -191,6 +193,7 @@ Datagrid.propTypes = {
     setSort: PropTypes.func,
     styles: PropTypes.object,
     labelEmptyData: PropTypes.string,
+    selectedRows: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
 };
 
 Datagrid.defaultProps = {
