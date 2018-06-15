@@ -2,13 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import FlatButton from 'material-ui/FlatButton';
-import linkToRecord from '../../util/linkToRecord';
 import translate from '../../i18n/translate';
 
 const CancelButton = ({
     basePath = '',
     label = 'aor.action.cancel',
-    record = {},
     translate,
 }) => (
     <FlatButton
