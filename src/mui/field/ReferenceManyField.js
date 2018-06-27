@@ -70,7 +70,11 @@ export class ReferenceManyField extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (this.props.record.id !== nextProps.record.id) {
+        if (
+            this.props.record.id !== nextProps.record.id ||
+            JSON.stringify(this.props.filter) !==
+                JSON.stringify(nextProps.filter)
+        ) {
             this.fetchReferences(nextProps);
         }
     }
