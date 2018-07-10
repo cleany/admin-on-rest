@@ -3,10 +3,21 @@ import PropTypes from 'prop-types';
 import get from 'lodash.get';
 import pure from 'recompose/pure';
 import Chip from 'material-ui/Chip';
+import compose from 'recompose/compose';
+import translate from '../../i18n/translate';
 
-const ChipField = ({ source, record = {}, elStyle = { margin: 4 } }) => (
+
+const ChipField = ({ source, record = {}, elStyle = { margin: 4 }, translate, translationPath }) => {
+  if (translationPath) {
+    return (
+      <Chip style={elStyle}>{translate(`${translationPath}.${get(record, source)}`)}</Chip>
+    );
+  }
+
+  return (
     <Chip style={elStyle}>{get(record, source)}</Chip>
-);
+  );
+}
 
 ChipField.propTypes = {
     addLabel: PropTypes.bool,
@@ -14,12 +25,17 @@ ChipField.propTypes = {
     label: PropTypes.string,
     source: PropTypes.string.isRequired,
     record: PropTypes.object,
+    translationPath: PropTypes.string,
+    translate: PropTypes.func,
 };
 
-const PureChipField = pure(ChipField);
+const enhance = compose(pure, translate);
 
-PureChipField.defaultProps = {
+const EnhancedChipField = enhance(ChipField);
+
+EnhancedChipField.defaultProps = {
     addLabel: true,
+    translationPath: '',
 };
 
-export default PureChipField;
+export default EnhancedChipField;
