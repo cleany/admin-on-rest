@@ -7,15 +7,15 @@ import compose from 'recompose/compose';
 import translate from '../../i18n/translate';
 
 
-const ChipField = ({ source, record = {}, elStyle = { margin: 4 }, translate, translationPath }) => {
+const ChipField = ({ source, record = {}, elStyle = { margin: 4 }, translate, translationPath, value }) => {
   if (translationPath) {
     return (
-      <Chip style={elStyle}>{translate(`${translationPath}.${get(record, source)}`)}</Chip>
+      <Chip style={elStyle}>{translate(`${translationPath}.${value ? value : get(record, source)}`)}</Chip>
     );
   }
 
   return (
-    <Chip style={elStyle}>{get(record, source)}</Chip>
+    <Chip style={elStyle}>{value ? value : get(record, source)}</Chip>
   );
 }
 
@@ -27,6 +27,7 @@ ChipField.propTypes = {
     record: PropTypes.object,
     translationPath: PropTypes.string,
     translate: PropTypes.func,
+    value: PropTypes.string,
 };
 
 const enhance = compose(pure, translate);
