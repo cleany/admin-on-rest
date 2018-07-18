@@ -8,13 +8,14 @@ const CancelButton = ({
     basePath = '',
     label = 'aor.action.cancel',
     translate,
+    history,
 }) => (
     <FlatButton
         label={label && translate(label)}
         onClick={event => {
             event.stopPropagation();
+            history.goBack();
         }}
-        containerElement={<Link to={`${basePath}`} />}
         style={{
             marginLeft: '10px',
         }}
