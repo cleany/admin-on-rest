@@ -13,6 +13,7 @@ const Toolbar = ({
     handleSubmitWithRedirect,
     children,
     basePath,
+    history,
 }) => {
     return (
         <Responsive
@@ -28,7 +29,10 @@ const Toolbar = ({
                                     invalid={invalid}
                                     submitOnEnter={submitOnEnter}
                                 />
-                                <CancelButton basePath={basePath} />
+                                <CancelButton
+                                  basePath={basePath}
+                                  history={history}
+                                />
                             </div>
                         ) : (
                             Children.map(
@@ -63,7 +67,7 @@ const Toolbar = ({
                                     invalid={invalid}
                                     submitOnEnter={submitOnEnter}
                                 />
-                                <CancelButton basePath={basePath} />
+                                <CancelButton basePath={basePath} history={history} />
                             </div>
                         ) : (
                             Children.map(

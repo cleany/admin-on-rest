@@ -32,7 +32,6 @@ export class SimpleForm extends Component {
             version,
             style = defaultStyle,
         } = this.props;
-
         return (
             <form className="simple-form">
                 <div key={version} style={style}>
@@ -55,6 +54,7 @@ export class SimpleForm extends Component {
                         invalid,
                         submitOnEnter,
                         basePath: basePath,
+                        history: this.props.history,
                     })}
             </form>
         );
