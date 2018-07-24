@@ -9,19 +9,38 @@ const CancelButton = ({
     label = 'aor.action.cancel',
     translate,
     history,
-}) => (
-    <FlatButton
-        label={label && translate(label)}
-        onClick={event => {
-            event.stopPropagation();
-            history.goBack();
-        }}
-        style={{
-            marginLeft: '10px',
-        }}
-        backgroundColor="#d2d6d8"
-    />
-);
+}) => {
+
+  if (history) {
+        return (
+            <FlatButton
+              label={label && translate(label)}
+              onClick={event => {
+                  event.stopPropagation();
+                  history.goBack();
+              }}
+              style={{
+                  marginLeft: '10px',
+              }}
+              backgroundColor="#d2d6d8"
+          />
+      );
+  }
+
+  return (
+      <FlatButton
+          label={label && translate(label)}
+          onClick={event => {
+              event.stopPropagation();
+          }}
+          containerElement={<Link to={`${basePath}`} />}
+          style={{
+              marginLeft: '10px',
+          }}
+          backgroundColor="#d2d6d8"
+      />
+  );
+}
 
 CancelButton.propTypes = {
     basePath: PropTypes.string,
