@@ -82,6 +82,7 @@ export class SelectInput extends Component {
     handleChange = (event, index, value) => {
         this.props.input.onChange(value);
         this.setState({ value });
+        this.props.onChangeAdditionalAction(index, value);
     };
 
     addAllowEmpty = choices => {
@@ -175,6 +176,7 @@ SelectInput.propTypes = {
     isRequired: PropTypes.bool,
     label: PropTypes.string,
     meta: PropTypes.object,
+    onChangeAdditionalAction: PropTypes.func,
     options: PropTypes.object,
     optionText: PropTypes.oneOfType([
         PropTypes.string,
@@ -194,6 +196,7 @@ SelectInput.defaultProps = {
     addField: true,
     allowEmpty: false,
     choices: [],
+    onChangeAdditionalAction: () => {},
     options: {},
     optionText: 'name',
     optionValue: 'id',
