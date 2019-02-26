@@ -6,18 +6,26 @@ import Chip from 'material-ui/Chip';
 import compose from 'recompose/compose';
 import translate from '../../i18n/translate';
 
+const ChipField = ({
+    source,
+    record = {},
+    elStyle = { margin: 4 },
+    translate,
+    translationPath,
+    value,
+}) => {
+    if (translationPath) {
+        return (
+            <Chip style={elStyle}>
+                {translate(
+                    `${translationPath}.${value ? value : get(record, source)}`
+                )}
+            </Chip>
+        );
+    }
 
-const ChipField = ({ source, record = {}, elStyle = { margin: 4 }, translate, translationPath, value }) => {
-  if (translationPath) {
-    return (
-      <Chip style={elStyle}>{translate(`${translationPath}.${value ? value : get(record, source)}`)}</Chip>
-    );
-  }
-
-  return (
-    <Chip style={elStyle}>{value ? value : get(record, source)}</Chip>
-  );
-}
+    return <Chip style={elStyle}>{value ? value : get(record, source)}</Chip>;
+};
 
 ChipField.propTypes = {
     addLabel: PropTypes.bool,
