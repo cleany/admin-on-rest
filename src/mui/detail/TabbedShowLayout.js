@@ -35,6 +35,7 @@ class TabbedShowLayout extends Component {
 
     render() {
         const {
+            addLabel,
             children,
             record,
             resource,
@@ -57,9 +58,12 @@ class TabbedShowLayout extends Component {
                         tab ? (
                             <Tab
                                 key={tab.props.value}
-                                label={translate(tab.props.label, {
-                                    _: tab.props.label,
-                                })}
+                                label={
+                                    addLabel &&
+                                    translate(tab.props.label, {
+                                        _: tab.props.label,
+                                    })
+                                }
                                 value={index}
                                 icon={tab.props.icon}
                                 buttonStyle={
@@ -84,6 +88,7 @@ class TabbedShowLayout extends Component {
 }
 
 TabbedShowLayout.propTypes = {
+    addLabel: PropTypes.bool,
     children: PropTypes.node,
     record: PropTypes.object,
     resource: PropTypes.string,
@@ -94,6 +99,7 @@ TabbedShowLayout.propTypes = {
 };
 
 TabbedShowLayout.defaultProps = {
+    addLabel: true,
     styles: {},
 };
 

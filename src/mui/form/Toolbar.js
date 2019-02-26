@@ -30,8 +30,8 @@ const Toolbar = ({
                                     submitOnEnter={submitOnEnter}
                                 />
                                 <CancelButton
-                                  basePath={basePath}
-                                  history={history}
+                                    basePath={basePath}
+                                    history={history}
                                 />
                             </div>
                         ) : (
@@ -67,7 +67,10 @@ const Toolbar = ({
                                     invalid={invalid}
                                     submitOnEnter={submitOnEnter}
                                 />
-                                <CancelButton basePath={basePath} history={history} />
+                                <CancelButton
+                                    basePath={basePath}
+                                    history={history}
+                                />
                             </div>
                         ) : (
                             Children.map(
