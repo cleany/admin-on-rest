@@ -25,11 +25,18 @@ const CreateButton = ({
     translate,
     label = 'aor.action.create',
     width,
-}) =>
-    width === 1 ? (
+    params = '',
+}) => {
+    let url = `${basePath}/create`;
+
+    if (params) {
+        url = `${url}?${params}`;
+    }
+
+    return width === 1 ? (
         <FloatingActionButton
             style={styles.floating}
-            containerElement={<Link to={`${basePath}/create`} />}
+            containerElement={<Link to={url} />}
         >
             <ContentAdd />
         </FloatingActionButton>
@@ -40,12 +47,13 @@ const CreateButton = ({
             onClick={event => {
                 event.stopPropagation();
             }}
-            containerElement={<Link to={`${basePath}/create`} />}
+            containerElement={<Link to={url} />}
             style={{
                 marginLeft: 10,
             }}
         />
     );
+};
 
 CreateButton.propTypes = {
     basePath: PropTypes.string,
