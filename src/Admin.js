@@ -2,7 +2,7 @@ import React, { createElement } from 'react';
 import PropTypes from 'prop-types';
 import { createStore, compose, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-import createHistory from 'history/createHashHistory';
+import { createHashHistory as createHistory } from 'history';
 import { ConnectedRouter, routerMiddleware } from 'react-router-redux';
 import createSagaMiddleware from 'redux-saga';
 import { all, fork } from 'redux-saga/effects';
