@@ -24,17 +24,20 @@ export class AdminRoutes extends Component {
                 throw new Error(getMissingAuthClientError('Admin'));
             }
 
-            this.props.authClient(AUTH_GET_PERMISSIONS).then(permissions => {
+            this.props.authClient(AUTH_GET_PERMISSIONS)
+            .then(permissions => {
                 const resources = children(permissions)
-                    .filter(node => node)
-                    .map(node => node.props);
-                this.props.declareResources(resources);
+                        .filter(node => node)
+                        .map(node => node.props);
+                    this.props.declareResources(resources);
+                })
+                .catch(() => {
+                  this.props.history.push('/login');
             });
         } else {
             const resources =
-                React.Children.map(
-                    children,
-                    child => (child ? child.props : false)
+                React.Children.map(children, child =>
+                    child ? child.props : false
                 ) || [];
             this.props.declareResources(resources.filter(r => r));
         }
@@ -187,6 +190,7 @@ AdminRoutes.propTypes = {
         PropTypes.func,
         PropTypes.string,
     ]),
+    history: PropTypes.object,
     menu: componentPropType,
     resources: PropTypes.array,
     theme: PropTypes.object,
@@ -195,6 +199,7 @@ AdminRoutes.propTypes = {
 
 AdminRoutes.defaultProps = {
     appLayout: DefaultLayout,
+    history: {},
 };
 
 const mapStateToProps = state => ({
@@ -207,7 +212,10 @@ export default compose(
     getContext({
         authClient: PropTypes.func,
     }),
-    connect(mapStateToProps, {
-        declareResources: declareResourcesAction,
-    })
+    connect(
+        mapStateToProps,
+        {
+            declareResources: declareResourcesAction,
+        }
+    )
 )(AdminRoutes);
