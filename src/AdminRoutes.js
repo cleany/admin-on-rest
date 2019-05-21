@@ -13,6 +13,8 @@ import { declareResources as declareResourcesAction } from './actions';
 import getMissingAuthClientError from './util/getMissingAuthClientError';
 import DefaultLayout from './mui/layout/Layout';
 
+const unauthenticatedRoutes = ['/login', '/forgotten', '/reinitialize'];
+
 export class AdminRoutes extends Component {
     componentDidMount() {
         this.initializeResources(this.props.children);
@@ -24,16 +26,23 @@ export class AdminRoutes extends Component {
                 throw new Error(getMissingAuthClientError('Admin'));
             }
 
-            this.props.authClient(AUTH_GET_PERMISSIONS)
-            .then(permissions => {
-                const resources = children(permissions)
+            this.props
+                .authClient(AUTH_GET_PERMISSIONS)
+                .then(permissions => {
+                    const resources = children(permissions)
                         .filter(node => node)
                         .map(node => node.props);
                     this.props.declareResources(resources);
                 })
                 .catch(() => {
-                  this.props.history.push('/login');
-            });
+                    if (
+                        !unauthenticatedRoutes.includes(
+                            this.props.history.location.pathname
+                        )
+                    ) {
+                        this.props.history.push('/login');
+                    }
+                });
         } else {
             const resources =
                 React.Children.map(children, child =>
@@ -146,8 +155,9 @@ export class AdminRoutes extends Component {
                                                 path="/"
                                                 render={() => (
                                                     <Redirect
-                                                        to={`/${resources[0]
-                                                            .name}`}
+                                                        to={`/${
+                                                            resources[0].name
+                                                        }`}
                                                     />
                                                 )}
                                             />
@@ -165,7 +175,8 @@ export class AdminRoutes extends Component {
                             catchAll,
                             title,
                             theme,
-                        })}
+                        })
+                    }
                 />
             </Switch>
         );
